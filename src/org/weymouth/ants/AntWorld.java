@@ -10,7 +10,7 @@ public class AntWorld extends PApplet{
 	
 	private static int HEIGHT = 1000;
 	private static int WIDTH = 1000;
-	private static int NUMBER_OF_ANTS = 1000;
+	private static int NUMBER_OF_ANTS = 100;
 
 	private List<Ant> ants = new ArrayList<Ant>();
 	AntBrain brain = new AntBrain();
@@ -25,16 +25,28 @@ public class AntWorld extends PApplet{
 			float y = 10 + this.random(WIDTH-20);
 			ants.add(new Ant(this, brain ,x ,y));
 		}
-		
 	}
-
+	
+	int count = 0;
 	public void draw() {
+		count ++;
+		if ((count % 100) == 0) {
+			System.out.println("Rounds = " + count + ", ants = " + ants.size());
+			if (ants.size() == 0) stop();
+		}
 		background(100);
+		
+		List<Ant> dead = new ArrayList<Ant>();
 		for (Ant ant: ants) {
 			ant.update();
 			ant.move();
 			ant.display();
+			if (ant.getHealth() < 0) {
+				dead.add(ant);
+			}
 		}
+		
+		ants.removeAll(dead);
 	}
 
 	public Location randomPoint() {

@@ -10,6 +10,8 @@ public class Ant {
 	
 	private Location target;
 	
+	private int health;
+	
 	public Ant(AntWorld p, AntBrain brain, float x, float y) {
 		this.pa = p;
 		this.brain = brain;
@@ -17,6 +19,7 @@ public class Ant {
 		internalState.y = y;
 		internalState.speed = 1.0f;
 		target = pa.randomPoint();
+		health = (int)(pa.random(1000));
 	}
 
 	public void update() {
@@ -32,6 +35,7 @@ public class Ant {
 			float dy = (float) Compass.dyForThetaR(t, r);
 			internalState.x += dx;
 			internalState.y += dy;
+			health--;
 		} else {
 			target = pa.randomPoint();
 		}
@@ -56,6 +60,10 @@ public class Ant {
 
 	public void setTarget(Location location) {
 		target = location;
+	}
+
+	public int getHealth(){
+		return health;
 	}
 
 }
