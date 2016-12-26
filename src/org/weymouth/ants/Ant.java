@@ -5,6 +5,10 @@ import java.util.List;
 
 public class Ant {
 	
+	private static int MAX_HEALTH = 1000;
+	private static double FOOD_GRASPING_RANGE = 10.0;
+	private static double FOOD_HEALTH = 10.0;
+	
 	private AntWorld pa;
 	
 	private AntBrain brain;
@@ -22,7 +26,7 @@ public class Ant {
 		internalState.y = (float) l.y;
 		internalState.speed = 1.0f;
 		target = pa.randomPoint();
-		health = (int)(pa.random(1000));
+		health = MAX_HEALTH;
 	}
 
 	public void update() {
@@ -42,8 +46,7 @@ public class Ant {
 			internalState.y += dy;
 			health--;
 		} else {
-			target = Util.cycleTarget();
-//			target = pa.randomPoint();
+			target = pa.randomPoint();
 		}
 	}
 	
@@ -74,15 +77,10 @@ public class Ant {
 		List<Food> eaten = new ArrayList<Food>();
 		for (Food meal: meals) {
 			double d = Util.shortestDistance(x1, y1, x2, y2, meal.x, meal.y);
-			if (d < 10.0) {
-				if (health < 10) {
+			if (d < FOOD_GRASPING_RANGE) {
+				if (health < MAX_HEALTH) {
 					eaten.add(meal);
-					System.out.println("   ---- health = " + health);
-					health++;
-					System.out.println("   " + x1 + ", " + y1);
-					System.out.println("   " + x2 + ", " + y2);
-					System.out.println("   " + meal.x + ", " + meal.y);
-					System.out.println("   ---- health = " + health);
+					health += FOOD_HEALTH;
 				}
 			}
 		}

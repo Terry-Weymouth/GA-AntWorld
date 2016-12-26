@@ -23,19 +23,11 @@ public class AntWorld extends PApplet{
 
 	public void setup() {
 		ants.add(new Ant(this,brain,new Location(500,500)));
-//		for (int i = 0; i < NUMBER_OF_ANTS; i++) {
-//			ants.add(new Ant(this, brain ,randomPoint()));
-//		}
-//		for (int i = 0; i < NUMBER_OF_MEALS; i++) {
-//			meals.add(new Food(randomPoint()));
-//		}
-		int x = 505;
-		int y = 505;
+		for (int i = 0; i < NUMBER_OF_ANTS; i++) {
+			ants.add(new Ant(this, brain ,randomPoint()));
+		}
 		for (int i = 0; i < NUMBER_OF_MEALS; i++) {
-			Location l = new Location(x,y);
-			x += 5;
-			y += 5;
-			meals.add(new Food(l));
+			meals.add(new Food(randomPoint()));
 		}
 	}
 	
