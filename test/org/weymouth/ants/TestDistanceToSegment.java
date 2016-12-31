@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class TestFood {
+public class TestDistanceToSegment {
 	
 	private static double ERROR_BAR = 0.001;
 
