@@ -12,6 +12,8 @@ public class Ant {
 	private AntWorld pa;
 	
 	private AntBrain brain;
+	
+	private AntSensor sensor;
 
 	AntState internalState = new AntState();
 	
@@ -19,9 +21,10 @@ public class Ant {
 	
 	private int health;
 	
-	public Ant(AntWorld p, AntBrain brain,  Location l) {
+	public Ant(AntWorld p, AntBrain brain,  AntSensor sensor, Location l) {
 		this.pa = p;
 		this.brain = brain;
+		this.sensor = sensor;
 		internalState.x = (float) l.x;
 		internalState.y = (float) l.y;
 		internalState.speed = 1.0f;
@@ -85,6 +88,14 @@ public class Ant {
 			}
 		}
 		meals.removeAll(eaten);
+	}
+
+	public void sense(List<Food> meals) {
+		Location place = new Location((double)internalState.x,(double)internalState.y);
+		sensor.setLocation(place);
+		int index = sensor.look(meals);
+		if (index == -1) return;
+		target = (Location) meals.get(index);
 	}
 
 }

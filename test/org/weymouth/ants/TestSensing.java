@@ -12,12 +12,12 @@ public class TestSensing {
 	
 	@Test
 	public void testClosestLocation(){
-		List<Location> spots = new ArrayList<Location>();
-		spots.add( new Location(100,100) );
-		spots.add( new Location(100,200) );
-		spots.add( new Location(100,300) );
+		List<Food> spots = new ArrayList<Food>();
+		spots.add( new Food(100,100) );
+		spots.add( new Food(100,200) );
+		spots.add( new Food(100,300) );
 		
-		Location place = new Location(50,200);
+		Location place = new Food(50,200);
 
 		AntSensor sensor = new AntSensor(1000.0);
 		
@@ -28,10 +28,10 @@ public class TestSensing {
 	
 	@Test
 	public void testInsideBoundingBox() {
-		List<Location> spots = new ArrayList<Location>();
-		spots.add( new Location(100,100) );
-		spots.add( new Location(100,200) );
-		spots.add( new Location(100,300) );
+		List<Food> spots = new ArrayList<Food>();
+		spots.add( new Food(100,100) );
+		spots.add( new Food(100,200) );
+		spots.add( new Food(100,300) );
 		
 		Location location = new Location(150,180);
 		final double r1 = 20;
@@ -55,10 +55,10 @@ public class TestSensing {
 	@Test
 	public void testDistanceWithBoundingBox() {
 		
-		List<Location> spots = new ArrayList<Location>();
-		spots.add( new Location(100,100) );
-		spots.add( new Location(100,200) );
-		spots.add( new Location(100,300) );
+		List<Food> spots = new ArrayList<Food>();
+		spots.add( new Food(100,100) );
+		spots.add( new Food(100,200) );
+		spots.add( new Food(100,300) );
 		
 		Location location = new Location(150,180);
 		

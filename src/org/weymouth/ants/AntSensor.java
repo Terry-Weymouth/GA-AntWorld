@@ -16,8 +16,8 @@ public class AntSensor {
 		location = place;
 	}
 
-	public int look(List<Location> spots) {
-		return unboundedLook(filterByBox(spots));
+	public int look(List<Food> meals) {
+		return unboundedLook(filterByBox(meals));
 	}
 
 	private int unboundedLook(List<Location> spots) {
@@ -36,8 +36,8 @@ public class AntSensor {
 		return index;
 	}
 
-	private List<Location> filterByBox(List<Location> spots) {
-		List<Location> selected = spots.stream().filter(p -> Util.insideBox(location,radius,p)).collect(Collectors.toList());
+	private List<Location> filterByBox(List<Food> meals) {
+		List<Location> selected = meals.stream().filter(p -> Util.insideBox(location,radius,p)).collect(Collectors.toList());
 		return selected;
 	}
 

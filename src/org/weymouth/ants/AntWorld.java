@@ -12,19 +12,21 @@ public class AntWorld extends PApplet{
 	private static int WIDTH = 1000;
 	private static int NUMBER_OF_ANTS = 100;
 	private static int NUMBER_OF_MEALS = 300;
-
+	
+	private static double SENSING_RADIUS = 20.0;
+	
 	private List<Ant> ants = new ArrayList<Ant>();
 	private List<Food> meals = new ArrayList<Food>();
 	AntBrain brain = new AntBrain();
+	AntSensor sensor = new AntSensor(SENSING_RADIUS);
 	
 	public void settings(){
 		size(WIDTH, HEIGHT);
     }
 
 	public void setup() {
-		ants.add(new Ant(this,brain,new Location(500,500)));
 		for (int i = 0; i < NUMBER_OF_ANTS; i++) {
-			ants.add(new Ant(this, brain ,randomPoint()));
+			ants.add(new Ant(this, brain , sensor, randomPoint()));
 		}
 		for (int i = 0; i < NUMBER_OF_MEALS; i++) {
 			meals.add(new Food(randomPoint()));
@@ -45,6 +47,7 @@ public class AntWorld extends PApplet{
 			display(meal);
 		}
 		for (Ant ant: ants) {
+			ant.sense(meals);
 			ant.update();
 			ant.move();
 			ant.feed(meals);
