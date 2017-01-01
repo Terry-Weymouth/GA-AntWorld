@@ -93,8 +93,11 @@ public class Ant {
 	public void sense(List<Food> meals) {
 		Location place = new Location((double)internalState.x,(double)internalState.y);
 		sensor.setLocation(place);
-		int index = sensor.look(meals);
-		if (index == -1) return;
+		List<Food> selected = sensor.look(meals);
+		if (selected.size() == 0) {
+			return;
+		}
+		int index = Util.randomSelectionOfInt(selected.size());
 		target = (Location) meals.get(index);
 	}
 

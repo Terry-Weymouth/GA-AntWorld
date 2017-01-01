@@ -1,7 +1,10 @@
 package org.weymouth.ants;
 
+import java.util.Random;
+
 public class Util {
 
+	private static Random randomGenerator = new Random();
 
 	/* 
 	 * Compute the shortest distance between line segment P1, P2, to point P3 
@@ -57,6 +60,10 @@ public class Util {
 		double ymin = location.y - radius;
 		double ymax = location.y + radius;
 		return (p.x >= xmin) && (p.x <= xmax) && (p.y >= ymin) && (p.y <= ymax);
+	}
+
+	public static int randomSelectionOfInt(int max) {
+		return randomGenerator.nextInt(max);
 	}
 
 }
