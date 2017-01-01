@@ -45,4 +45,18 @@ public class Util {
 		return ret;
 	}
 
+	public static double distance(Location l1, Location l2) {
+		double dx = l2.x - l1.x;
+		double dy = l2.y - l1.y;
+		return Math.sqrt(dx * dx + dy * dy);
+	}
+
+	public static boolean insideBox(Location location, double radius, Location p) {
+		double xmin = location.x - radius;
+		double xmax = location.x + radius;
+		double ymin = location.y - radius;
+		double ymax = location.y + radius;
+		return (p.x >= xmin) && (p.x <= xmax) && (p.y >= ymin) && (p.y <= ymax);
+	}
+
 }
