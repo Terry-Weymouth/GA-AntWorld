@@ -8,9 +8,9 @@ import processing.event.MouseEvent;
 
 public class AntWorld extends PApplet{
 	
-	private static int HEIGHT = 1000;
-	private static int WIDTH = 1000;
-	private static int NUMBER_OF_ANTS = 100;
+	private static int HEIGHT = 800;
+	private static int WIDTH = 800;
+	private static int NUMBER_OF_ANTS = 20;
 	private static int NUMBER_OF_MEALS = 300;
 
 	private List<Ant> ants = new ArrayList<Ant>();
@@ -22,7 +22,6 @@ public class AntWorld extends PApplet{
     }
 
 	public void setup() {
-		ants.add(new Ant(this,brain,new Location(500,500)));
 		for (int i = 0; i < NUMBER_OF_ANTS; i++) {
 			ants.add(new Ant(this, brain ,randomPoint()));
 		}
@@ -36,7 +35,7 @@ public class AntWorld extends PApplet{
 		count ++;
 		if ((count % 100) == 0) {
 			System.out.println("Rounds = " + count + ", ants = " + ants.size() + ", meals = " + meals.size());
-			if (ants.size() == 0) stop();
+//			if (ants.size() == 0) stop();
 		}
 		background(100);
 		
@@ -78,8 +77,13 @@ public class AntWorld extends PApplet{
 	public void mouseClicked(MouseEvent event){
 		int x = event.getX();
 		int y = event.getY();
-		for (Ant ant: ants) {
+		for (int i = 0; i < NUMBER_OF_ANTS; i++) {
+			Ant ant = new Ant(this, brain ,randomPoint());
+			ants.add(ant);
 			ant.setTarget(new Location(x, y));
+		}
+		for (int i = 0; i < NUMBER_OF_MEALS; i++) {
+			meals.add(new Food(randomPoint()));
 		}
 	}
 	
