@@ -65,5 +65,11 @@ public class Util {
 	public static int randomSelectionOfInt(int max) {
 		return randomGenerator.nextInt(max);
 	}
+	
+	public static Location randomLocation() {
+		int y = randomGenerator.nextInt(AntWorld.HEIGHT);
+		int x = randomGenerator.nextInt(AntWorld.WIDTH);
+		return new Location(x,y);
+	}
 
 }

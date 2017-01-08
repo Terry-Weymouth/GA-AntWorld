@@ -14,58 +14,48 @@ public class Ant {
 	private AntBrain brain;
 	
 	private AntSensor sensor;
+	
+	Location location = new Location();
+	Location oldLocation = new Location();
+	double heading = 0.0;
+	double speed = 1.0;
 
-	AntState internalState = new AntState();
-	
-	private Location target;
-	
 	private int health;
 	
 	public Ant(AntWorld p, AntBrain brain,  AntSensor sensor, Location l) {
 		this.pa = p;
 		this.brain = brain;
 		this.sensor = sensor;
-		internalState.x = (float) l.x;
-		internalState.y = (float) l.y;
-		internalState.speed = 1.0f;
-		target = pa.randomPoint();
+		this.location = l;
+		this.oldLocation = l;
 		health = MAX_HEALTH;
 	}
 
 	public void update() {
-		float newHeading = brain.action(internalState,target);
-		internalState.heading = newHeading;
+		double newHeading = brain.action(location,heading,sensor.inputs);
+		this.heading = newHeading;
 	}
 
 	public void move() {
-		if (canMove(internalState,target)) {
-			double r = (double)internalState.speed;
-			double t = (double)internalState.heading;
-			float dx = (float) Compass.dxForThetaR(t, r);
-			float dy = (float) Compass.dyForThetaR(t, r);
-			internalState.dx = dx;
-			internalState.dy = dy;
-			internalState.x += dx;
-			internalState.y += dy;
-			health--;
-		} else {
-			target = pa.randomPoint();
-		}
+		double r = this.speed;
+		double t = this.heading;
+		double dx = Compass.dxForThetaR(t, r);
+		double dy = Compass.dyForThetaR(t, r);
+		oldLocation = location;
+		location = new Location(location.x + dx, location.y + dy);
+		pa.conform(this);
+		health--;
 	}
 	
-	public boolean canMove(AntState internalState, Location target) {
-		if (distanceToTarget(internalState,target) > 5.0) return true; 
+	public boolean canMove(Location here, Location target) {
+		if (distanceToTarget(here,target) > 5.0) return true; 
 		return false;
 	}
 
-	private double distanceToTarget(AntState internalState, Location target) {
-		double dx = target.x - (double) internalState.x;
-		double dy = target.y - (double) internalState.y;
+	private double distanceToTarget(Location here, Location target) {
+		double dx = target.x - here.x;
+		double dy = target.y - here.y;
 		return Math.sqrt(dx*dx + dy*dy);
-	}
-
-	public void setTarget(Location location) {
-		target = location;
 	}
 
 	public int getHealth(){
@@ -73,10 +63,10 @@ public class Ant {
 	}
 
 	public void feed(List<Food> meals) {
-		double x1 = (double) internalState.x - internalState.dx;
-		double y1 = (double) internalState.y - internalState.dy;
-		double x2 = (double) internalState.x;
-		double y2 = (double) internalState.y;
+		double x1 = oldLocation.x;
+		double y1 = oldLocation.y;
+		double x2 = location.x;
+		double y2 = location.y;
 		List<Food> eaten = new ArrayList<Food>();
 		for (Food meal: meals) {
 			double d = Util.shortestDistance(x1, y1, x2, y2, meal.x, meal.y);
@@ -91,14 +81,7 @@ public class Ant {
 	}
 
 	public void sense(List<Food> meals) {
-		Location place = new Location((double)internalState.x,(double)internalState.y);
-		sensor.setLocation(place);
-		List<Food> selected = sensor.look(meals);
-		if (selected.size() == 0) {
-			return;
-		}
-		int index = Util.randomSelectionOfInt(selected.size());
-		target = (Location) meals.get(index);
+		// TODO Auto-generated method stub
 	}
 
 }

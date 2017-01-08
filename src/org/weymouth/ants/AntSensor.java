@@ -7,6 +7,7 @@ public class AntSensor {
 	
 	Location location = new Location(0,0);
 	final double radius;
+	double[] inputs = {1.0,2.0,3.0,4.0,5.0};
 
 	public AntSensor(double r) {
 		radius = r;

@@ -8,8 +8,8 @@ import processing.event.MouseEvent;
 
 public class AntWorld extends PApplet{
 	
-	private static int HEIGHT = 800;
-	private static int WIDTH = 800;
+	static int HEIGHT = 800;
+	static int WIDTH = 800;
 	private static int NUMBER_OF_ANTS = 20;
 	private static int NUMBER_OF_MEALS = 300;
 	
@@ -51,9 +51,10 @@ public class AntWorld extends PApplet{
 			ant.update();
 			ant.move();
 			ant.feed(meals);
-			display(ant);
 			if (ant.getHealth() < 0) {
 				dead.add(ant);
+			} else {
+				display(ant);
 			}
 		}
 		
@@ -63,7 +64,31 @@ public class AntWorld extends PApplet{
 	private void display(Ant ant) {
 		fill(255,100);
 		noStroke();
-		ellipse(ant.internalState.x, ant.internalState.y, 10.0f, 10.0f);
+		drawAnt(ant);
+	}
+
+	private void drawAnt(Ant ant) {
+		drawAntBody(ant);
+		drawAntHead(ant);
+	}
+	
+	private void drawAntBody(Ant ant) {
+		float bodyRadius = 10.0f;
+		ellipse(ant.location.getFloatX(), ant.location.getFloatY(), bodyRadius, bodyRadius);
+	}
+
+	private void drawAntHead(Ant ant) {
+		double ang1 = ant.heading;
+		double ang2 = ant.heading + 90.0;
+		double ang3 = ant.heading - 90.0;
+		Location l1 = new Location(ant.location.x + Compass.dxForThetaR(ang1,25.0), ant.location.y + Compass.dyForThetaR(ang1,25.0));
+		Location l2 = new Location(ant.location.x + Compass.dxForThetaR(ang2,10.0), ant.location.y + Compass.dyForThetaR(ang2,10.0));
+		Location l3 = new Location(ant.location.x + Compass.dxForThetaR(ang3,10.0), ant.location.y + Compass.dyForThetaR(ang3,10.0));
+		beginShape();
+		vertex(l1.getFloatX(),l1.getFloatY());
+		vertex(l2.getFloatX(),l2.getFloatY());
+		vertex(l3.getFloatX(),l3.getFloatY());
+		endShape();
 	}
 
 	private void display(Food meal) {
@@ -79,16 +104,18 @@ public class AntWorld extends PApplet{
 	}
 	
 	public void mouseClicked(MouseEvent event){
-		int x = event.getX();
-		int y = event.getY();
-		for (int i = 0; i < NUMBER_OF_ANTS; i++) {
-			Ant ant = new Ant(this, brain ,randomPoint());
-			ants.add(ant);
-			ant.setTarget(new Location(x, y));
+		setup();
+	}
+
+	public Location conform(Ant ant) {
+		double x = ant.location.x;
+		double y = ant.location.y;
+		double tx = (double) WIDTH/2;
+		double ty = (double) HEIGHT/2;
+		if ( (x < 0) || (x > WIDTH) || (y < 0) || (y > HEIGHT) ) {
+			ant.heading = Compass.headingForDelta(tx - x , ty - y);
 		}
-		for (int i = 0; i < NUMBER_OF_MEALS; i++) {
-			meals.add(new Food(randomPoint()));
-		}
+		return null;
 	}
 	
 }
