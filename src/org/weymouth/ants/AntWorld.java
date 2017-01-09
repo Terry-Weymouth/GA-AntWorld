@@ -22,11 +22,21 @@ public class AntWorld extends PApplet{
 	AntBrain brain = new AntBrain();
 	AntSensor sensor = new AntSensor(SENSING_RADIUS);
 	
+	long totalScore = 0;
+	int count = 0;
+	int rounds = 0;
+	
 	public void settings(){
 		size(WIDTH, HEIGHT);
     }
 
 	public void setup() {
+		count = 0;
+		totalScore = 0;
+		loadAll();
+	}
+	
+	private void loadAll() {
 		for (int i = 0; i < NUMBER_OF_ANTS; i++) {
 			ants.add(new Ant(this, brain , sensor, randomPoint()));
 		}
@@ -34,13 +44,18 @@ public class AntWorld extends PApplet{
 			meals.add(new Food(randomPoint()));
 		}
 	}
-	
-	int count = 0;
+
 	public void draw() {
 		count ++;
 		if ((count % 100) == 0) {
 			System.out.println("Rounds = " + count + ", ants = " + ants.size() + ", meals = " + meals.size());
-			if (ants.size() == 0) System.exit(0);
+			if (ants.size() == 0) {
+				ScoreKeeper.recordScore(totalScore);
+				System.out.println (ScoreKeeper.lastScore());
+				rounds++;
+				if (rounds > 9) System.exit(0);
+				setup();
+			}
 			for (Ant ant: ants) {
 				ant.jitter();
 			}
@@ -58,6 +73,7 @@ public class AntWorld extends PApplet{
 			ant.feed(meals);
 			if (ant.getHealth() < 0) {
 				dead.add(ant);
+				totalScore += count;
 			} else {
 				display(ant);
 			}
@@ -111,7 +127,7 @@ public class AntWorld extends PApplet{
 	}
 	
 	public void mouseClicked(MouseEvent event){
-		setup();
+		loadAll();
 	}
 
 	public void conform(Ant ant) {
