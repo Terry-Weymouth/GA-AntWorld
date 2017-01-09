@@ -10,7 +10,7 @@ public class AntWorld extends PApplet{
 	
 	static int HEIGHT = 800;
 	static int WIDTH = 800;
-	private static int NUMBER_OF_ANTS = 20;
+	private static int NUMBER_OF_ANTS = 10;
 	private static int NUMBER_OF_MEALS = 300;
 	
 	private static double SENSING_RADIUS = 20.0;
