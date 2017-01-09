@@ -18,7 +18,7 @@ public class Ant {
 	Location location = new Location();
 	Location oldLocation = new Location();
 	double heading = 0.0;
-	double speed = 1.0;
+	double speed = AntWorld.NOMRAL_SPEED;
 
 	private int health;
 	
@@ -82,6 +82,15 @@ public class Ant {
 
 	public void sense(List<Food> meals) {
 		// TODO Auto-generated method stub
+	}
+
+	public void jitter() {
+		double x = location.x;
+		double y = location.y;
+		Location target = Util.randomLocation();
+		double tx = target.x;
+		double ty = target.y;
+		heading = Compass.headingForDelta(tx - x , ty - y);
 	}
 
 }

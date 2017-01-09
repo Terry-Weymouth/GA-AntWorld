@@ -15,6 +15,8 @@ public class AntWorld extends PApplet{
 	
 	private static double SENSING_RADIUS = 20.0;
 	
+	static double NOMRAL_SPEED = 10.0;
+	
 	private List<Ant> ants = new ArrayList<Ant>();
 	private List<Food> meals = new ArrayList<Food>();
 	AntBrain brain = new AntBrain();
@@ -38,7 +40,10 @@ public class AntWorld extends PApplet{
 		count ++;
 		if ((count % 100) == 0) {
 			System.out.println("Rounds = " + count + ", ants = " + ants.size() + ", meals = " + meals.size());
-//			if (ants.size() == 0) stop();
+			if (ants.size() == 0) System.exit(0);
+			for (Ant ant: ants) {
+				ant.jitter();
+			}
 		}
 		background(100);
 		
@@ -81,9 +86,11 @@ public class AntWorld extends PApplet{
 		double ang1 = ant.heading;
 		double ang2 = ant.heading + 90.0;
 		double ang3 = ant.heading - 90.0;
-		Location l1 = new Location(ant.location.x + Compass.dxForThetaR(ang1,25.0), ant.location.y + Compass.dyForThetaR(ang1,25.0));
-		Location l2 = new Location(ant.location.x + Compass.dxForThetaR(ang2,10.0), ant.location.y + Compass.dyForThetaR(ang2,10.0));
-		Location l3 = new Location(ant.location.x + Compass.dxForThetaR(ang3,10.0), ant.location.y + Compass.dyForThetaR(ang3,10.0));
+		double r1 = 15.0;
+		double r2 = 5.0;
+		Location l1 = new Location(ant.location.x + Compass.dxForThetaR(ang1,r1), ant.location.y + Compass.dyForThetaR(ang1,r1));
+		Location l2 = new Location(ant.location.x + Compass.dxForThetaR(ang2,r2), ant.location.y + Compass.dyForThetaR(ang2,r2));
+		Location l3 = new Location(ant.location.x + Compass.dxForThetaR(ang3,r2), ant.location.y + Compass.dyForThetaR(ang3,r2));
 		beginShape();
 		vertex(l1.getFloatX(),l1.getFloatY());
 		vertex(l2.getFloatX(),l2.getFloatY());
@@ -107,7 +114,7 @@ public class AntWorld extends PApplet{
 		setup();
 	}
 
-	public Location conform(Ant ant) {
+	public void conform(Ant ant) {
 		double x = ant.location.x;
 		double y = ant.location.y;
 		double tx = (double) WIDTH/2;
@@ -115,7 +122,6 @@ public class AntWorld extends PApplet{
 		if ( (x < 0) || (x > WIDTH) || (y < 0) || (y > HEIGHT) ) {
 			ant.heading = Compass.headingForDelta(tx - x , ty - y);
 		}
-		return null;
 	}
 	
 }
