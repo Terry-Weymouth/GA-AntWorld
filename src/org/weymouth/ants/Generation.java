@@ -48,7 +48,7 @@ public class Generation {
 				averageScore = (averageScore * (rounds) + totalScore)/(rounds + 1);
 				printRound();
 				rounds++;
-				if (rounds > AntWorld.NUMBER_OF_ROUNDS) {
+				if (rounds >= AntWorld.NUMBER_OF_ROUNDS) {
 					return false;
 				}
 				nextRound();
