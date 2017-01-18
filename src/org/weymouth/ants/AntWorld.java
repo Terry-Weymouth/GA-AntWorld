@@ -1,6 +1,5 @@
 package org.weymouth.ants;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import processing.core.PApplet;
@@ -8,78 +7,53 @@ import processing.event.MouseEvent;
 
 public class AntWorld extends PApplet{
 	
+	public static double SENSING_RADIUS = 20.0;
+	public static int NUMBER_OF_BRAINS = 20;
+	public static int[] BRAIN_LAYER_WIDTHS = {6,8,7,1};
+	public static final int NUMBER_OF_ROUNDS = 5;
+	
 	static int HEIGHT = 800;
 	static int WIDTH = 800;
-	private static int NUMBER_OF_ANTS = 10;
-	private static int NUMBER_OF_MEALS = 300;
+	static int NUMBER_OF_ANTS = 10;
+	static int NUMBER_OF_MEALS = 300;
 	
-	private static double SENSING_RADIUS = 20.0;
+	static double MAXIMUM_SPEED = 10.0;
+		
+	List<AntBrain> brains = AntBrain.starterList();
+
+	private Generation g = null;
 	
-	static double NOMRAL_SPEED = 10.0;
-	
-	private List<Ant> ants = new ArrayList<Ant>();
-	private List<Food> meals = new ArrayList<Food>();
-	AntBrain brain = new AntBrain();
-	AntSensor sensor = new AntSensor(SENSING_RADIUS);
-	
-	long totalScore = 0;
-	int count = 0;
-	int rounds = 0;
+	int currentBrainIndex = -1;
 	
 	public void settings(){
 		size(WIDTH, HEIGHT);
     }
-
+	
 	public void setup() {
-		count = 0;
-		totalScore = 0;
-		loadAll();
+		currentBrainIndex++;
+		if (g != null) {
+			System.out.println("Generation average: " + g.getAverageScore());
+		}
+		if (currentBrainIndex < brains.size()) {
+			AntBrain b = brains.get(currentBrainIndex);
+			g = new Generation(this, b);
+		}
+		else {
+			System.exit(0);
+		}
 	}
 	
-	private void loadAll() {
-		for (int i = 0; i < NUMBER_OF_ANTS; i++) {
-			ants.add(new Ant(this, brain , sensor, randomPoint()));
-		}
-		for (int i = 0; i < NUMBER_OF_MEALS; i++) {
-			meals.add(new Food(randomPoint()));
-		}
-	}
-
 	public void draw() {
-		count ++;
-		if ((count % 100) == 0) {
-			System.out.println("Rounds = " + count + ", ants = " + ants.size() + ", meals = " + meals.size());
-			if (ants.size() == 0) {
-				ScoreKeeper.recordScore(totalScore);
-				System.out.println (ScoreKeeper.lastScore());
-				rounds++;
-				if (rounds > 9) System.exit(0);
-				setup();
-			}
-			for (Ant ant: ants) {
-				ant.jitter();
-			}
-		}
+		if (!g.oneStep())
+			setup();
 		background(100);
 		
-		List<Ant> dead = new ArrayList<Ant>();
-		for (Food meal: meals) {
+		for (Food meal: g.getMeals()) {
 			display(meal);
 		}
-		for (Ant ant: ants) {
-			ant.sense(meals);
-			ant.update();
-			ant.move();
-			ant.feed(meals);
-			if (ant.getHealth() < 0) {
-				dead.add(ant);
-				totalScore += count;
-			} else {
-				display(ant);
-			}
+		for (Ant ant: g.getAnts()) {
+			display(ant);
 		}
-		
-		ants.removeAll(dead);
 	}
 
 	private void display(Ant ant) {
@@ -122,12 +96,8 @@ public class AntWorld extends PApplet{
 		this.rect(x, y, 10.0f, 10.0f);
 	}
 
-	public Location randomPoint() {
-		return  new Location(10 + this.random(HEIGHT-20),10 + this.random(WIDTH-20));
-	}
-	
 	public void mouseClicked(MouseEvent event){
-		loadAll();
+		System.out.println("Mouse was clicked");
 	}
 
 	public void conform(Ant ant) {

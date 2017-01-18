@@ -4,14 +4,14 @@ import java.util.Stack;
 
 public class ScoreKeeper {
 	
-	private static Stack<Long> scores = new Stack<Long>();
+	private Stack<Integer> scores = new Stack<Integer>();
 
-	public static long lastScore() {
-		Long top = scores.peek();
-		return top.longValue();
+	public int lastScore() {
+		Integer top = scores.peek();
+		return top.intValue();
 	}
 
-	public static void recordScore(long score) {
-		scores.push(new Long(score));
+	public void recordScore(int score) {
+		scores.push(new Integer(score));
 	}
 }

@@ -18,21 +18,21 @@ public class Ant {
 	Location location = new Location();
 	Location oldLocation = new Location();
 	double heading = 0.0;
-	double speed = AntWorld.NOMRAL_SPEED;
+	double speed = AntWorld.MAXIMUM_SPEED;
 
 	private int health;
 	
-	public Ant(AntWorld p, AntBrain brain,  AntSensor sensor, Location l) {
+	public Ant(AntWorld p, AntBrain brain, Location l) {
 		this.pa = p;
 		this.brain = brain;
-		this.sensor = sensor;
+		this.sensor = new AntSensor(this);
 		this.location = l;
 		this.oldLocation = l;
 		health = MAX_HEALTH;
 	}
 
 	public void update() {
-		double newHeading = brain.action(location,heading,sensor.inputs);
+		double newHeading = brain.action(location,heading,sensor.getSensoryInput());
 		this.heading = newHeading;
 	}
 
@@ -58,8 +58,10 @@ public class Ant {
 		return Math.sqrt(dx*dx + dy*dy);
 	}
 
-	public int getHealth(){
-		return health;
+	public double getHealth(){
+		double ret = 1.0/(double)MAX_HEALTH;
+		ret = ret * (double) health;
+		return ret;
 	}
 
 	public void feed(List<Food> meals) {
@@ -81,7 +83,7 @@ public class Ant {
 	}
 
 	public void sense(List<Food> meals) {
-		// TODO Auto-generated method stub
+		sensor.look(meals);
 	}
 
 	public void jitter() {
@@ -91,6 +93,7 @@ public class Ant {
 		double tx = target.x;
 		double ty = target.y;
 		heading = Compass.headingForDelta(tx - x , ty - y);
+		brain.scramble();
 	}
 
 }

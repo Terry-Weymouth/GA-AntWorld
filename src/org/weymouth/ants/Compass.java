@@ -26,5 +26,15 @@ public class Compass {
 		double radians = (theta / 180.0) * Math.PI;
 		return r * Math.sin(radians);
 	}
+
+	public static double rewrap(double theta) {
+		while (theta > 180.0) {
+			theta -= 360.0;
+		}
+		while (theta < 180.0) {
+			theta += 360.0;
+		}
+		return theta;
+	}
 	
 }

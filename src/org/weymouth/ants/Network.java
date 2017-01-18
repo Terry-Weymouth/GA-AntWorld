@@ -2,11 +2,13 @@ package org.weymouth.ants;
 
 public class Network {
 
+	int[] layerWidths;
 	Layer[] layer;
 	Weight[] weight;
 	
 	public Network(int[] layerWidths){
-		
+
+		this.layerWidths = layerWidths;
 		layer = new Layer[layerWidths.length];
 		weight = new Weight[layerWidths.length - 1];
 		
@@ -24,19 +26,23 @@ public class Network {
 		layer[0].setInputs(netInput);
 	}
 	
-
-	public static void main(String[] args) {
-		int layerWidths[] = {3,5,6,4};
-		Network net = new Network(layerWidths);
-		double[] netInput = {0.5,0.5,0.5};
-		net.setInputs(netInput);
+	public void setNetToRandom() {
 		for (int layer = 0; layer < (layerWidths.length - 1); layer++) {
 			for (int input = 0; input < (layerWidths[layer] + 1); input++) {
 				for (int output = 0; output < layerWidths[layer+1]; output++) {
-					net.setWeight(layer,input,output, (2*Math.random() - 1.0));
+					setWeight(layer,input,output, (2*Math.random() - 1.0));
 				}
 			}
 		}
+	}
+	
+
+	public static void main(String[] args) {
+		int layerWidths[] = {5,7,6,1};
+		Network net = new Network(layerWidths);
+		double[] netInput = {0.5,0.5,0.5,0.5,0.5};
+		net.setInputs(netInput);
+		net.setNetToRandom();
 		net.propogate();
 		double[] output = net.output();
 		System.out.print("Output = ");
@@ -51,7 +57,7 @@ public class Network {
 		return layer[layer.length - 1].getValues();
 	}
 
-	private void propogate() {
+	void propogate() {
 		double [] input;
 		double [] output;
 		for (int l = 0; l < (layer.length - 1); l++) {

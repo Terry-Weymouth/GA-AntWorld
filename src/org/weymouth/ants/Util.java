@@ -71,5 +71,11 @@ public class Util {
 		int x = randomGenerator.nextInt(AntWorld.WIDTH);
 		return new Location(x,y);
 	}
+	
+	public static Location randomInteriorPoint() {
+		return  new Location(
+				10 + randomGenerator.nextInt(AntWorld.HEIGHT-20),
+				10 + randomGenerator.nextInt(AntWorld.WIDTH-20));
+	}
 
 }
