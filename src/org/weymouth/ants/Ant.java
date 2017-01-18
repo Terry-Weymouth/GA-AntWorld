@@ -18,7 +18,7 @@ public class Ant {
 	Location location = new Location();
 	Location oldLocation = new Location();
 	double heading = 0.0;
-	double speed = AntWorld.MAXIMUM_SPEED;
+	double speed = 1.0;
 
 	private int health;
 	
@@ -32,8 +32,9 @@ public class Ant {
 	}
 
 	public void update() {
-		double newHeading = brain.action(location,heading,sensor.getSensoryInput());
-		this.heading = newHeading;
+		brain.action(location,heading,sensor.getSensoryInput());
+		heading = brain.getHeading();
+		speed = brain.getSpeed();
 	}
 
 	public void move() {
@@ -47,17 +48,6 @@ public class Ant {
 		health--;
 	}
 	
-	public boolean canMove(Location here, Location target) {
-		if (distanceToTarget(here,target) > 5.0) return true; 
-		return false;
-	}
-
-	private double distanceToTarget(Location here, Location target) {
-		double dx = target.x - here.x;
-		double dy = target.y - here.y;
-		return Math.sqrt(dx*dx + dy*dy);
-	}
-
 	public double getHealth(){
 		double ret = 1.0/(double)MAX_HEALTH;
 		ret = ret * (double) health;
@@ -86,14 +76,26 @@ public class Ant {
 		sensor.look(meals);
 	}
 
-	public void jitter() {
-		double x = location.x;
-		double y = location.y;
-		Location target = Util.randomLocation();
-		double tx = target.x;
-		double ty = target.y;
-		heading = Compass.headingForDelta(tx - x , ty - y);
-		brain.scramble();
-	}
+	// these methods are not being used any more - keep them for a while for documentation
+//	private boolean canMove(Location here, Location target) {
+//		if (distanceToTarget(here,target) > 5.0) return true; 
+//		return false;
+//	}
+//
+//	private double distanceToTarget(Location here, Location target) {
+//		double dx = target.x - here.x;
+//		double dy = target.y - here.y;
+//		return Math.sqrt(dx*dx + dy*dy);
+//	}
+//
+//	private void jitter() {
+//		double x = location.x;
+//		double y = location.y;
+//		Location target = Util.randomLocation();
+//		double tx = target.x;
+//		double ty = target.y;
+//		heading = Compass.headingForDelta(tx - x , ty - y);
+//		brain.scramble();
+//	}
 
 }

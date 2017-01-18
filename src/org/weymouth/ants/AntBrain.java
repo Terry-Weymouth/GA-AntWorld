@@ -6,19 +6,32 @@ import java.util.List;
 public class AntBrain {
 	
 	private static double TURN_MAX = 45.0;
+	private static double MAXIMUM_SPEED = 10.0;
 	
 	private final Network network;
+	
+	private double speed;
+	private double heading;
 	
 	public AntBrain(Network n){
 		network = n;
 	}
 	
-	public double action(Location here, double heading, double[] inputs) {
+	public void action(Location here, double oldHeading, double[] inputs) {
 		network.setInputs(inputs);
 		network.propogate();
 		double output[] = network.output();
 		double direction = output[0] - 0.5;
-		return Compass.rewrap(heading + (TURN_MAX * direction));
+		heading = Compass.rewrap(oldHeading + (TURN_MAX * direction));
+		speed = output[1] * MAXIMUM_SPEED;
+	}
+
+	public double getHeading() {
+		return heading;
+	}
+
+	public double getSpeed() {
+		return speed;
 	}
 
 	public void scramble() {
