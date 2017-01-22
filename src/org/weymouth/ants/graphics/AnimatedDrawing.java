@@ -14,5 +14,9 @@ public abstract class AnimatedDrawing {
 		this.size = size;
 	}
 
+	public Dimension getSize() {
+		return size;
+	}
+
 
 }

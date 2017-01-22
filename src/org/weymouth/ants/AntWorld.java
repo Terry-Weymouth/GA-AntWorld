@@ -1,11 +1,13 @@
 package org.weymouth.ants;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AntWorld {
 	
 	public static double SENSING_RADIUS = 20.0;
-	public static int NUMBER_OF_BRAINS = 20;
+	public static int NUMBER_OF_BRAINS = 5;
 	public static int[] BRAIN_LAYER_WIDTHS = {6,8,7,2};
-	public static final int NUMBER_OF_ROUNDS = 5;
 	
 	static int HEIGHT = 800;
 	static int WIDTH = 800;
@@ -21,6 +23,7 @@ public class AntWorld {
 	}
 
 	public boolean update() {
+		if (g == null) return false;
 		if (g.oneStep()) {
 			running = true;
 			return true;
@@ -30,6 +33,7 @@ public class AntWorld {
 	}
 	
 	public boolean isRunning() {
+		if (g == null) return false;
 		return running;
 	}
 	
@@ -41,6 +45,20 @@ public class AntWorld {
 		if ( (x < 0) || (x > WIDTH) || (y < 0) || (y > HEIGHT) ) {
 			ant.heading = Compass.headingForDelta(tx - x , ty - y);
 		}
+	}
+
+	public List<Food> getMeals() {
+		if (isRunning()){
+			return g.getMeals();
+		}
+		return new ArrayList<Food>();
+	}
+
+	public List<Ant> getAnts() {
+		if (isRunning()){
+			return g.getAnts();
+		}
+		return new ArrayList<Ant>();
 	}
 
 }

@@ -14,9 +14,6 @@ import javax.swing.Timer;
 public class AnimatedDrawingPanel extends JPanel implements ActionListener {
 	private static final long serialVersionUID = -1135538150464749505L;
 	
-	private static final int WIDTH = 600;
-	private static final int HEIGHT = 400;
-	
 	private Timer timer;
 	private AnimatedDrawing source;
 	private int milliseconds = 15;
@@ -48,7 +45,7 @@ public class AnimatedDrawingPanel extends JPanel implements ActionListener {
 	}
 	
     public Dimension getPreferredSize() {
-        return new Dimension(WIDTH,HEIGHT);
+        return new Dimension(source.getSize());
     }
 	
     public void paintComponent(Graphics g) {

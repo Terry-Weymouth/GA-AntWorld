@@ -32,7 +32,10 @@ public class Generation {
 	public boolean oneStep() {
 		updateAll();
 		count ++;
-		if (ants.size() == 0) return false;
+		if (ants.size() == 0) {
+			System.out.println("Done running: lastScore = " + totalScore);
+			return false;
+		}
 		return true;
 	}
 

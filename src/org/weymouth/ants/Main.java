@@ -1,5 +1,6 @@
 package org.weymouth.ants;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.Iterator;
 import java.util.List;
@@ -44,15 +45,16 @@ public class Main {
 			}
 		};
 		
+		brainCycleDrawer.setSize(new Dimension(AntWorld.WIDTH, AntWorld.HEIGHT));
+		
 		final AnimatedDrawingPanel panel = 
 				new AnimatedDrawingPanel(brainCycleDrawer);
-		
+				
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				JFrame frame = new JFrame("Ant Generation Display");
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.getContentPane().add(panel);
-				System.out.println(panel.getSize().getHeight());
 				frame.setSize(panel.getSize());
 				frame.setVisible(true);
 				panel.start();
