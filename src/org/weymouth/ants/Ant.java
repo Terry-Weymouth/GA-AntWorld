@@ -36,6 +36,10 @@ public class Ant {
 		heading = brain.getHeading();
 		speed = brain.getSpeed();
 	}
+	
+	public AntBrain getBrain(){
+		return brain;
+	}
 
 	public void move() {
 		double r = this.speed;

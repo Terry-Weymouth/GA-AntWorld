@@ -56,6 +56,10 @@ public class Network {
 	public double[] output() {
 		return layer[layer.length - 1].getValues();
 	}
+	
+	public double[] input() {
+		return layer[0].getValues();
+	}
 
 	void propogate() {
 		double [] input;

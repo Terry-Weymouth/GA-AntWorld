@@ -54,7 +54,7 @@ public class AntStatusPanel extends JPanel implements WorldChangeListener {
 			public void run() {
 				for (int i = 0; i < antPanels.size(); i++) {
 					AntPanel panel = antPanels.get(i);
-					panel.updateHealth();
+					panel.updateAntValues();
 				}
 			}
 		});
@@ -64,29 +64,38 @@ public class AntStatusPanel extends JPanel implements WorldChangeListener {
 		private static final long serialVersionUID = -3527203010799721964L;
 
 		private Ant ant;
-		JLabel label = new JLabel("Health: ");
-		JTextField value = new JTextField(5);
+		JTextField healthValue = new JTextField(5);
+		JTextField netZeroValue = new JTextField(5);
+		JTextField netOneValue = new JTextField(5);
 		
 		public AntPanel(Ant ant){
 			updateAnt(ant);
-			setLayout(new FlowLayout());
+			setLayout(new GridLayout(2,2));
 			setUpGraphics();
 		}
 
 		public void updateAnt(Ant ant) {
 			this.ant = ant;
-			updateHealth();
+			updateAntValues();
 		}
 		
 		public void setUpGraphics() {
-			this.add(label);
-			this.add(value);
-			updateHealth();
+			this.add(new JLabel("Health: "));
+			this.add(healthValue);
+			this.add(netZeroValue);
+			this.add(netOneValue);
+			updateAntValues();
 		}
 
-		public void updateHealth(){
-			String text = String.format("%1$,.3f",ant.getHealth());
-			value.setText(text);
+		public void updateAntValues(){
+			String text1 = String.format("%1$,.3f",ant.getHealth());
+			healthValue.setText(text1);
+			Network net = ant.getBrain().getNetwork();
+			double[] out = net.output();
+			String text2 = String.format("%1$,.3f",out[0]);
+			String text3 = String.format("%1$,.3f",out[1]);
+			netZeroValue.setText(text2);
+			netOneValue.setText(text3);
 		}
 	}
 	
