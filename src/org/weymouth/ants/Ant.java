@@ -51,6 +51,7 @@ public class Ant {
 	public double getHealth(){
 		double ret = 1.0/(double)MAX_HEALTH;
 		ret = ret * (double) health;
+		if (ret < 0) ret = 0.0;
 		return ret;
 	}
 
@@ -66,6 +67,8 @@ public class Ant {
 				if (health < MAX_HEALTH) {
 					eaten.add(meal);
 					health += FOOD_HEALTH;
+					if (health > MAX_HEALTH)
+						health = MAX_HEALTH;
 				}
 			}
 		}

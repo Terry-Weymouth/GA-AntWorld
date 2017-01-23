@@ -33,7 +33,6 @@ public class Generation {
 		updateAll();
 		count ++;
 		if (ants.size() == 0) {
-			System.out.println("Done running: lastScore = " + totalScore);
 			return false;
 		}
 		return true;
@@ -46,7 +45,7 @@ public class Generation {
 			ant.update();
 			ant.move();
 			ant.feed(meals);
-			if (ant.getHealth() < 0) {
+			if (ant.getHealth() <= 0) {
 				dead.add(ant);
 				updateScore();
 			} 
