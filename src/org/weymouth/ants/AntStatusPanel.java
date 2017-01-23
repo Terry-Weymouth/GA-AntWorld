@@ -94,6 +94,13 @@ public class AntStatusPanel extends JPanel implements WorldChangeListener {
 			double[] out = net.output();
 			String text2 = String.format("%1$,.3f",out[0]);
 			String text3 = String.format("%1$,.3f",out[1]);
+			double[] in = net.input();
+			String text4 = null;
+			for (int i = 0; i < in.length; i++) {
+				if (text4 == null) text4 = String.format("%1$,.2f",in[i]);
+				else text4 += ", " + String.format("%1$,.2f",in[i]);
+			}
+//			System.out.println(text4);
 			netZeroValue.setText(text2);
 			netOneValue.setText(text3);
 		}

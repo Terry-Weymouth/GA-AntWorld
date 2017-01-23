@@ -45,12 +45,15 @@ public class AntSensor {
 		double theta = Compass.headingForDelta(dx, dy);
 		double r = Math.sqrt(dx*dx * dy*dy);
 		double dHeading = Compass.rewrap(theta - body.heading);
+		System.out.println("Selected: " + r + ", " + dHeading);
 		if ((r > radius) || (dHeading > 45.0) || (dHeading < -45.0)) {
+			System.out.println("Rejected");
 			senseStrength = 0.0;
 			senseIndex = -1;
 		} else {
 			senseStrength = 1.0 - (r/radius);
 			senseIndex = (int) ( (dHeading + 45.0)/18.0 );
+			System.out.println("Sense(" + senseIndex + "): " + senseStrength); 
 		}
 	}
 	
