@@ -54,13 +54,13 @@ public class AntSensor {
 		double dHeading = Compass.rewrap(theta - body.heading);
 //		System.out.printf("r = %4.4f, heading = %4.4f\n",r,dHeading);
 		if ((r > radius) || (dHeading > 45.0) || (dHeading < -45.0)) {
-			System.out.println("Rejected");
+//			System.out.println("Rejected");
 			senseStrength = 0.0;
 			senseIndex = -1;
 		} else {
 			senseStrength = 1.0 - (r/radius);
 			senseIndex = (int) ( (dHeading + 45.0)/18.0 );
-			System.out.println("Sense(" + senseIndex + "): " + senseStrength); 
+//			System.out.println("Sense(" + senseIndex + "): " + senseStrength); 
 		}
 	}
 	

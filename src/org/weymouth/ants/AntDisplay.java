@@ -18,6 +18,18 @@ public class AntDisplay {
 		for (Ant ant: antWorld.getAnts()) {
 			drawAnt(g2d,ant);
 		}
+		g.setColor(Color.GREEN);
+		for (Ant ant: antWorld.getAnts()) {
+			drawAntSenseBox(g2d,ant);
+		}
+	}
+
+	private void drawAntSenseBox(Graphics2D g2d, Ant ant) {
+		double r = AntWorld.SENSING_RADIUS + 5.0f;
+		double d = 2.0f * r;
+		double x = (float)ant.location.getFloatX() - r;
+		double y = (float)ant.location.getFloatY() - r;
+		g2d.draw(new Rectangle2D.Double(x, y, d, d));
 	}
 
 	private void drawAnt(Graphics2D g, Ant ant) {

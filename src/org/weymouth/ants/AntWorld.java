@@ -9,10 +9,12 @@ public class AntWorld {
 	public static int NUMBER_OF_BRAINS = 5;
 	public static int[] BRAIN_LAYER_WIDTHS = {6,8,7,2};
 	
-	static int HEIGHT = 800;
-	static int WIDTH = 800;
-	static int NUMBER_OF_ANTS = 10;
-	static int NUMBER_OF_MEALS = 300;
+	public static boolean graphics = true;
+	
+	static int HEIGHT = 400;
+	static int WIDTH = 400;
+	static int NUMBER_OF_ANTS = 1;
+	static int NUMBER_OF_MEALS = 100;
 	
 	private Generation g = null;
 	private boolean running;
