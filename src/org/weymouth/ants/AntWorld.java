@@ -7,7 +7,7 @@ import processing.event.MouseEvent;
 
 public class AntWorld extends PApplet{
 	
-	public static double SENSING_RADIUS = 20.0;
+	public static double SENSING_RADIUS = 40.0;
 	public static int NUMBER_OF_BRAINS = 20;
 	public static int[] BRAIN_LAYER_WIDTHS = {6,8,7,2};
 	public static final int NUMBER_OF_ROUNDS = 5;
@@ -55,6 +55,9 @@ public class AntWorld extends PApplet{
 	}
 
 	private void display(Ant ant) {
+		noFill();
+		stroke(0,255,0);
+		drawSenseBox(ant);
 		fill(255,100);
 		noStroke();
 		drawAnt(ant);
@@ -63,6 +66,14 @@ public class AntWorld extends PApplet{
 	private void drawAnt(Ant ant) {
 		drawAntBody(ant);
 		drawAntHead(ant);
+	}
+	
+	private void drawSenseBox(Ant ant) {
+		float r = (float)SENSING_RADIUS + 5.0f;
+		float d = 2.0f * r;
+		float x = (float)ant.location.getFloatX() - r;
+		float y = (float)ant.location.getFloatY() - r;
+		this.rect(x, y, d, d);		
 	}
 	
 	private void drawAntBody(Ant ant) {
