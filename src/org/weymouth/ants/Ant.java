@@ -5,15 +5,18 @@ import java.util.List;
 
 public class Ant {
 	
-	private static int MAX_HEALTH = 1000;
-	private static double FOOD_GRASPING_RANGE = 10.0;
-	private static double FOOD_HEALTH = 10.0;
+	private static final int MAX_HEALTH = 1000;
+	private static final double FOOD_GRASPING_RANGE = 10.0;
+	private static final double FOOD_HEALTH = 10.0;
+	private static int idCount = 0;
 	
 	private AntWorld pa;
 	
 	private AntBrain brain;
 	
 	private AntSensor sensor;
+	
+	private final int id;
 	
 	Location location = new Location();
 	Location oldLocation = new Location();
@@ -23,6 +26,7 @@ public class Ant {
 	private int health;
 	
 	public Ant(AntWorld p, AntBrain brain, Location l) {
+		this.id = idCount++;
 		this.pa = p;
 		this.brain = brain;
 		this.sensor = new AntSensor(this);
@@ -35,6 +39,8 @@ public class Ant {
 		brain.action(location,heading,sensor.getSensoryInput());
 		heading = brain.getHeading();
 		speed = brain.getSpeed();
+//		String format = "Inputs(%d): %s; heading = %f , speed = %f\n";
+//		System.out.printf(format, id, sensor.toString(), heading, speed);
 	}
 	
 	public AntBrain getBrain(){
