@@ -52,7 +52,7 @@ public class AntSensor {
 		double theta = Compass.headingForDelta(dx, dy);
 		double r = Math.sqrt(dx*dx + dy*dy);
 		double dHeading = Compass.rewrap(theta - body.heading);
-//		System.out.printf("r = %4.4f, heading = %4.4f\n",r,dHeading);
+//		System.out.printf("look-distance = %4.4f, look-direction = %4.4f\n",r,dHeading);
 		if ((r > radius) || (dHeading > 45.0) || (dHeading < -45.0)) {
 //			System.out.println("Rejected");
 			senseStrength = 0.0;

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Ant {
 	
-	private static final int MAX_HEALTH = 1000;
+	private static final int MAX_HEALTH = 100;
 	private static final double FOOD_GRASPING_RANGE = 10.0;
 	private static final double FOOD_HEALTH = 10.0;
 	private static int idCount = 0;
@@ -39,8 +39,7 @@ public class Ant {
 		brain.action(location,heading,sensor.getSensoryInput());
 		heading = brain.getHeading();
 		speed = brain.getSpeed();
-//		String format = "Inputs(%d): %s; heading = %f , speed = %f\n";
-//		System.out.printf(format, id, sensor.toString(), heading, speed);
+//		System.out.println(this);
 	}
 	
 	public AntBrain getBrain(){
@@ -87,6 +86,11 @@ public class Ant {
 
 	public void sense(List<Food> meals) {
 		sensor.look(meals);
+	}
+	
+	public String toString() {
+		String format = "Inputs(%d): %s; heading = %f , speed = %f";
+		return String.format(format, id, sensor.toString(), heading, speed);
 	}
 
 	// these methods are not being used any more - keep them for a while for documentation

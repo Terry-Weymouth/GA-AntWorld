@@ -24,20 +24,32 @@ public class Main {
 		
 		final AntWorld antWorld = new AntWorld();
 		final AntDisplay display = new AntDisplay();
-		final AntStatusPanel statusPanel = new AntStatusPanel(antWorld);
+//		final AntStatusPanel statusPanel = new AntStatusPanel(antWorld);
 		List<AntBrain> brainList = AntBrain.starterList();
 		final Iterator<AntBrain> brains = brainList.iterator();
 		
+		
+		
 		AnimatedDrawing brainCycleDrawer = new AnimatedDrawing() {
+			
+			int brainCount = 0;
+			Generation g = null;
 			
 			@Override
 			public void update() {
 				boolean running = antWorld.update();
 				if (! running) {
 					if (brains.hasNext()) {
-						antWorld.setBrain(brains.next());
+						if (g != null) {
+							System.out.println("Score(" + (brainCount++) + "): " + g.score());
+						}
+						g = antWorld.setBrain(brains.next());
 					} else {
-						System.out.println("Done - kill it");
+//						System.out.println("Done - kill it");
+						if (g != null) {
+							System.out.println("Score(" + (brainCount) + "): " + g.score());
+						}
+						System.exit(0);
 					}
 				}
 			}
@@ -61,7 +73,7 @@ public class Main {
 		panel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
 		panel.setSize(dPlus);
 		panel.add(drawer,BorderLayout.CENTER);
-		panel.add(statusPanel,BorderLayout.EAST);
+//		panel.add(statusPanel,BorderLayout.EAST);
 				
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {

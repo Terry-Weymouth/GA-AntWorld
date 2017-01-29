@@ -6,7 +6,7 @@ import java.util.List;
 public class AntWorld {
 	
 	public static double SENSING_RADIUS = 40.0;
-	public static int NUMBER_OF_BRAINS = 5;
+	public static int NUMBER_OF_BRAINS = 40;
 	public static int[] BRAIN_LAYER_WIDTHS = {6,8,7,2};
 	
 	public static boolean graphics = true;
@@ -14,17 +14,18 @@ public class AntWorld {
 	static int HEIGHT = 400;
 	static int WIDTH = 400;
 	static int NUMBER_OF_ANTS = 1;
-	static int NUMBER_OF_MEALS = 100;
+	static int NUMBER_OF_MEALS = 50;
 	
 	private Generation g = null;
 	private boolean running;
 	
 	private List<WorldChangeListener> listeners = new ArrayList<WorldChangeListener>();
 		
-	public void setBrain(AntBrain b) {
+	public Generation setBrain(AntBrain b) {
 		g = new Generation(this, b);
 		running = true;
 		notifyListerersOfNewGeneration();
+		return g;
 	}
 
 	public boolean update() {

@@ -1,6 +1,5 @@
 package org.weymouth.ants;
 
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,17 +89,8 @@ public class AntStatusPanel extends JPanel implements WorldChangeListener {
 		public void updateAntValues(){
 			String text1 = String.format("%1$,.3f",ant.getHealth());
 			healthValue.setText(text1);
-			Network net = ant.getBrain().getNetwork();
-			double[] out = net.output();
-			String text2 = String.format("%1$,.3f",out[0]);
-			String text3 = String.format("%1$,.3f",out[1]);
-			double[] in = net.input();
-			String text4 = null;
-			for (int i = 0; i < in.length; i++) {
-				if (text4 == null) text4 = String.format("%1$,.2f",in[i]);
-				else text4 += ", " + String.format("%1$,.2f",in[i]);
-			}
-//			System.out.println(text4);
+			String text2 = String.format("%1$,.3f",ant.heading);
+			String text3 = String.format("%1$,.3f",ant.speed);
 			netZeroValue.setText(text2);
 			netOneValue.setText(text3);
 		}
