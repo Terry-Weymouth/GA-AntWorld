@@ -1,9 +1,5 @@
 package org.weymouth.ants;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 public class AntBrain {
 	
 	private static double TURN_MAX = 45.0;

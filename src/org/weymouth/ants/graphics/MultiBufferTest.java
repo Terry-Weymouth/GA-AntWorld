@@ -125,7 +125,8 @@ public class MultiBufferTest {
             GraphicsEnvironment env = GraphicsEnvironment.
                 getLocalGraphicsEnvironment();
             GraphicsDevice device = env.getDefaultScreenDevice();
-            MultiBufferTest test = new MultiBufferTest(numBuffers, device);
+            @SuppressWarnings("unused")
+			MultiBufferTest test = new MultiBufferTest(numBuffers, device);
         } catch (Exception e) {
             e.printStackTrace();
         }

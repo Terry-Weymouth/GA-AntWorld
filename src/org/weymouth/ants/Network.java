@@ -1,18 +1,27 @@
 package org.weymouth.ants;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class Network {
 
-	private Random rng;
 	private int[] layerWidths;
 	private Layer[] layer;
 	private Weight[] weight;
 	
 	public Network(Random rng,int[] layerWidths){
-		this.rng = rng;
 		this.layerWidths = layerWidths;
+		initializeLayers();
+		setNetToRandom(rng);
+	}
+	
+	private Network(Network clone) {
+		layerWidths = clone.layerWidths;
+		initializeLayers();
+	}
+	
+	private void initializeLayers() {
 		layer = new Layer[layerWidths.length];
 		weight = new Weight[layerWidths.length - 1];
 		
@@ -23,26 +32,73 @@ public class Network {
 		for (int layer = 0; layer < (layerWidths.length - 1); layer++) {
 			weight[layer] = new Weight(layerWidths[layer]+1,layerWidths[layer+1]);
 		}
-		
-		setNetToRandom();
-		
 	}
-	
-	public List<Double> getParameters() {
-		// TODO Auto-generated method stub
-		return null;
+
+	public Network cross(Network parent2, Random rng) {
+		double[] values1 = unwrapWeights();
+		double[] values2 = parent2.unwrapWeights();
+
+		int valueCount = values1.length;
+		double[] out = new double[valueCount];
+		
+		int point = rng.nextInt(valueCount -2) + 1;
+		for (int i = 0; i < point; i++) {
+			out[i] = values1[i];
+		}
+		for (int i = point; i < valueCount; i++) {
+			out[i] = values2[i];
+		}
+
+		Network net = new Network(this);
+		net.wrapWeights(out);
+		return net;
 	}
 
 	public void mutate(Random rng) {
-		// TODO Auto-generated method stub
-		
+		double[] values = unwrapWeights();
+		int valueCount = values.length;
+		int point = rng.nextInt(valueCount);
+		values[point] = (rng.nextDouble() * 2.0) - 1.0;
+		wrapWeights(values);
 	}
+	
+	private double[] unwrapWeights() {
+		List<Double> buffer = new ArrayList<Double>();
+		for (int layer = 0; layer < (layerWidths.length - 1); layer++) {
+			for (int input = 0; input < (layerWidths[layer] + 1); input++) {
+				for (int output = 0; output < layerWidths[layer+1]; output++) {
+					buffer.add(new Double(getWeight(layer,input,output)));
+				}
+			}
+		}
+		double[] out = new double[buffer.size()];
+		for (int i = 0; i < out.length; i ++) {
+			out[i] = buffer.get(i).doubleValue();
+		}
+		return out;
+	}
+
+	private void wrapWeights(double[] values) {
+		int index = 0;
+		for (int layer = 0; layer < (layerWidths.length - 1); layer++) {
+			for (int input = 0; input < (layerWidths[layer] + 1); input++) {
+				for (int output = 0; output < layerWidths[layer+1]; output++) {
+					setWeight(layer,input,output, values[index++]);
+				}
+			}
+		}
+	}
+	
+	public void scramble(Random rng) {
+		setNetToRandom(rng);
+	}
+
 	
 	public void setInputs(double[] netInput){
 		layer[0].setInputs(netInput);
 	}
 	
-	private void setNetToRandom() {
+	private void setNetToRandom(Random rng) {
 		for (int layer = 0; layer < (layerWidths.length - 1); layer++) {
 			for (int input = 0; input < (layerWidths[layer] + 1); input++) {
 				for (int output = 0; output < layerWidths[layer+1]; output++) {
@@ -87,6 +143,11 @@ public class Network {
 		Weight w = weight[layer];
 		w.setWeight(input,output,value);
 	}
+	
+	private double getWeight(int layer, int input, int output) {
+		Weight w = weight[layer];
+		return w.getWeight(input, output);
+	}
 
 	private class Layer {
 		
@@ -126,16 +187,6 @@ public class Network {
 		public double getWeight(int input, int output) {
 			return values[input][output];
 		}
-	}
-
-	public void scramble(Random rng2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public Network cross(Network parent2, Random rng2) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
