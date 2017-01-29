@@ -2,6 +2,7 @@ package org.weymouth.watchmaker;
 
 import org.uncommons.watchmaker.framework.PopulationData;
 import org.uncommons.watchmaker.swing.evolutionmonitor.EvolutionMonitor;
+import org.weymouth.ants.Network;
 
 public class NetworkEvolutionObserver extends EvolutionMonitor<Network> {
 

@@ -5,6 +5,7 @@ import java.util.Random;
 
 import org.uncommons.maths.random.Probability;
 import org.uncommons.watchmaker.framework.EvolutionaryOperator;
+import org.weymouth.ants.Network;
 
 public class NetworkMutation implements EvolutionaryOperator<Network> {
 	
@@ -16,9 +17,9 @@ public class NetworkMutation implements EvolutionaryOperator<Network> {
 
 	@Override
 	public List<Network> apply(List<Network> list, Random rng) {
-		for (Network f: list) {
+		for (Network net: list) {
 			if (p.nextEvent(rng)){
-				f.mutate(rng);
+				net.mutate(rng);
 			}			
 		}
 		return list;

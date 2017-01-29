@@ -5,6 +5,8 @@ import java.util.Random;
 
 import org.uncommons.maths.random.Probability;
 import org.uncommons.watchmaker.framework.EvolutionaryOperator;
+import org.weymouth.ants.AntWorld;
+import org.weymouth.ants.Network;
 
 public class NetworkReplace implements EvolutionaryOperator<Network> {
 
@@ -18,7 +20,7 @@ public class NetworkReplace implements EvolutionaryOperator<Network> {
 	public List<Network> apply(List<Network> list, Random rng) {
 		for (int i = 0; i < list.size(); i++) {
 			if (p.nextEvent(rng)){
-				Network f = new Network(rng);
+				Network f = new Network(rng, AntWorld.BRAIN_LAYER_WIDTHS);
 				list.add(i,f);
 				list.remove(i+1);
 			}						

@@ -10,7 +10,6 @@ import org.weymouth.ants.Network;
 public class NetworkController {
 	
 	private EvolutionMonitor<Network> monitor;
-	private TargetNetwork targetNetwork = new TargetNetwork();
 
 	public JPanel getJPanel() {
 		JPanel ret = new JPanel();
@@ -37,10 +36,6 @@ public class NetworkController {
                 frame.setVisible(true);
             }
         });
-	}
-
-	public TargetNetwork getTargetNetwork() {
-		return targetNetwork;
 	}
 
 	public void setupGui() {

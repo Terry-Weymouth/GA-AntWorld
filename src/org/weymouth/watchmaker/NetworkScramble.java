@@ -5,6 +5,7 @@ import java.util.Random;
 
 import org.uncommons.maths.random.Probability;
 import org.uncommons.watchmaker.framework.EvolutionaryOperator;
+import org.weymouth.ants.Network;
 
 public class NetworkScramble implements EvolutionaryOperator<Network> {
 

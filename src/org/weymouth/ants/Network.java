@@ -1,15 +1,17 @@
 package org.weymouth.ants;
 
 import java.util.List;
+import java.util.Random;
 
 public class Network {
 
-	int[] layerWidths;
-	Layer[] layer;
-	Weight[] weight;
+	private Random rng;
+	private int[] layerWidths;
+	private Layer[] layer;
+	private Weight[] weight;
 	
-	public Network(int[] layerWidths){
-
+	public Network(Random rng,int[] layerWidths){
+		this.rng = rng;
 		this.layerWidths = layerWidths;
 		layer = new Layer[layerWidths.length];
 		weight = new Weight[layerWidths.length - 1];
@@ -22,39 +24,34 @@ public class Network {
 			weight[layer] = new Weight(layerWidths[layer]+1,layerWidths[layer+1]);
 		}
 		
+		setNetToRandom();
+		
+	}
+	
+	public List<Double> getParameters() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void mutate(Random rng) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	public void setInputs(double[] netInput){
 		layer[0].setInputs(netInput);
 	}
 	
-	public void setNetToRandom() {
+	private void setNetToRandom() {
 		for (int layer = 0; layer < (layerWidths.length - 1); layer++) {
 			for (int input = 0; input < (layerWidths[layer] + 1); input++) {
 				for (int output = 0; output < layerWidths[layer+1]; output++) {
-					setWeight(layer,input,output, (2*Math.random() - 1.0));
+					setWeight(layer,input,output, (2*rng.nextDouble() - 1.0));
 				}
 			}
 		}
 	}
 	
-
-	public static void main(String[] args) {
-		int layerWidths[] = {5,7,6,1};
-		Network net = new Network(layerWidths);
-		double[] netInput = {0.5,0.5,0.5,0.5,0.5};
-		net.setInputs(netInput);
-		net.setNetToRandom();
-		net.propogate();
-		double[] output = net.output();
-		System.out.print("Output = ");
-		for (int i = 0; i < output.length; i++) {
-			if (i > 0) System.out.print(", ");
-			System.out.print(output[i]);
-		}
-		System.out.println();
-	}
-
 	public double[] output() {
 		return layer[layer.length - 1].getValues();
 	}
@@ -63,7 +60,7 @@ public class Network {
 		return layer[0].getValues();
 	}
 
-	void propogate() {
+	public void propogate() {
 		double [] input;
 		double [] output;
 		for (int l = 0; l < (layer.length - 1); l++) {
@@ -131,7 +128,12 @@ public class Network {
 		}
 	}
 
-	public List<Double> getParameters() {
+	public void scramble(Random rng2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Network cross(Network parent2, Random rng2) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -35,22 +35,8 @@ public class AntBrain {
 		return speed;
 	}
 
-	public void scramble() {
-		network.setNetToRandom();
-	}
-	
 	public Network getNetwork(){
 		return network;
-	}
-
-	public static List<AntBrain> starterList() {
-		List<AntBrain> ret = new ArrayList<AntBrain>();
-		for (int i = 0 ; i < AntWorld.NUMBER_OF_BRAINS; i++) {
-			AntBrain b = new AntBrain(new Network(AntWorld.BRAIN_LAYER_WIDTHS));
-			b.scramble();
-			ret.add(b);
-		}
-		return ret;
 	}
 
 }
