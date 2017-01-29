@@ -1,5 +1,7 @@
 package org.weymouth.ants;
 
+import java.util.List;
+
 public class Network {
 
 	int[] layerWidths;
@@ -127,6 +129,11 @@ public class Network {
 		public double getWeight(int input, int output) {
 			return values[input][output];
 		}
+	}
+
+	public List<Double> getParameters() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
