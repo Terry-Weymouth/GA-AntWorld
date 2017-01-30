@@ -88,4 +88,9 @@ public class AntWorld {
 		}
 	}
 
+	public int getScore() {
+		if (g == null) return -1;
+		return g.score();
+	}
+
 }

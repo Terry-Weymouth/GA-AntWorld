@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="lib/uncommons-maths-1.2.1.jar"/>
 	<classpathentry kind="lib" path="lib/watchmaker-framework-0.7.1.jar"/>
 	<classpathentry kind="lib" path="lib/watchmaker-swing-0.7.1.jar"/>
+	<classpathentry kind="lib" path="lib/jfreechart-1.0.13.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

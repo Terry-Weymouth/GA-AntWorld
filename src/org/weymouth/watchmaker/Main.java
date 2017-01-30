@@ -56,16 +56,13 @@ public class Main {
 		
 		boolean naturalFitness = false;		
 		
-//		int generationLimit = 10000;
-//		TerminationCondition t1 = new Stagnation(generationLimit, naturalFitness);
-	
 		double targetFitness = 0.01;
-		TerminationCondition t2 = new TargetFitness(targetFitness,naturalFitness);
+		TerminationCondition condition = new TargetFitness(targetFitness,naturalFitness);
 		
-		int populationSize = 1000;
-		int eliteCount = 5;
+		int populationSize = 40;
+		int eliteCount = 4;
 		
-		engine.evolve(populationSize,eliteCount,t2);
+		engine.evolve(populationSize,eliteCount,condition);
 	        
 	}
 

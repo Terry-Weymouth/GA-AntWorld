@@ -3,13 +3,15 @@ package org.weymouth.watchmaker;
 import java.util.List;
 
 import org.uncommons.watchmaker.framework.FitnessEvaluator;
+import org.weymouth.ants.AntWorldInterface;
 import org.weymouth.ants.Network;
 
 public class NetworkFitnessEvaluator implements FitnessEvaluator<Network> {
 
 	@Override
-	public double getFitness(Network fn, List<? extends Network> list) {
-		return 0.0;
+	public double getFitness(Network net, List<? extends Network> list) {
+		int score = AntWorldInterface.getInterface().evaluate(net);
+		return (double)score;
 	}
 
 	@Override

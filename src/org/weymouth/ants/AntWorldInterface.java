@@ -14,32 +14,56 @@ import org.weymouth.ants.graphics.AnimatedDrawingPanel;
 
 public class AntWorldInterface {
 
-	final AntWorld antWorld = new AntWorld();
-	final AntDisplay display = new AntDisplay();
+	private final static AntWorldInterface theInterface = new AntWorldInterface();
+	private AntWorld theWorld  = new AntWorld();
+	private	AntDisplay display = new AntDisplay();
+	private AnimatedDrawingPanel drawer = null;
+	private AnimatedDrawing brainCycleDrawer = null;
 
-	public void runWith(final AntBrain brain) {
+	public static AntWorldInterface getInterface() { return theInterface; }
+	
+	private AntWorldInterface(){
+		initInterface();
+	}
+	
+	public int evaluate(Network net) {
+		setNetwork(net);
+		runSimulation();
+		return getScore();
+	}
 
-		antWorld.setBrain(brain);
-		
-		AnimatedDrawing brainCycleDrawer = new AnimatedDrawing() {
+
+	private void setNetwork(Network network) {
+		theWorld.setBrain(new AntBrain(network));
+	}
+
+	private void runSimulation() {
+		drawer.start();
+	}
+
+	private int getScore() {
+		return theWorld.getScore();
+	}
+
+	private void initInterface() {
+		brainCycleDrawer = new AnimatedDrawing() {
 			
 			@Override
 			public void update() {
-				antWorld.update();
+				theWorld.update();
 			}
 
 			@Override
 			public void draw(Graphics g) {
-				if (antWorld.isRunning()) {
-					display.drawWorld(g,antWorld);
+				if (theWorld.isRunning()) {
+					display.drawWorld(g,theWorld);
 				}
 			}
 		};
-		
 		brainCycleDrawer.setSize(new Dimension(AntWorld.WIDTH, AntWorld.HEIGHT));
 		
-		final AnimatedDrawingPanel drawer = 
-				new AnimatedDrawingPanel(brainCycleDrawer);
+		 
+		drawer = new AnimatedDrawingPanel(brainCycleDrawer);
 				
 		final JPanel panel = new JPanel(new BorderLayout());
 		Dimension d = drawer.getSize();
@@ -60,6 +84,6 @@ public class AntWorldInterface {
 				frame.setVisible(true);
 			}
 		});
-		
 	}
+
 }

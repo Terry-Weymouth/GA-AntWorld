@@ -16,7 +16,7 @@ public class AnimatedDrawingPanel extends JPanel implements ActionListener {
 	
 	private Timer timer;
 	private AnimatedDrawing source;
-	private int milliseconds = 15;
+	private int milliseconds = 10;
 	
 	public AnimatedDrawingPanel(AnimatedDrawing source) {
 		this.source = source;
