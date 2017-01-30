@@ -1,4 +1,4 @@
-package org.weymouth.watchmaker;
+package org.weymouth.ants.main;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -16,13 +16,19 @@ import org.uncommons.watchmaker.framework.operators.EvolutionPipeline;
 import org.uncommons.watchmaker.framework.selection.RouletteWheelSelection;
 import org.uncommons.watchmaker.framework.termination.TargetFitness;
 import org.weymouth.ants.Network;
+import org.weymouth.watchmaker.NetworkController;
+import org.weymouth.watchmaker.NetworkCrossover;
+import org.weymouth.watchmaker.NetworkEvolutionObserver;
+import org.weymouth.watchmaker.NetworkFactory;
+import org.weymouth.watchmaker.NetworkFitnessEvaluator;
+import org.weymouth.watchmaker.NetworkMutation;
+import org.weymouth.watchmaker.NetworkReplace;
+import org.weymouth.watchmaker.NetworkScramble;
 
-public class Main {
-	
-	public static final int NUMBER_OF_PARAMETERS = 4;
+public class WatchmakerMain {
 	
 	public static void main(String[] args) {
-		(new Main()).exec();
+		(new WatchmakerMain()).exec();
 	}
 
 	private void exec() {

@@ -9,7 +9,7 @@ import org.weymouth.ants.Network;
 
 public class NetworkCrossover extends AbstractCrossover<Network> {
 
-	protected NetworkCrossover(int crossoverPoints) {
+	public NetworkCrossover(int crossoverPoints) {
 		super(crossoverPoints);
 	}
 

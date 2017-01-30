@@ -1,6 +1,9 @@
-package org.weymouth.ants.graphics;
+package org.weymouth.ants.main;
 
 import javax.swing.JFrame;
+
+import org.weymouth.ants.graphics.AnimatedDrawingPanel;
+import org.weymouth.ants.graphics.AnimationDemo;
 
 public class DemoMain {
 
