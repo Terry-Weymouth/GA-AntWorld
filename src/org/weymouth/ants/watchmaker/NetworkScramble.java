@@ -1,4 +1,4 @@
-package org.weymouth.watchmaker;
+package org.weymouth.ants.watchmaker;
 
 import java.util.List;
 import java.util.Random;
@@ -7,19 +7,19 @@ import org.uncommons.maths.random.Probability;
 import org.uncommons.watchmaker.framework.EvolutionaryOperator;
 import org.weymouth.ants.Network;
 
-public class NetworkMutation implements EvolutionaryOperator<Network> {
-	
-	private final Probability p;
+public class NetworkScramble implements EvolutionaryOperator<Network> {
 
-	public NetworkMutation(Probability probability) {
+	private final Probability p;
+	
+	public NetworkScramble(Probability probability) {
 		p = probability;
 	}
 
 	@Override
 	public List<Network> apply(List<Network> list, Random rng) {
-		for (Network net: list) {
+		for (Network f: list) {
 			if (p.nextEvent(rng)){
-				net.mutate(rng);
+				f.scramble(rng);
 			}			
 		}
 		return list;

@@ -1,4 +1,4 @@
-package org.weymouth.watchmaker;
+package org.weymouth.ants.watchmaker;
 
 import java.util.List;
 

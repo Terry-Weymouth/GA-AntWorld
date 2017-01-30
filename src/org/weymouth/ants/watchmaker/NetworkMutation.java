@@ -1,29 +1,26 @@
-package org.weymouth.watchmaker;
+package org.weymouth.ants.watchmaker;
 
 import java.util.List;
 import java.util.Random;
 
 import org.uncommons.maths.random.Probability;
 import org.uncommons.watchmaker.framework.EvolutionaryOperator;
-import org.weymouth.ants.AntWorld;
 import org.weymouth.ants.Network;
 
-public class NetworkReplace implements EvolutionaryOperator<Network> {
-
+public class NetworkMutation implements EvolutionaryOperator<Network> {
+	
 	private final Probability p;
 
-	public NetworkReplace(Probability probability) {
+	public NetworkMutation(Probability probability) {
 		p = probability;
 	}
 
 	@Override
 	public List<Network> apply(List<Network> list, Random rng) {
-		for (int i = 0; i < list.size(); i++) {
+		for (Network net: list) {
 			if (p.nextEvent(rng)){
-				Network f = new Network(rng, AntWorld.BRAIN_LAYER_WIDTHS);
-				list.add(i,f);
-				list.remove(i+1);
-			}						
+				net.mutate(rng);
+			}			
 		}
 		return list;
 	}

@@ -1,4 +1,4 @@
-package org.weymouth.watchmaker;
+package org.weymouth.ants.watchmaker;
 
 import org.uncommons.watchmaker.framework.PopulationData;
 import org.uncommons.watchmaker.swing.evolutionmonitor.EvolutionMonitor;

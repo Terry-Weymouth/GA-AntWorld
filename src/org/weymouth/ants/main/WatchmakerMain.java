@@ -16,14 +16,14 @@ import org.uncommons.watchmaker.framework.operators.EvolutionPipeline;
 import org.uncommons.watchmaker.framework.selection.RouletteWheelSelection;
 import org.uncommons.watchmaker.framework.termination.TargetFitness;
 import org.weymouth.ants.Network;
-import org.weymouth.watchmaker.NetworkController;
-import org.weymouth.watchmaker.NetworkCrossover;
-import org.weymouth.watchmaker.NetworkEvolutionObserver;
-import org.weymouth.watchmaker.NetworkFactory;
-import org.weymouth.watchmaker.NetworkFitnessEvaluator;
-import org.weymouth.watchmaker.NetworkMutation;
-import org.weymouth.watchmaker.NetworkReplace;
-import org.weymouth.watchmaker.NetworkScramble;
+import org.weymouth.ants.watchmaker.NetworkController;
+import org.weymouth.ants.watchmaker.NetworkCrossover;
+import org.weymouth.ants.watchmaker.NetworkEvolutionObserver;
+import org.weymouth.ants.watchmaker.NetworkFactory;
+import org.weymouth.ants.watchmaker.NetworkFitnessEvaluator;
+import org.weymouth.ants.watchmaker.NetworkMutation;
+import org.weymouth.ants.watchmaker.NetworkReplace;
+import org.weymouth.ants.watchmaker.NetworkScramble;
 
 public class WatchmakerMain {
 	
