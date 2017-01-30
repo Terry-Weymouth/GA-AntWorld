@@ -1,4 +1,4 @@
-package org.weymouth.ants;
+package org.weymouth.ants.graphics;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -6,6 +6,12 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+
+import org.weymouth.ants.Ant;
+import org.weymouth.ants.AntWorld;
+import org.weymouth.ants.Compass;
+import org.weymouth.ants.Food;
+import org.weymouth.ants.Location;
 
 public class AntDisplay {
 

@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import org.weymouth.ants.graphics.AnimatedDrawing;
 import org.weymouth.ants.graphics.AnimatedDrawingPanel;
+import org.weymouth.ants.graphics.AntDisplay;
 
 public class AntWorldInterface {
 

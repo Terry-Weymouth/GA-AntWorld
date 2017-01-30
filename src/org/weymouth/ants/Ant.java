@@ -18,9 +18,9 @@ public class Ant {
 	
 	private final int id;
 	
-	Location location = new Location();
+	public Location location = new Location();
 	Location oldLocation = new Location();
-	double heading = 0.0;
+	public double heading = 0.0;
 	double speed = 1.0;
 
 	private int health;
