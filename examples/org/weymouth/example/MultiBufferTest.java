@@ -1,4 +1,4 @@
-package org.weymouth.ants.graphics;
+package org.weymouth.example;
 /*
  * Copyright (c) 1995, 2008, Oracle and/or its affiliates. All rights reserved.
  *
@@ -37,8 +37,14 @@ package org.weymouth.ants.graphics;
  * and flips back and forth between each buffer (each signified by a different
  * color).
  */
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.DisplayMode;
+import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.image.BufferStrategy;
 
 public class MultiBufferTest {

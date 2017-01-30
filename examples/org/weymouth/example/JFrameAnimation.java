@@ -1,4 +1,4 @@
-package org.weymouth.ants.graphics;
+package org.weymouth.example;
 
 import java.awt.Color;
 import java.awt.Dimension;
