@@ -65,10 +65,10 @@ public class WatchmakerMain {
 //		double targetFitness = 0.01;
 //		TerminationCondition condition = new TargetFitness(targetFitness,naturalFitness);
 
-		TerminationCondition condition = new GenerationCount(200);
+		TerminationCondition condition = new GenerationCount(500);
 		
-		int populationSize = 1000;
-		int eliteCount = 20;
+		int populationSize = 100;
+		int eliteCount = 4;
 		
 		engine.evolve(populationSize,eliteCount,condition);
 	        
