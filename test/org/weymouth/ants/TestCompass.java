@@ -122,5 +122,36 @@ public class TestCompass {
 		double y = Compass.dyForThetaR(angle,r);
 		assertEquals(expectedY, y, ERROR_BAR);
 	}
+	
+	@Test
+	public void wrappingAngle1() {
+		double expectedAngle = 45.0;
+		double angle = expectedAngle + 360.0;
+		angle = Compass.rewrap(angle);
+		assertEquals(expectedAngle,angle, ERROR_BAR);
+	}
 
+	@Test
+	public void wrappingAngle2() {
+		double expectedAngle = 45.0;
+		double angle = expectedAngle - 360.0;
+		angle = Compass.rewrap(angle);
+		assertEquals(expectedAngle,angle, ERROR_BAR);
+	}
+
+	@Test
+	public void wrappingAngle3() {
+		double expectedAngle = -45.0;
+		double angle = expectedAngle + 360.0;
+		angle = Compass.rewrap(angle);
+		assertEquals(expectedAngle,angle, ERROR_BAR);
+	}
+
+	@Test
+	public void wrappingAngle4() {
+		double expectedAngle = -45.0;
+		double angle = expectedAngle - 360.0;
+		angle = Compass.rewrap(angle);
+		assertEquals(expectedAngle,angle, ERROR_BAR);
+	}
 }

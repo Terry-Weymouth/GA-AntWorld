@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Random;
 
 public class Network {
+	
+	static final double WEIGHT_BAND = 20.0;
 
 	private int[] layerWidths;
 	private Layer[] layer;
@@ -58,11 +60,11 @@ public class Network {
 		double[] values = unwrapWeights();
 		int valueCount = values.length;
 		int point = rng.nextInt(valueCount);
-		values[point] = (rng.nextDouble() * 2.0) - 1.0;
+		values[point] = randomWeightValue(rng);
 		wrapWeights(values);
 	}
 	
-	private double[] unwrapWeights() {
+	double[] unwrapWeights() {
 		List<Double> buffer = new ArrayList<Double>();
 		for (int layer = 0; layer < (layerWidths.length - 1); layer++) {
 			for (int input = 0; input < (layerWidths[layer] + 1); input++) {
@@ -78,7 +80,7 @@ public class Network {
 		return out;
 	}
 
-	private void wrapWeights(double[] values) {
+	void wrapWeights(double[] values) {
 		int index = 0;
 		for (int layer = 0; layer < (layerWidths.length - 1); layer++) {
 			for (int input = 0; input < (layerWidths[layer] + 1); input++) {
@@ -102,12 +104,16 @@ public class Network {
 		for (int layer = 0; layer < (layerWidths.length - 1); layer++) {
 			for (int input = 0; input < (layerWidths[layer] + 1); input++) {
 				for (int output = 0; output < layerWidths[layer+1]; output++) {
-					setWeight(layer,input,output, (2*rng.nextDouble() - 1.0));
+					setWeight(layer,input,output, randomWeightValue(rng));
 				}
 			}
 		}
 	}
 	
+	double randomWeightValue(Random rng) {
+		return (2.0*WEIGHT_BAND*rng.nextDouble() - WEIGHT_BAND);
+	}
+
 	public double[] output() {
 		return layer[layer.length - 1].getValues();
 	}
@@ -140,6 +146,8 @@ public class Network {
 	}
 
 	private void setWeight(int layer, int input, int output, double value) {
+		if (value < (-WEIGHT_BAND)) value = -WEIGHT_BAND;
+		if (value > WEIGHT_BAND) value = WEIGHT_BAND;
 		Weight w = weight[layer];
 		w.setWeight(input,output,value);
 	}
