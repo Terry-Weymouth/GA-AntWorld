@@ -1,8 +1,22 @@
 package org.weymouth.example;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Insets;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.ProgressMonitor;
+import javax.swing.Timer;
+
+import processing.core.PApplet;
 
 //based in part on ProgressMonitorDemo...
 /* From http://java.sun.com/docs/books/tutorial/index.html */
@@ -45,7 +59,7 @@ import javax.swing.*;
  *   LongTask.java
  *   SwingWorker.java
  */
-public class ProcessingTestController extends JPanel implements ActionListener {
+public class ProcessingFlockController extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 6312553427468914037L;
 
 	public final static int ONE_SECOND = 1000;
@@ -53,13 +67,13 @@ public class ProcessingTestController extends JPanel implements ActionListener {
 	private ProgressMonitor progressMonitor;
 	private Timer timer;
 	private JButton startButton;
-	private LongTask task;
+	private ProcessingFlock task;
 	private JTextArea taskOutput;
 	private String newline = "\n";
 
-	public ProcessingTestController() {
+	public ProcessingFlockController(ProcessingFlock task) {
 		super(new BorderLayout());
-		task = new LongTask();
+		this.task = task;
 
 		// Create the demo's UI.
 		startButton = new JButton("Start");
@@ -84,7 +98,7 @@ public class ProcessingTestController extends JPanel implements ActionListener {
 	 */
 	class TimerListener implements ActionListener {
 		public void actionPerformed(ActionEvent evt) {
-			progressMonitor.setProgress(task.getCurrent());
+			progressMonitor.setProgress(task.getCurrentCompletionCount());
 			String s = task.getMessage();
 			if (s != null) {
 				progressMonitor.setNote(s);
@@ -93,7 +107,7 @@ public class ProcessingTestController extends JPanel implements ActionListener {
 			}
 			if (progressMonitor.isCanceled() || task.isDone()) {
 				progressMonitor.close();
-				task.stop();
+				task.pause();
 				Toolkit.getDefaultToolkit().beep();
 				timer.stop();
 				if (task.isDone()) {
@@ -111,13 +125,13 @@ public class ProcessingTestController extends JPanel implements ActionListener {
 	 * Called when the user presses the start button.
 	 */
 	public void actionPerformed(ActionEvent evt) {
-		progressMonitor = new ProgressMonitor(ProcessingTestController.this, "Running a Long Task", "", 0,
+		progressMonitor = new ProgressMonitor(ProcessingFlockController.this, "Running a Long Task", "", 0,
 				task.getLengthOfTask());
 		progressMonitor.setProgress(0);
 		progressMonitor.setMillisToDecideToPopup(2 * ONE_SECOND);
 
 		startButton.setEnabled(false);
-		task.go();
+		task.resume();
 		timer.start();
 	}
 
@@ -125,16 +139,19 @@ public class ProcessingTestController extends JPanel implements ActionListener {
 	 * Create the GUI and show it. For thread safety, this method should be
 	 * invoked from the event-dispatching thread.
 	 */
-	private static void createAndShowGUI() {
+	private static void createAndShowGUI(final ProcessingFlock app) {
 		// Make sure we have nice window decorations.
 		JFrame.setDefaultLookAndFeelDecorated(true);
 
 		// Create and set up the window.
-		JFrame frame = new JFrame("ProgressMonitorDemo");
+		JFrame frame = new JFrame("ProcessingFlock Controller");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		// Initialize the processing action
+		PApplet.runSketch(new String[]{"dummy"},(PApplet)app);
 
 		// Create and set up the content pane.
-		JComponent newContentPane = new ProgressMonitorDemo();
+		JComponent newContentPane = new ProcessingFlockController(app);
 		newContentPane.setOpaque(true); // content panes must be opaque
 		frame.setContentPane(newContentPane);
 
@@ -148,7 +165,8 @@ public class ProcessingTestController extends JPanel implements ActionListener {
 		// creating and showing this application's GUI.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				createAndShowGUI();
+				ProcessingFlock app = new ProcessingFlock();
+				createAndShowGUI(app);
 			}
 		});
 	}

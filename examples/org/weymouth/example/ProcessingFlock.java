@@ -9,15 +9,39 @@ import processing.event.MouseEvent;
 
 public class ProcessingFlock extends PApplet {
 
+	private static final int MAX_NUMBER_OF_STEPS = 1000;
+
 	private Flock flock;
 	
-	private PSurface s; 
+	private PSurface s;
+	
+	private int numberOfSteps = 0;
 
-	@SuppressWarnings("static-access")
 	public void settings() {
 		size(640, 360);
 	}
 	
+	public void pause() {
+		numberOfSteps = MAX_NUMBER_OF_STEPS + 1;
+		super.pause();
+		if (s != null) {
+			s.pauseThread();
+			s.setVisible(false);
+		}
+	}
+	
+	public void resume() {
+		numberOfSteps = 0;
+		super.resume();
+		if (s != null) {
+			s.resumeThread();
+			s.setVisible(true);
+		}
+	}
+	
+	public int getCurrentCompletionCount() {
+		return numberOfSteps;
+	}
 
 	public void setup() {
 		flock = new Flock();
@@ -26,31 +50,44 @@ public class ProcessingFlock extends PApplet {
 			flock.addBoid(new Boid(this, width / 2, height / 2));
 		}
 		s = this.getSurface();
-		if (s != null)
+		if (s != null) {
 			System.out.println(this.getSurface().getClass().getName());
+			pause();
+		}
 		else
 			System.out.println("Surface is null");
 	}
+	
+	public boolean isDone() {
+		return (numberOfSteps > MAX_NUMBER_OF_STEPS);
+	}
 
 	public void draw() {
+		numberOfSteps++;
 		background(50);
 		flock.run();
-		
 	}
 	
 	public void mousePressed(MouseEvent event) {
 		if (event.isShiftDown()) {
-			s.pauseThread();
-			s.setVisible(false);
+			pause();
 		} else {
 			flock.addBoid(new Boid(this, mouseX, mouseY));
 		}
 	}
 
 	public static void main(String[] args) {
-		args = new String[] {PApplet.ARGS_HIDE_STOP,PApplet.ARGS_EXTERNAL};
 		PApplet.main("org.weymouth.example.ProcessingFlock",args);
 	}
+
+	public String getMessage() {
+		return "Number of steps: " + getCurrentCompletionCount() + " out of " + getLengthOfTask();
+	}
+
+	public int getLengthOfTask() {
+		return MAX_NUMBER_OF_STEPS;
+	}
+
 }
 
 // The Flock (a list of Boid objects)
@@ -101,8 +138,8 @@ class Boid {
 		// velocity = PVector.random2D();
 
 		// Leaving the code temporarily this way so that this example runs in JS
-		float angle = base.random(base.TWO_PI);
-		velocity = new PVector(base.cos(angle), base.sin(angle));
+		float angle = base.random(PApplet.TWO_PI);
+		velocity = new PVector(PApplet.cos(angle), PApplet.sin(angle));
 
 		position = new PVector(x, y);
 		r = 2.0f;
@@ -171,7 +208,8 @@ class Boid {
 
 	void render() {
 		// Draw a triangle rotated in the direction of velocity
-		float theta = velocity.heading2D() + base.radians(90);
+		@SuppressWarnings("deprecation")
+		float theta = velocity.heading2D() + PApplet.radians(90);
 		// heading2D() above is now heading() but leaving old syntax until
 		// Processing.js catches up
 
@@ -180,7 +218,7 @@ class Boid {
 		base.pushMatrix();
 		base.translate(position.x, position.y);
 		base.rotate(theta);
-		base.beginShape(base.TRIANGLES);
+		base.beginShape(PApplet.TRIANGLES);
 		base.vertex(0, -r * 2);
 		base.vertex(-r, r * 2);
 		base.vertex(r, r * 2);
@@ -188,7 +226,7 @@ class Boid {
 		base.popMatrix();
 	}
 
-	// Wraparound
+	// Wrap around
 	void borders() {
 		if (position.x < -r)
 			position.x = base.width + r;
