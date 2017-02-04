@@ -60,7 +60,14 @@ public class Network {
 		double[] values = unwrapWeights();
 		int valueCount = values.length;
 		int point = rng.nextInt(valueCount);
-		values[point] = randomWeightValue(rng);
+		double v = values[point];
+		double delta = rng.nextDouble()*(WEIGHT_BAND/5.0) - (WEIGHT_BAND/10.0);
+		double probe = v + delta;
+		while ((probe > WEIGHT_BAND) || (probe < -WEIGHT_BAND)){
+			delta = rng.nextDouble()*(WEIGHT_BAND/5.0) - (WEIGHT_BAND/10.0);
+			probe = v + delta;
+		}
+		values[point] = probe;
 		wrapWeights(values);
 	}
 	

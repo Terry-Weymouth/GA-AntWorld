@@ -7,7 +7,7 @@ public class AntWorldInterface {
 
 	public static AntWorldInterface getInterface() { return theInterface; }
 
-	private static int NUMBER_OF_PASSES = 3;
+	private static int NUMBER_OF_PASSES = 7;
 	
 	public int evaluate(Network net) {
 		AntBrain antBrain = new AntBrain(net);
