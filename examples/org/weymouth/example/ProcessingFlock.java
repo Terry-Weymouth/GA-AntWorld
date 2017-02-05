@@ -44,11 +44,7 @@ public class ProcessingFlock extends PApplet {
 	}
 
 	public void setup() {
-		flock = new Flock();
-		// Add an initial set of boids into the system
-		for (int i = 0; i < 150; i++) {
-			flock.addBoid(new Boid(this, width / 2, height / 2));
-		}
+		resetState();
 		s = this.getSurface();
 		if (s != null) {
 			System.out.println(this.getSurface().getClass().getName());
@@ -56,6 +52,14 @@ public class ProcessingFlock extends PApplet {
 		}
 		else
 			System.out.println("Surface is null");
+	}
+	
+	public void resetState() {
+		flock = new Flock();
+		// Add an initial set of boids into the system
+		for (int i = 0; i < 150; i++) {
+			flock.addBoid(new Boid(this, width / 2, height / 2));
+		}
 	}
 	
 	public boolean isDone() {

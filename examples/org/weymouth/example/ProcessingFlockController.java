@@ -131,6 +131,7 @@ public class ProcessingFlockController extends JPanel implements ActionListener 
 		progressMonitor.setMillisToDecideToPopup(2 * ONE_SECOND);
 
 		startButton.setEnabled(false);
+		task.resetState();
 		task.resume();
 		timer.start();
 	}
