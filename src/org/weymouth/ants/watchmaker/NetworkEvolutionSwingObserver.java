@@ -6,8 +6,8 @@ import org.weymouth.ants.Network;
 public class NetworkEvolutionSwingObserver
 		extends EvolutionMonitor<Network>{
 
-	public NetworkEvolutionSwingObserver() {
-		super(new NetworkRenderer(),false);
+	public NetworkEvolutionSwingObserver(NetworkController controller){
+		super(new NetworkRenderer(controller),false);
 	}
 	
 }
