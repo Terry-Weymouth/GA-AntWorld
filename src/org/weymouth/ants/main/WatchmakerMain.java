@@ -16,9 +16,9 @@ import org.uncommons.watchmaker.framework.operators.EvolutionPipeline;
 import org.uncommons.watchmaker.framework.selection.RouletteWheelSelection;
 import org.uncommons.watchmaker.framework.termination.GenerationCount;
 import org.weymouth.ants.Network;
-import org.weymouth.ants.watchmaker.NetworkController;
 import org.weymouth.ants.watchmaker.NetworkCrossover;
 import org.weymouth.ants.watchmaker.NetworkEvolutionObserver;
+import org.weymouth.ants.watchmaker.NetworkEvolutionSwingObserver;
 import org.weymouth.ants.watchmaker.NetworkFactory;
 import org.weymouth.ants.watchmaker.NetworkFitnessEvaluator;
 import org.weymouth.ants.watchmaker.NetworkMutation;
@@ -32,10 +32,6 @@ public class WatchmakerMain {
 	}
 
 	private void exec() {
-		
-		NetworkController controller = new NetworkController();
-		
-		controller.setupGui();
 		
 		CandidateFactory<Network> candidateFactory = new NetworkFactory();
 		NetworkFitnessEvaluator fitnessEvaluator = new NetworkFitnessEvaluator();
@@ -58,7 +54,7 @@ public class WatchmakerMain {
                 rng);
 	
 		engine.addEvolutionObserver(new NetworkEvolutionObserver(fitnessEvaluator));
-		engine.addEvolutionObserver(controller.getEvolutionObserver());
+		engine.addEvolutionObserver(new NetworkEvolutionSwingObserver());
 		
 //		boolean naturalFitness = true;		
 		

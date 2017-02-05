@@ -8,14 +8,10 @@ import org.uncommons.watchmaker.framework.interactive.Renderer;
 import org.weymouth.ants.Network;
 
 public class NetworkRenderer implements Renderer<Network, JComponent> {
-	
-	@SuppressWarnings("unused")
-	private final NetworkController controller;
-	
+		
 	private final JComponent itsComponent;
 	
-	public NetworkRenderer(NetworkController controller) {
-		this.controller = controller;
+	public NetworkRenderer() {
 		itsComponent=setup();
 	}
 	
