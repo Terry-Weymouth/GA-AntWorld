@@ -2,9 +2,9 @@ package org.weymouth.ants.main;
 
 import java.util.Random;
 
-import org.weymouth.ants.AntWorld;
-import org.weymouth.ants.AntWorldInterface;
-import org.weymouth.ants.Network;
+import org.weymouth.ants.core.AntWorld;
+import org.weymouth.ants.core.AntWorldInterface;
+import org.weymouth.ants.core.Network;
 
 public class FitnessTestMain {
 	

@@ -1,4 +1,4 @@
-package org.weymouth.ants.process3;
+package org.weymouth.ants.core;
 
 import java.util.Stack;
 

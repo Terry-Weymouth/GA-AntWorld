@@ -1,4 +1,4 @@
-package org.weymouth.ants;
+package org.weymouth.ants.core;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,12 +36,12 @@ public class Ant {
 	}
 
 	public void update() {
-		brain.action(location,heading,sensor.getSensoryInput());
+		brain.action(location, heading, sensor.getSensoryInput());
 		heading = brain.getHeading();
 		speed = brain.getSpeed();
 //		System.out.println(this);
 	}
-	
+
 	public AntBrain getBrain(){
 		return brain;
 	}
@@ -87,7 +87,7 @@ public class Ant {
 	public void sense(List<Food> meals) {
 		sensor.look(meals);
 	}
-	
+
 	public String toString() {
 		String format = "Inputs(%d): %s; heading = %f , speed = %f";
 		return String.format(format, id, sensor.toString(), heading, speed);
@@ -105,7 +105,7 @@ public class Ant {
 //		return Math.sqrt(dx*dx + dy*dy);
 //	}
 //
-//	private void jitter() {
+//	public void jitter() {
 //		double x = location.x;
 //		double y = location.y;
 //		Location target = Util.randomLocation();

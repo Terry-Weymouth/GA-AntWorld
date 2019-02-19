@@ -7,11 +7,11 @@ import java.awt.Polygon;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
-import org.weymouth.ants.Ant;
-import org.weymouth.ants.AntWorld;
-import org.weymouth.ants.Compass;
-import org.weymouth.ants.Food;
-import org.weymouth.ants.Location;
+import org.weymouth.ants.core.Ant;
+import org.weymouth.ants.core.AntWorld;
+import org.weymouth.ants.core.Compass;
+import org.weymouth.ants.core.Food;
+import org.weymouth.ants.core.Location;
 
 public class AntDisplay {
 

@@ -3,9 +3,9 @@ package org.weymouth.ants.watchmaker;
 import java.util.List;
 
 import org.uncommons.watchmaker.framework.FitnessEvaluator;
-import org.weymouth.ants.AntBrain;
-import org.weymouth.ants.AntWorld;
-import org.weymouth.ants.Network;
+import org.weymouth.ants.core.AntBrain;
+import org.weymouth.ants.core.AntWorld;
+import org.weymouth.ants.core.Network;
 
 public class NetworkFitnessEvaluator implements FitnessEvaluator<Network> {
 

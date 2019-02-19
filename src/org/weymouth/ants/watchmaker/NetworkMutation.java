@@ -5,7 +5,7 @@ import java.util.Random;
 
 import org.uncommons.maths.random.Probability;
 import org.uncommons.watchmaker.framework.EvolutionaryOperator;
-import org.weymouth.ants.Network;
+import org.weymouth.ants.core.Network;
 
 public class NetworkMutation implements EvolutionaryOperator<Network> {
 	

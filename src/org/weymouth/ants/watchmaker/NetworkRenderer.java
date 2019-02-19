@@ -5,7 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.uncommons.watchmaker.framework.interactive.Renderer;
-import org.weymouth.ants.Network;
+import org.weymouth.ants.core.Network;
 
 public class NetworkRenderer implements Renderer<Network, JComponent> {
 	

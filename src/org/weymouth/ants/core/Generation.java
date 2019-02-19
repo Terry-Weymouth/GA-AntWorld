@@ -1,12 +1,14 @@
-package org.weymouth.ants;
+package org.weymouth.ants.core;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Generation {
 	
+	private int rounds = 0;
 	private int count = 0;
 	private int totalScore = 0;
+	private int averageScore = 0;
 	
 	private List<Ant> ants = new ArrayList<Ant>();
 	private List<Food> meals = new ArrayList<Food>();
@@ -17,6 +19,10 @@ public class Generation {
 	public Generation(AntWorld w, AntBrain b) {
 		world = w;
 		brain = b;
+		nextRound();
+	}
+
+	private void nextRound() {
 		count = 0;
 		totalScore = 0;
 		ants = new ArrayList<Ant>();
@@ -29,11 +35,24 @@ public class Generation {
 		}
 	}
 	
+	private void printRound(){
+		System.out.println ("round: " + rounds + ", score: " + totalScore 
+				+ ", avg: " + averageScore);
+	}
+
 	public boolean oneStep() {
 		updateAll();
 		count ++;
-		if (ants.size() == 0) {
-			return false;
+		if ((count % 100) == 0) {
+			if (ants.size() == 0) {
+				averageScore = (averageScore * (rounds) + totalScore)/(rounds + 1);
+				printRound();
+				rounds++;
+				if (rounds >= AntWorld.NUMBER_OF_ROUNDS) {
+					return false;
+				}
+				nextRound();
+			}
 		}
 		return true;
 	}
@@ -45,7 +64,7 @@ public class Generation {
 			ant.update();
 			ant.move();
 			ant.feed(meals);
-			if (ant.getHealth() <= 0) {
+			if (ant.getHealth() < 0) {
 				dead.add(ant);
 				updateScore();
 			} 
@@ -67,6 +86,10 @@ public class Generation {
 	
 	public int score() {
 		return totalScore;
+	}
+
+	public int getAverageScore() {
+		return averageScore;
 	}
 
 }

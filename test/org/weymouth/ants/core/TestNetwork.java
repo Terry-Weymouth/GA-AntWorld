@@ -1,10 +1,11 @@
-package org.weymouth.ants;
+package org.weymouth.ants.core;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.Random;
 
 import org.junit.Test;
+import org.weymouth.ants.core.Network;
 
 public class TestNetwork {
 	
@@ -37,7 +38,7 @@ public class TestNetwork {
 
 	@Test
 	public void setWeights(){
-		Network net = new Network(zero,net_layers);
+		Network net = new Network(zero, net_layers);
 		int l = 0;
 		for (int li = 0; li < net_layers.length - 1; li++) {
 			l += (net_layers[li] + 1) * net_layers[li+1];

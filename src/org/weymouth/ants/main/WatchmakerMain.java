@@ -14,12 +14,13 @@ import org.uncommons.watchmaker.framework.SelectionStrategy;
 import org.uncommons.watchmaker.framework.TerminationCondition;
 import org.uncommons.watchmaker.framework.operators.EvolutionPipeline;
 import org.uncommons.watchmaker.framework.selection.RouletteWheelSelection;
-import org.uncommons.watchmaker.framework.termination.GenerationCount;
-import org.weymouth.ants.Network;
+// import org.uncommons.watchmaker.framework.termination.GenerationCount;
+import org.uncommons.watchmaker.framework.termination.TargetFitness;
+import org.weymouth.ants.core.Network;
 import org.weymouth.ants.watchmaker.NetworkController;
 import org.weymouth.ants.watchmaker.NetworkCrossover;
 import org.weymouth.ants.watchmaker.NetworkEvolutionObserver;
-import org.weymouth.ants.watchmaker.NetworkEvolutionSwingObserver;
+// import org.weymouth.ants.watchmaker.NetworkEvolutionSwingObserver;
 import org.weymouth.ants.watchmaker.NetworkFactory;
 import org.weymouth.ants.watchmaker.NetworkFitnessEvaluator;
 import org.weymouth.ants.watchmaker.NetworkMutation;
@@ -61,12 +62,12 @@ public class WatchmakerMain {
 		engine.addEvolutionObserver(new NetworkEvolutionObserver(fitnessEvaluator));
 		engine.addEvolutionObserver(controller.getEvolutionObserver());
 		
-//		boolean naturalFitness = true;		
+		boolean naturalFitness = true;		
 		
-//		double targetFitness = 0.01;
-//		TerminationCondition condition = new TargetFitness(targetFitness,naturalFitness);
+		double targetFitness = 0.01;
+		TerminationCondition condition = new TargetFitness(targetFitness, naturalFitness);
 
-		TerminationCondition condition = new GenerationCount(400);
+		// TerminationCondition condition = new GenerationCount(400);
 		
 		int populationSize = 100;
 		int eliteCount = 10;

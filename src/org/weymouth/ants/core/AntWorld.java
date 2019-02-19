@@ -1,11 +1,12 @@
-package org.weymouth.ants.process3;
+package org.weymouth.ants.core;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.event.MouseEvent;
 
-public class AntWorld extends PApplet{
+public class AntWorld extends PApplet {
 	
 	public static double SENSING_RADIUS = 20.0;
 	public static int NUMBER_OF_BRAINS = 20;
@@ -35,9 +36,6 @@ public class AntWorld extends PApplet{
 		if (currentBrainIndex < brains.size()) {
 			AntBrain b = brains.get(currentBrainIndex);
 			g = new Generation(this, b);
-		}
-		else {
-			System.exit(0);
 		}
 	}
 	
@@ -106,6 +104,35 @@ public class AntWorld extends PApplet{
 		if ( (x < 0) || (x > WIDTH) || (y < 0) || (y > HEIGHT) ) {
 			ant.heading = Compass.headingForDelta(tx - x , ty - y);
 		}
+	}
+
+	public List<Food> getMeals() {
+		if (g == null) {
+			return new ArrayList<Food>();
+		}
+		return g.getMeals();
+	}
+
+	public List<Ant> getAnts() {
+		if (g == null) {
+			return new ArrayList<Ant>();
+		}
+		return g.getAnts();
+	}
+
+	public void setBrain(AntBrain antBrain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public boolean update() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public int getScore() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }

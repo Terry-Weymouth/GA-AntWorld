@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 
 import org.uncommons.watchmaker.framework.EvolutionObserver;
 import org.uncommons.watchmaker.swing.evolutionmonitor.EvolutionMonitor;
-import org.weymouth.ants.Network;
+import org.weymouth.ants.core.Network;
 
 public class NetworkController {
 	

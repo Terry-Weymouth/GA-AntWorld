@@ -1,4 +1,8 @@
-package org.weymouth.ants;
+package org.weymouth.ants.core;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class AntBrain {
 	
@@ -31,8 +35,22 @@ public class AntBrain {
 		return speed;
 	}
 
+	public void scramble() {
+		network.scramble(new Random());
+	}
+	
 	public Network getNetwork(){
 		return network;
+	}
+
+	public static List<AntBrain> starterList() {
+		List<AntBrain> ret = new ArrayList<AntBrain>();
+		for (int i = 0 ; i < AntWorld.NUMBER_OF_BRAINS; i++) {
+			AntBrain b = new AntBrain(new Network(new Random(), AntWorld.BRAIN_LAYER_WIDTHS));
+			b.scramble();
+			ret.add(b);
+		}
+		return ret;
 	}
 
 }
