@@ -20,6 +20,10 @@ public class AnimatedDrawingPanel extends JPanel implements ActionListener {
 	
 	public AnimatedDrawingPanel(AnimatedDrawing source) {
 		this.source = source;
+		System.out.println(source);
+		System.out.println(source.getSize());
+		System.exit(255);
+		System.out.println(source.getSize().getHeight());
         setBorder(BorderFactory.createLineBorder(Color.black));
 		setLayout(new BorderLayout());
         setBackground(Color.BLACK);

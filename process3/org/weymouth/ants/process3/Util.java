@@ -77,5 +77,13 @@ public class Util {
 				10 + randomGenerator.nextInt(AntWorld.HEIGHT-20),
 				10 + randomGenerator.nextInt(AntWorld.WIDTH-20));
 	}
+	
+	public static double headingTowards(double x, double y) {
+		double ret = (Math.atan2(y, x) * 180.0) / Math.PI;
+		ret = ret + 180.0;
+		if (ret > 360.0) ret = ret - 360.0;
+		if (ret < 0) ret = ret + 360.0;
+		return ret;
+	}
 
 }

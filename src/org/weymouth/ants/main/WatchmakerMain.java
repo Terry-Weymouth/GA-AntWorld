@@ -66,7 +66,7 @@ public class WatchmakerMain {
 //		double targetFitness = 0.01;
 //		TerminationCondition condition = new TargetFitness(targetFitness,naturalFitness);
 
-		TerminationCondition condition = new GenerationCount(900);
+		TerminationCondition condition = new GenerationCount(400);
 		
 		int populationSize = 100;
 		int eliteCount = 10;

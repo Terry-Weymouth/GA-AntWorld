@@ -32,7 +32,7 @@ public class Ant {
 	}
 
 	public void update() {
-		brain.action(location,heading,sensor.getSensoryInput());
+		brain.action(location, heading, sensor.getSensoryInput());
 		heading = brain.getHeading();
 		speed = brain.getSpeed();
 	}
@@ -88,7 +88,7 @@ public class Ant {
 //		return Math.sqrt(dx*dx + dy*dy);
 //	}
 //
-//	private void jitter() {
+//	public void jitter() {
 //		double x = location.x;
 //		double y = location.y;
 //		Location target = Util.randomLocation();

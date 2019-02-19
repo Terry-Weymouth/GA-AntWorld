@@ -14,8 +14,8 @@ public class AntWorld extends PApplet{
 	
 	static int HEIGHT = 800;
 	static int WIDTH = 800;
-	static int NUMBER_OF_ANTS = 10;
-	static int NUMBER_OF_MEALS = 300;
+	static int NUMBER_OF_ANTS = 1;
+	static int NUMBER_OF_MEALS = 1000;
 	
 	List<AntBrain> brains = AntBrain.starterList();
 
@@ -95,7 +95,7 @@ public class AntWorld extends PApplet{
 	}
 
 	public void mouseClicked(MouseEvent event){
-		System.out.println("Mouse was clicked");
+		System.out.println("Mouse was clicked at: " + event.getX() + ", " + event.getY());
 	}
 
 	public void conform(Ant ant) {
