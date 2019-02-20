@@ -1,6 +1,7 @@
 package org.weymouth.ants.core;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import processing.core.PApplet;
 import processing.event.MouseEvent;
@@ -20,7 +21,6 @@ public class AntWorld extends PApplet {
 	
 	private AntBrain brain = null;
 	private Generation g = null;
-	private int currentRound = 0;
 	private int currentScore = 0;
 	
 	private boolean ready = false;
@@ -33,20 +33,24 @@ public class AntWorld extends PApplet {
 	
 	public void draw() {
 		background(100);
+		fill(255,255);
+		rect(WIDTH, 0, MARGIN, HEIGHT);
 		if (g == null)
 			return;
 		drawMargin();
-		for (Food meal: g.getMeals()) {
+		Iterator<Food> meals = getMeals();
+		while (meals.hasNext()) {
+			Food meal = meals.next();
 			display(meal);
 		}
-		for (Ant ant: g.getAnts()) {
+		Iterator<Ant> ants = getAnts();
+		while (ants.hasNext()) {
+			Ant ant = ants.next();
 			display(ant);
 		}
 	}
 	
 	private void drawMargin() {
-		fill(255,255);
-		rect(WIDTH, 0, MARGIN, HEIGHT);
 		fill(0,255);
 		float x = 10.0f + WIDTH;
 		float y = 20.0f;
@@ -54,7 +58,9 @@ public class AntWorld extends PApplet {
 		float w = 19.0f;
 		float maxHealth = 0;
 		Ant maxAnt = null;
-		for (Ant ant: g.getAnts()) {
+		Iterator<Ant> ants = getAnts();
+		while (ants.hasNext()) {
+			Ant ant = ants.next();
 			float health = (float)ant.getHealth();
 			if (health > maxHealth) {
 				maxHealth = health;
@@ -65,7 +71,8 @@ public class AntWorld extends PApplet {
 			rect(x, y + offset, w, h);
 			x += 20.0f;
 		}
-		if (!g.getAnts().isEmpty()) {
+		ants = getAnts();
+		if (ants.hasNext()) {
 			double[] inputs = maxAnt.getSensoryInput();
 			x = 10.0f + WIDTH;
 			y = 40.0f + height;
@@ -85,7 +92,6 @@ public class AntWorld extends PApplet {
 				rect(x, y, 19, 19);
 				x += 20.0f;
 			}
-
 		}
 	}
 
@@ -143,11 +149,17 @@ public class AntWorld extends PApplet {
 		}
 	}
 
-	public List<Food> getMeals() {
+	public Iterator<Food> getMeals() {
+		if (g == null) {
+			return (new ArrayList<Food>()).iterator();
+		}
 		return g.getMeals();
 	}
 
-	public List<Ant> getAnts() {
+	public Iterator<Ant> getAnts() {
+		if (g == null) {
+			return (new ArrayList<Ant>()).iterator();
+		}
 		return g.getAnts();
 	}
 
@@ -160,12 +172,8 @@ public class AntWorld extends PApplet {
 			currentScore = g.getAverageScore();
 			return true;
 		}
-		currentRound += 1;
-		if (currentRound < NUMBER_OF_ROUNDS) {
-			startSimulation();
-			return true;
-		}
-		currentRound = 0;
+		currentScore = g.getAverageScore();
+		brain = null;
 		g = null;
 		return false;
 	}
@@ -179,10 +187,12 @@ public class AntWorld extends PApplet {
 	}
 
 	public void startSimulation() {
+		System.out.println("Attempting to start simulation");
 		if (isReady() && (brain != null)) {
-			System.out.println("Starting AntWorld simulation, for round = " + currentRound);
-			g = new Generation(this, brain);
+			Generation generation = new Generation(this, brain);
 			currentScore = 0;
+			g = generation;
+			System.out.println("Starting simulation...");
 		}
 	}
 	

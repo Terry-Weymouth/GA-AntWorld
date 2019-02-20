@@ -14,12 +14,17 @@ public class NetworkFitnessEvaluator implements FitnessEvaluator<Network> {
 
 	public NetworkFitnessEvaluator() {
 		worldController = AntWorldController.getController();
+		worldController.initialize();
 	}
 	
 	@Override
 	public double getFitness(Network net, List<? extends Network> list) {
 		int score = evaluate(net);
-		System.out.println("Called NetworkFitnessEvaluator; returning score = " + score); 
+		System.out.println("Called NetworkFitnessEvaluator; returning score = " + score);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException ignore) {
+		}
 		return (double)score;
 	}
 
@@ -28,19 +33,13 @@ public class NetworkFitnessEvaluator implements FitnessEvaluator<Network> {
 		return true;
 	}
 
-	private static int NUMBER_OF_PASSES = 20;
-	
 	public int evaluate(Network net) {
 		AntBrain antBrain = new AntBrain(net);
 		AntWorld antWorld = worldController.getSimulator();
-		int totalScore = 0;
 		antWorld.setBrain(antBrain);
-		for (int i = 0; i < NUMBER_OF_PASSES; i++){
-			antWorld.startSimulation();
-			while (antWorld.update()){}
-			totalScore += antWorld.getScore();
-		}
-		return totalScore/NUMBER_OF_PASSES;
+		antWorld.startSimulation();
+		while (antWorld.update()){}
+		return antWorld.getScore();
 	}
 
 }

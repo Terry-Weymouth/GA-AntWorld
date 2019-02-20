@@ -14,7 +14,6 @@ public class AntWorldController {
 	}
 
 	
-	
 	AntWorld theWorld = null;
 	
 	public void initialize() {

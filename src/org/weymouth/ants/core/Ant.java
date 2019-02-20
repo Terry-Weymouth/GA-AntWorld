@@ -1,6 +1,6 @@
 package org.weymouth.ants.core;
 
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Ant {
@@ -63,24 +63,23 @@ public class Ant {
 		return ret;
 	}
 
-	public void feed(List<Food> meals) {
+	public void feed(Iterator<Food> meals) {
 		double x1 = oldLocation.x;
 		double y1 = oldLocation.y;
 		double x2 = location.x;
 		double y2 = location.y;
-		List<Food> eaten = new ArrayList<Food>();
-		for (Food meal: meals) {
+		while(meals.hasNext()) {
+			Food meal = meals.next();
 			double d = Util.shortestDistance(x1, y1, x2, y2, meal.x, meal.y);
 			if (d < FOOD_GRASPING_RANGE) {
 				if (health < MAX_HEALTH) {
-					eaten.add(meal);
+					meals.remove();
 					health += FOOD_HEALTH;
 					if (health > MAX_HEALTH)
 						health = MAX_HEALTH;
 				}
 			}
 		}
-		meals.removeAll(eaten);
 	}
 
 	public void sense(List<Food> meals) {

@@ -2,6 +2,7 @@ package org.weymouth.ants.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
 
 public class Generation {
 	
@@ -10,8 +11,8 @@ public class Generation {
 	private int totalScore = 0;
 	private int averageScore = 0;
 	
-	private List<Ant> ants = new ArrayList<Ant>();
-	private List<Food> meals = new ArrayList<Food>();
+	private List<Ant> antHolder = new ArrayList<Ant>();
+	private List<Food> foodHolder = new ArrayList<Food>();
 	
 	private final AntWorld world;
 	private final AntBrain brain;
@@ -23,28 +24,35 @@ public class Generation {
 	}
 
 	private void nextRound() {
+		System.out.println("nextRound");
 		count = 0;
 		totalScore = 0;
-		ants = new ArrayList<Ant>();
+		List<Ant> antHolder = new ArrayList<Ant>();
 		for (int i = 0; i < AntWorld.NUMBER_OF_ANTS; i++) {
-			ants.add(new Ant(world, brain , Util.randomInteriorPoint()));
+			antHolder.add(new Ant(world, brain , Util.randomInteriorPoint()));
 		}
-		meals = new ArrayList<Food>();
+		List<Food> foodHolder = new ArrayList<Food>();
 		for (int i = 0; i < AntWorld.NUMBER_OF_MEALS; i++) {
-			meals.add(new Food(Util.randomInteriorPoint()));
+			foodHolder.add(new Food(Util.randomInteriorPoint()));
 		}
+		System.out.println(antHolder.size());
 	}
 	
 	private void printRound(){
-		System.out.println ("round: " + rounds + ", score: " + totalScore 
+		System.out.println ("count: " + count + ", round: " + rounds + ", score: " + totalScore 
 				+ ", avg: " + averageScore);
 	}
 
 	public boolean oneStep() {
+		System.out.println("oneStep: " + antHolder.size());
 		updateAll();
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException ignore) {
+		}
 		count ++;
-		if ((count % 100) == 0) {
-			if (ants.size() == 0) {
+		if ((count % 2) == 0) {
+			if (antHolder.size() == 0) {
 				averageScore = (averageScore * (rounds) + totalScore)/(rounds + 1);
 				printRound();
 				rounds++;
@@ -58,26 +66,27 @@ public class Generation {
 	}
 
 	private void updateAll() {
-		List<Ant> dead = new ArrayList<Ant>();
-		for (Ant ant: ants) {
-			ant.sense(meals);
+		Iterator<Ant> ants = getAnts();
+		while (ants.hasNext()) {
+			Ant ant = ants.next();
+			ant.sense(foodHolder);
 			ant.update();
 			ant.move();
+			Iterator<Food> meals = getMeals();
 			ant.feed(meals);
 			if (ant.getHealth() == 0) {
-				dead.add(ant);
-				updateScore();
+				ants.remove();
 			} 
-		}			
-		ants.removeAll(dead);
+		}
+		updateScore();
 	}
 
-	public List<Food> getMeals() {
-		return meals;
+	public Iterator<Food> getMeals() {
+		return foodHolder.iterator();
 	}
 
-	public List<Ant> getAnts() {
-		return ants;
+	public Iterator<Ant> getAnts() {
+		return antHolder.iterator();
 	}
 
 	public void updateScore() {
