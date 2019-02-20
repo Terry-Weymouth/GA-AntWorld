@@ -1,5 +1,6 @@
 # Eclipse Java
 /bin/
+.project
 .classpath
 .settings
 
