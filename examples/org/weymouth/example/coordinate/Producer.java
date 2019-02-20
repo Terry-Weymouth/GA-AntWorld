@@ -22,8 +22,11 @@ public class Producer extends Thread {
             while((inputLine = rd.readLine()) != null) {
                 String[] inputWords = inputLine.split(" ");
                  
-                for(String inputWord: inputWords)
+                for(String inputWord: inputWords) {
+                    // Thread.sleep(50); // slow Producer
                     queue.add(inputWord);
+                    System.out.println("[Producer] Pushed element: " + inputWord);
+                }
             }
              
             //Terminate the execution.
