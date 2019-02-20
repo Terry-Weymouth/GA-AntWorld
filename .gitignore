@@ -1,5 +1,8 @@
 # Eclipse Java
 /bin/
+.classpath
+.settings
 
 # Mac OsX
 **/.DS_Store
+

@@ -29,7 +29,6 @@ public class AntWorld extends PApplet {
     }
 	
 	public void setup() {
-		currentBrainIndex++;
 		if (g != null) {
 			System.out.println("Generation average: " + g.getAverageScore());
 		}
@@ -42,7 +41,6 @@ public class AntWorld extends PApplet {
 	public void draw() {
 		if (!g.oneStep())
 			setup();
-		background(100);
 		
 		for (Food meal: g.getMeals()) {
 			display(meal);
