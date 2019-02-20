@@ -1,52 +1,103 @@
 package org.weymouth.ants.core;
 
 import java.util.List;
-import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.event.MouseEvent;
 
 public class AntWorld extends PApplet {
 	
-	public static double SENSING_RADIUS = 20.0;
-	public static int NUMBER_OF_BRAINS = 20;
-	public static int[] BRAIN_LAYER_WIDTHS = {6,8,7,2};
+	public static final double SENSING_RADIUS = 20.0;
+	public static final int NUMBER_OF_BRAINS = 3;
+	public static final int[] BRAIN_LAYER_WIDTHS = {6,8,7,2};
 	public static final int NUMBER_OF_ROUNDS = 5;
 	
-	static int HEIGHT = 800;
-	static int WIDTH = 800;
-	static int NUMBER_OF_ANTS = 1;
-	static int NUMBER_OF_MEALS = 1000;
+	static final int NUMBER_OF_ANTS = 10;
+	static final int NUMBER_OF_MEALS = 1000;
+	static final int HEIGHT = 800;
+	static final int WIDTH = 800;
+	static final int MARGIN = 20 + NUMBER_OF_ANTS*20;
 	
-	List<AntBrain> brains = AntBrain.starterList();
-
 	private Generation g = null;
 	
-	int currentBrainIndex = -1;
+	private List<AntBrain> brains;
+	
+	private int currentBrainIndex = -1;
 	
 	public void settings(){
-		size(WIDTH, HEIGHT);
+		size(WIDTH + MARGIN, HEIGHT);
     }
-	
-	public void setup() {
+
+	public void setup(List<AntBrain> brains_in) {
+		brains = brains_in;
 		if (g != null) {
 			System.out.println("Generation average: " + g.getAverageScore());
 		}
+		currentBrainIndex += 1;
+		System.out.println("Brain index = " + currentBrainIndex + ", of " + brains.size());
 		if (currentBrainIndex < brains.size()) {
 			AntBrain b = brains.get(currentBrainIndex);
 			g = new Generation(this, b);
+		} else {
+			exit();
 		}
 	}
 	
 	public void draw() {
-		if (!g.oneStep())
-			setup();
-		
+		if (g == null || !g.oneStep())
+			setup(AntBrain.starterList());
+		background(100);
+		drawMargin();
 		for (Food meal: g.getMeals()) {
 			display(meal);
 		}
 		for (Ant ant: g.getAnts()) {
 			display(ant);
+		}
+	}
+	
+	private void drawMargin() {
+		fill(255,255);
+		rect(WIDTH, 0, MARGIN, HEIGHT);
+		fill(0,255);
+		float x = 10.0f + WIDTH;
+		float y = 20.0f;
+		float height = 200.0f;
+		float w = 19.0f;
+		float maxHealth = 0;
+		Ant maxAnt = null;
+		for (Ant ant: g.getAnts()) {
+			float health = (float)ant.getHealth();
+			if (health > maxHealth) {
+				maxHealth = health;
+				maxAnt = ant;
+			}
+			float offset = (1.0f - health) * height;
+			float h = health * height;
+			rect(x, y + offset, w, h);
+			x += 20.0f;
+		}
+		if (!g.getAnts().isEmpty()) {
+			double[] inputs = maxAnt.getSensoryInput();
+			x = 10.0f + WIDTH;
+			y = 40.0f + height;
+			for (double value: inputs) {
+				float gray = (float)(1.0f -value) * 255;
+				fill(gray, 255);
+				rect(x, y, 19, 19);
+				x += 20.0f;
+			}
+
+			double[] outputs = maxAnt.getBrain().getOutputs();
+			x = 10.0f + WIDTH;
+			y += 40.0f;
+			for (double value: outputs) {
+				float gray = (float)(1.0f -value) * 255;
+				fill(gray, 255);
+				rect(x, y, 19, 19);
+				x += 20.0f;
+			}
+
 		}
 	}
 
@@ -87,7 +138,7 @@ public class AntWorld extends PApplet {
 		float y = meal.getYFloat() - 5.0f;
 		noStroke();
 		fill(255,100);
-		this.rect(x, y, 10.0f, 10.0f);
+		rect(x, y, 10.0f, 10.0f);
 	}
 
 	public void mouseClicked(MouseEvent event){
@@ -105,16 +156,10 @@ public class AntWorld extends PApplet {
 	}
 
 	public List<Food> getMeals() {
-		if (g == null) {
-			return new ArrayList<Food>();
-		}
 		return g.getMeals();
 	}
 
 	public List<Ant> getAnts() {
-		if (g == null) {
-			return new ArrayList<Ant>();
-		}
 		return g.getAnts();
 	}
 

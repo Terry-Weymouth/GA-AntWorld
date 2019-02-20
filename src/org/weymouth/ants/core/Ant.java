@@ -39,7 +39,6 @@ public class Ant {
 		brain.action(location, heading, sensor.getSensoryInput());
 		heading = brain.getHeading();
 		speed = brain.getSpeed();
-//		System.out.println(this);
 	}
 
 	public AntBrain getBrain(){
@@ -91,6 +90,10 @@ public class Ant {
 	public String toString() {
 		String format = "Inputs(%d): %s; heading = %f , speed = %f";
 		return String.format(format, id, sensor.toString(), heading, speed);
+	}
+
+	public double[] getSensoryInput() {
+		return sensor.getSensoryInput();
 	}
 
 	// these methods are not being used any more - keep them for a while for documentation

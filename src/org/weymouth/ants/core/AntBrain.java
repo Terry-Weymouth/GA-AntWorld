@@ -26,6 +26,10 @@ public class AntBrain {
 		heading = Compass.rewrap(oldHeading + (TURN_MAX * direction));
 		speed = output[1] * MAXIMUM_SPEED;
 	}
+	
+	public double[] getOutputs() {
+		return network.output();
+	}
 
 	public double getHeading() {
 		return heading;

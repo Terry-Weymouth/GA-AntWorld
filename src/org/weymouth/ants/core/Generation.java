@@ -64,7 +64,7 @@ public class Generation {
 			ant.update();
 			ant.move();
 			ant.feed(meals);
-			if (ant.getHealth() < 0) {
+			if (ant.getHealth() == 0) {
 				dead.add(ant);
 				updateScore();
 			} 
