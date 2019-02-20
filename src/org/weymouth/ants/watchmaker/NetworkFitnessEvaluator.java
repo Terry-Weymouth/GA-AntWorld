@@ -13,7 +13,7 @@ public class NetworkFitnessEvaluator implements FitnessEvaluator<Network> {
 	private final AntWorldController worldController;
 
 	public NetworkFitnessEvaluator() {
-		worldController = new AntWorldController();
+		worldController = AntWorldController.getController();
 	}
 	
 	@Override

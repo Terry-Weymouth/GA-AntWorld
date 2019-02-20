@@ -47,9 +47,9 @@ public class AntBrain {
 		return network;
 	}
 
-	public static List<AntBrain> starterList() {
+	public static List<AntBrain> starterList(int numberOfBrains) {
 		List<AntBrain> ret = new ArrayList<AntBrain>();
-		for (int i = 0 ; i < AntWorld.NUMBER_OF_BRAINS; i++) {
+		for (int i = 0 ; i < numberOfBrains; i++) {
 			AntBrain b = new AntBrain(new Network(new Random(), AntWorld.BRAIN_LAYER_WIDTHS));
 			b.scramble();
 			ret.add(b);

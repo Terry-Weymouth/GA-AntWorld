@@ -10,11 +10,14 @@ import org.uncommons.watchmaker.framework.CandidateFactory;
 import org.uncommons.watchmaker.framework.EvolutionEngine;
 import org.uncommons.watchmaker.framework.EvolutionaryOperator;
 import org.uncommons.watchmaker.framework.GenerationalEvolutionEngine;
+import org.uncommons.watchmaker.framework.AbstractEvolutionEngine;
 import org.uncommons.watchmaker.framework.SelectionStrategy;
 import org.uncommons.watchmaker.framework.TerminationCondition;
 import org.uncommons.watchmaker.framework.operators.EvolutionPipeline;
 import org.uncommons.watchmaker.framework.selection.RouletteWheelSelection;
 import org.uncommons.watchmaker.framework.termination.GenerationCount;
+import org.weymouth.ants.core.AntWorld;
+import org.weymouth.ants.core.AntWorldController;
 // import org.uncommons.watchmaker.framework.termination.TargetFitness;
 import org.weymouth.ants.core.Network;
 import org.weymouth.ants.watchmaker.NetworkController;
@@ -26,13 +29,22 @@ import org.weymouth.ants.watchmaker.NetworkMutation;
 import org.weymouth.ants.watchmaker.NetworkReplace;
 import org.weymouth.ants.watchmaker.NetworkScramble;
 
+import processing.core.PApplet;
+
 public class WatchmakerMain {
+	
+	private final AntWorldController worldController = AntWorldController.getController();
+
 	
 	public static void main(String[] args) {
 		(new WatchmakerMain()).exec();
 	}
 
 	private void exec() {
+		
+		PApplet.main(AntWorld.class);
+		
+		worldController.initialize();
 		
 		NetworkController controller = new NetworkController();
 		
@@ -61,16 +73,16 @@ public class WatchmakerMain {
 		engine.addEvolutionObserver(new NetworkEvolutionObserver(fitnessEvaluator));
 		engine.addEvolutionObserver(controller.getEvolutionObserver());
 		
-		boolean naturalFitness = true;		
-		
-		double targetFitness = 0.01;
+		// boolean naturalFitness = true;		
+		// double targetFitness = 0.01;
 		// TerminationCondition condition = new TargetFitness(targetFitness, naturalFitness);
 
 		TerminationCondition condition = new GenerationCount(10);
 		
 		int populationSize = 100;
 		int eliteCount = 10;
-		
+
+		((AbstractEvolutionEngine<Network>)engine).setSingleThreaded(true);
 		engine.evolve(populationSize, eliteCount, condition);
 	        
 	}

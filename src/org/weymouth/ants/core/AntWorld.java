@@ -8,9 +8,9 @@ import processing.event.MouseEvent;
 public class AntWorld extends PApplet {
 	
 	public static final double SENSING_RADIUS = 20.0;
-	public static final int NUMBER_OF_BRAINS = 3;
+	public static final int NUMBER_OF_ROUNDS = 3;
+	
 	public static final int[] BRAIN_LAYER_WIDTHS = {6,8,7,2};
-	public static final int NUMBER_OF_ROUNDS = 5;
 	
 	static final int NUMBER_OF_ANTS = 10;
 	static final int NUMBER_OF_MEALS = 1000;
@@ -18,35 +18,23 @@ public class AntWorld extends PApplet {
 	static final int WIDTH = 800;
 	static final int MARGIN = 20 + NUMBER_OF_ANTS*20;
 	
+	private AntBrain brain = null;
 	private Generation g = null;
+	private int currentRound = 0;
+	private int currentScore = 0;
 	
-	private List<AntBrain> brains;
-	
-	private int currentBrainIndex = -1;
+	private boolean ready = false;
 	
 	public void settings(){
 		size(WIDTH + MARGIN, HEIGHT);
+		AntWorldController.getController().register(this);
+		ready = true;
     }
-
-	public void setup(List<AntBrain> brains_in) {
-		brains = brains_in;
-		if (g != null) {
-			System.out.println("Generation average: " + g.getAverageScore());
-		}
-		currentBrainIndex += 1;
-		System.out.println("Brain index = " + currentBrainIndex + ", of " + brains.size());
-		if (currentBrainIndex < brains.size()) {
-			AntBrain b = brains.get(currentBrainIndex);
-			g = new Generation(this, b);
-		} else {
-			exit();
-		}
-	}
 	
 	public void draw() {
-		if (g == null || !g.oneStep())
-			setup(AntBrain.starterList());
 		background(100);
+		if (g == null)
+			return;
 		drawMargin();
 		for (Food meal: g.getMeals()) {
 			display(meal);
@@ -164,18 +152,38 @@ public class AntWorld extends PApplet {
 	}
 
 	public void setBrain(AntBrain antBrain) {
-		// TODO Auto-generated method stub
-		
+		brain = antBrain;
 	}
 
 	public boolean update() {
-		// TODO Auto-generated method stub
+		if (g.oneStep()) {
+			currentScore = g.getAverageScore();
+			return true;
+		}
+		currentRound += 1;
+		if (currentRound < NUMBER_OF_ROUNDS) {
+			startSimulation();
+			return true;
+		}
+		currentRound = 0;
+		g = null;
 		return false;
 	}
 
 	public int getScore() {
-		// TODO Auto-generated method stub
-		return 0;
+		return currentScore;
+	}
+
+	public boolean isReady() {
+		return ready;
+	}
+
+	public void startSimulation() {
+		if (isReady() && (brain != null)) {
+			System.out.println("Starting AntWorld simulation, for round = " + currentRound);
+			g = new Generation(this, brain);
+			currentScore = 0;
+		}
 	}
 	
 }
