@@ -16,8 +16,8 @@ import org.uncommons.watchmaker.framework.TerminationCondition;
 import org.uncommons.watchmaker.framework.operators.EvolutionPipeline;
 import org.uncommons.watchmaker.framework.selection.RouletteWheelSelection;
 import org.uncommons.watchmaker.framework.termination.GenerationCount;
-import org.weymouth.ants.core.AntWorld;
-import org.weymouth.ants.core.AntWorldController;
+import org.weymouth.ants.core.AntWorldView;
+import org.weymouth.ants.core.AntWorldViewController;
 // import org.uncommons.watchmaker.framework.termination.TargetFitness;
 import org.weymouth.ants.core.Network;
 import org.weymouth.ants.watchmaker.NetworkController;
@@ -33,7 +33,7 @@ import processing.core.PApplet;
 
 public class WatchmakerMain {
 	
-	private final AntWorldController worldController = AntWorldController.getController();
+	private final AntWorldViewController worldController = AntWorldViewController.getController();
 
 	
 	public static void main(String[] args) {
@@ -42,7 +42,7 @@ public class WatchmakerMain {
 
 	private void exec() {
 		
-		PApplet.main(AntWorld.class);
+		PApplet.main(AntWorldView.class);
 		
 		worldController.initialize();
 		

@@ -1,7 +1,7 @@
 package org.weymouth.ants.core;
 
-import java.util.Iterator;
 import java.util.List;
+import java.util.ArrayList;
 
 public class Ant {
 	
@@ -9,8 +9,6 @@ public class Ant {
 	private static final double FOOD_GRASPING_RANGE = 10.0;
 	private static final double FOOD_HEALTH = 10.0;
 	private static int idCount = 0;
-	
-	private AntWorld pa;
 	
 	private AntBrain brain;
 	
@@ -25,9 +23,8 @@ public class Ant {
 
 	private int health;
 	
-	public Ant(AntWorld p, AntBrain brain, Location l) {
+	public Ant(AntBrain brain, Location l) {
 		this.id = idCount++;
-		this.pa = p;
 		this.brain = brain;
 		this.sensor = new AntSensor(this);
 		this.location = l;
@@ -52,7 +49,7 @@ public class Ant {
 		double dy = Compass.dyForThetaR(t, r);
 		oldLocation = location;
 		location = new Location(location.x + dx, location.y + dy);
-		pa.conform(this);
+		conform();
 		health--;
 	}
 	
@@ -63,23 +60,24 @@ public class Ant {
 		return ret;
 	}
 
-	public void feed(Iterator<Food> meals) {
+	public void feed(List<Food> meals) {
 		double x1 = oldLocation.x;
 		double y1 = oldLocation.y;
 		double x2 = location.x;
 		double y2 = location.y;
-		while(meals.hasNext()) {
-			Food meal = meals.next();
+		List<Food> eaten = new ArrayList<Food>();
+		for (Food meal: meals) {
 			double d = Util.shortestDistance(x1, y1, x2, y2, meal.x, meal.y);
 			if (d < FOOD_GRASPING_RANGE) {
 				if (health < MAX_HEALTH) {
-					meals.remove();
+					eaten.add(meal);
 					health += FOOD_HEALTH;
 					if (health > MAX_HEALTH)
 						health = MAX_HEALTH;
 				}
 			}
 		}
+		meals.removeAll(eaten);
 	}
 
 	public void sense(List<Food> meals) {
@@ -93,6 +91,16 @@ public class Ant {
 
 	public double[] getSensoryInput() {
 		return sensor.getSensoryInput();
+	}
+
+	private void conform() {
+		double x = location.x;
+		double y = location.y;
+		double tx = (double) AntWorld.WIDTH/2;
+		double ty = (double) AntWorld.HEIGHT/2;
+		if ( (x < 0) || (x > AntWorld.WIDTH) || (y < 0) || (y > AntWorld.HEIGHT) ) {
+			heading = Compass.headingForDelta(tx - x , ty - y);
+		}
 	}
 
 	// these methods are not being used any more - keep them for a while for documentation
