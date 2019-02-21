@@ -5,12 +5,12 @@ import java.util.List;
 
 public class AntWorld {
 	
-	public static final double SENSING_RADIUS = 20.0;
-	public static final int NUMBER_OF_ROUNDS = 3;
+	public static final double SENSING_RADIUS = 30.0;
+	public static final int NUMBER_OF_ROUNDS = 2;
 	
 	public static final int[] BRAIN_LAYER_WIDTHS = {6,8,7,2};
 	
-	static final int NUMBER_OF_ANTS = 10;
+	static final int NUMBER_OF_ANTS = 2;
 	static final int NUMBER_OF_MEALS = 1000;
 	
 	static final int HEIGHT = 800;

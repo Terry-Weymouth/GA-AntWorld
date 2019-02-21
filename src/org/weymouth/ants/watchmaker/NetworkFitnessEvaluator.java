@@ -5,19 +5,19 @@ import java.util.List;
 import org.uncommons.watchmaker.framework.FitnessEvaluator;
 import org.weymouth.ants.core.AntBrain;
 import org.weymouth.ants.core.AntWorld;
-import org.weymouth.ants.core.AntWorldView;
+//import org.weymouth.ants.core.AntWorldView;
 import org.weymouth.ants.core.Network;
-import org.weymouth.ants.core.AntWorldViewController;
+//import org.weymouth.ants.core.AntWorldViewController;
 
 public class NetworkFitnessEvaluator implements FitnessEvaluator<Network> {
 	
-	private final AntWorldViewController worldController;
+	//private final AntWorldViewController worldController;
 	
 	private static int count = 0;
 
 	public NetworkFitnessEvaluator() {
-		worldController = AntWorldViewController.getController();
-		worldController.initialize();
+		//worldController = AntWorldViewController.getController();
+		//worldController.initialize();
 	}
 	
 	@Override
@@ -40,10 +40,10 @@ public class NetworkFitnessEvaluator implements FitnessEvaluator<Network> {
 		count += 1;
 		System.out.println("Evaluate-called count = " + count);
 		AntBrain antBrain = new AntBrain(net);
-		AntWorldView antWorldView = worldController.getView();
+		// AntWorldView antWorldView = worldController.getView();
 		AntWorld antWorld = new AntWorld(antBrain);
 		while (antWorld.update()){
-			antWorldView.update(antWorld.cloneAnts(), antWorld.cloneMeals());
+			// antWorldView.update(antWorld.cloneAnts(), antWorld.cloneMeals());
 		}
 		return antWorld.getScore();
 	}

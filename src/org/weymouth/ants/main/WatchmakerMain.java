@@ -16,8 +16,8 @@ import org.uncommons.watchmaker.framework.TerminationCondition;
 import org.uncommons.watchmaker.framework.operators.EvolutionPipeline;
 import org.uncommons.watchmaker.framework.selection.RouletteWheelSelection;
 import org.uncommons.watchmaker.framework.termination.GenerationCount;
-import org.weymouth.ants.core.AntWorldView;
-import org.weymouth.ants.core.AntWorldViewController;
+//import org.weymouth.ants.core.AntWorldView;
+//import org.weymouth.ants.core.AntWorldViewController;
 // import org.uncommons.watchmaker.framework.termination.TargetFitness;
 import org.weymouth.ants.core.Network;
 import org.weymouth.ants.watchmaker.NetworkController;
@@ -29,11 +29,11 @@ import org.weymouth.ants.watchmaker.NetworkMutation;
 import org.weymouth.ants.watchmaker.NetworkReplace;
 import org.weymouth.ants.watchmaker.NetworkScramble;
 
-import processing.core.PApplet;
+//import processing.core.PApplet;
 
 public class WatchmakerMain {
 	
-	private final AntWorldViewController worldController = AntWorldViewController.getController();
+	//private final AntWorldViewController worldController = AntWorldViewController.getController();
 
 	
 	public static void main(String[] args) {
@@ -42,9 +42,9 @@ public class WatchmakerMain {
 
 	private void exec() {
 		
-		PApplet.main(AntWorldView.class);
+		//PApplet.main(AntWorldView.class);
 		
-		worldController.initialize();
+		//worldController.initialize();
 		
 		NetworkController controller = new NetworkController();
 		
@@ -79,8 +79,8 @@ public class WatchmakerMain {
 
 		TerminationCondition condition = new GenerationCount(10);
 		
-		int populationSize = 100;
-		int eliteCount = 10;
+		int populationSize = 10;
+		int eliteCount = 2;
 
 		((AbstractEvolutionEngine<Network>)engine).setSingleThreaded(true);
 		engine.evolve(populationSize, eliteCount, condition);
