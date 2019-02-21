@@ -8,7 +8,7 @@ import processing.event.MouseEvent;
 
 public class AntWorldView extends PApplet {
 	
-	static final int MARGIN = 20 + AntWorld.NUMBER_OF_ANTS*20;
+	static final int MARGIN = 20 + Math.max(AntWorld.NUMBER_OF_ANTS,7)*20;
 
 	private List<Ant> ants = new ArrayList<Ant>();
 	private List<Food> meals = new ArrayList<Food>();
@@ -76,9 +76,22 @@ public class AntWorldView extends PApplet {
 	}
 
 	private void display(Ant ant) {
+		noFill();
+		stroke(0);
+		drawAntSee(ant);
 		fill(255,100);
 		noStroke();
 		drawAnt(ant);
+	}
+	
+	private void drawAntSee(Ant ant) {
+		float center = (float)ant.heading;
+		float start = radians(center - 45.0f);
+		float end = radians(center + 45.0f);
+		float x = (float)ant.location.x;
+		float y = (float)ant.location.y;
+		float r = (float)AntWorld.SENSING_RADIUS;
+		arc(x, y, r, r, start, end, PIE);
 	}
 
 	private void drawAnt(Ant ant) {

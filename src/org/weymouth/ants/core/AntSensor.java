@@ -29,18 +29,18 @@ public class AntSensor {
 				inputs[senseIndex] += senseStrength;
 //				System.out.println("value set (" + senseIndex + "): " + inputs[senseIndex] + ", " + senseStrength);
 				valueSet = true;
-		}
-		}
-		if (valueSet) {
-		double max = 0.0;
-		for (int i = 0; i < inputs.length; i++) {
-			if (inputs[i] > max) max = inputs[i];
-		}
-		if (max > 1.0) {
-			for (int i = 0; i < inputs.length; i++) {
-				inputs[i] = inputs[i]/max;
 			}
 		}
+		if (valueSet) {
+			double max = 0.0;
+			for (int i = 0; i < inputs.length; i++) {
+				if (inputs[i] > max) max = inputs[i];
+			}
+			if (max > 1.0) {
+				for (int i = 0; i < inputs.length; i++) {
+					inputs[i] = inputs[i]/max;
+				}
+			}
 		}
 		inputs[5] = body.getHealth();
 		return selected;
