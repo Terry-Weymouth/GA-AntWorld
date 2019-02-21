@@ -12,6 +12,8 @@ import org.weymouth.ants.core.AntWorldViewController;
 public class NetworkFitnessEvaluator implements FitnessEvaluator<Network> {
 	
 	private final AntWorldViewController worldController;
+	
+	private static int count = 0;
 
 	public NetworkFitnessEvaluator() {
 		worldController = AntWorldViewController.getController();
@@ -35,6 +37,8 @@ public class NetworkFitnessEvaluator implements FitnessEvaluator<Network> {
 	}
 
 	public int evaluate(Network net) {
+		count += 1;
+		System.out.println("Evaluate-called count = " + count);
 		AntBrain antBrain = new AntBrain(net);
 		AntWorldView antWorldView = worldController.getView();
 		AntWorld antWorld = new AntWorld(antBrain);

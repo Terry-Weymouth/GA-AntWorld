@@ -2,7 +2,6 @@ package org.weymouth.ants.core;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Iterator;
 
 public class Generation {
 	
@@ -22,7 +21,6 @@ public class Generation {
 	}
 
 	private void nextRound() {
-		System.out.println("nextRound");
 		count = 0;
 		totalScore = 0;
 		for (int i = 0; i < AntWorld.NUMBER_OF_ANTS; i++) {
