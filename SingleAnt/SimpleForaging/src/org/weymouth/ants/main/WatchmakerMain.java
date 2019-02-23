@@ -81,8 +81,8 @@ public class WatchmakerMain {
 
 		TerminationCondition condition = new GenerationCount(50);
 		
-		int populationSize = 20;
-		int eliteCount = 4;
+		int populationSize = 2;
+		int eliteCount = 1;
 
 		((AbstractEvolutionEngine<Network>)engine).setSingleThreaded(true);
 		engine.evolve(populationSize, eliteCount, condition);

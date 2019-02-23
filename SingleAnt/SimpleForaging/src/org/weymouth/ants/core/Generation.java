@@ -46,6 +46,7 @@ public class Generation {
 		if ((count % 2) == 0) {
 			if (ants.size() == 0) {
 				averageScore = (averageScore * (rounds) + totalScore)/(rounds + 1);
+				brain.getNetwork().setScore(((double)averageScore/10000.0));
 				printRound();
 				rounds++;
 				if (rounds >= AntWorld.NUMBER_OF_ROUNDS) {

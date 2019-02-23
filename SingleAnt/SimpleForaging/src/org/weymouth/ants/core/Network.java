@@ -12,6 +12,7 @@ public class Network {
 	private Layer[] layer;
 	private Weight[] weight;
 	private int maxLayerWidth = 0;
+	private double score = 0.0;
 
 	public Network(Random rng,int[] layerWidths){
 		this.layerWidths = layerWidths;
@@ -42,6 +43,14 @@ public class Network {
 	
 	public int getMaxLayerWidth() {
 		return maxLayerWidth;
+	}
+	
+	public void setScore(double s) {
+		score = s;
+	}
+	
+	public double getScore() {
+		return score;
 	}
 	
 	public double[][] getLayerValues() {

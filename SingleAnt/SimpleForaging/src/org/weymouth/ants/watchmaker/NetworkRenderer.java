@@ -21,6 +21,7 @@ public class NetworkRenderer implements Renderer<Network, JComponent> {
 
 	@Override
 	public JComponent render(Network fn) {
+		System.out.println(fn.getScore());
 		return itsComponent;
 	}
 	
