@@ -19,12 +19,14 @@ public class NetworkEvolutionObserver extends EvolutionMonitor<Network> {
     {
 		super.populationUpdate(data);
     	Network fn = data.getBestCandidate();
-    	double error = fitnessEvaluator.getFitness(fn, null);
-    	if (error != lastFitness) {
-    		lastFitness = error;
+    	fitnessEvaluator.setUseCache(true);
+    	double fittness = fitnessEvaluator.getFitness(fn, null);
+    	fitnessEvaluator.setUseCache(false);
+    	if (fittness != lastFitness) {
+    		lastFitness = fittness;
 	        System.out.printf("Generation %d: (%f) %s\n",
 	                          data.getGenerationNumber(),
-	                          error,
+	                          fittness,
 	                          fn);
     	}
     }
