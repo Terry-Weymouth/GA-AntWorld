@@ -19,6 +19,8 @@ public class AntBrain {
 	}
 	
 	public void action(Location here, double oldHeading, double[] inputs) {
+		inputs[6] = netValueForTurnDirection();
+		inputs[7] = netValueForSpeed();
 		network.setInputs(inputs);
 		network.propogate();
 		double output[] = network.output();
@@ -37,6 +39,14 @@ public class AntBrain {
 
 	public double getSpeed() {
 		return speed;
+	}
+	
+	public double netValueForTurnDirection() {
+		return network.output()[0];
+	}
+	
+	public double netValueForSpeed() {
+		return network.output()[1];
 	}
 
 	public void scramble() {

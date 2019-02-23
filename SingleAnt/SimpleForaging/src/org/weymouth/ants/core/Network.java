@@ -11,9 +11,13 @@ public class Network {
 	private int[] layerWidths;
 	private Layer[] layer;
 	private Weight[] weight;
+	private int maxLayerWidth = 0;
 
 	public Network(Random rng,int[] layerWidths){
 		this.layerWidths = layerWidths;
+		for (int w: layerWidths) {
+			maxLayerWidth = Math.max(maxLayerWidth, w);
+		}
 		initializeLayers();
 		setNetToRandom(rng);
 	}
@@ -34,6 +38,18 @@ public class Network {
 		for (int layer = 0; layer < (layerWidths.length - 1); layer++) {
 			weight[layer] = new Weight(layerWidths[layer]+1, layerWidths[layer+1]);
 		}
+	}
+	
+	public int getMaxLayerWidth() {
+		return maxLayerWidth;
+	}
+	
+	public double[][] getLayerValues() {
+		double[][] ret = new double[layer.length][];
+		for (int i = 0; i < layer.length; i++) {
+			ret[i] = layer[i].getValues();
+		}
+		return ret;
 	}
 		
 	public Network cross(Network parent2, Random rng) {

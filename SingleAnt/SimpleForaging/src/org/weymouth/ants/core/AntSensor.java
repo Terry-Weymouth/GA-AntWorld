@@ -7,7 +7,7 @@ public class AntSensor {
 
 	private final static double radius = AntWorld.SENSING_RADIUS;
 
-	private double[] inputs = {1.0,2.0,3.0,4.0,5.0,6.0};
+	private double[] inputs = {0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0};
 	private double senseStrength = 0.0;
 	private int senseIndex = -1;
 	private final Ant body;
@@ -65,9 +65,10 @@ public class AntSensor {
 	}
 	
 	public double[] getSensoryInput() {
+		// NOTE: inputs[6] and inputs[7] are set to currentSpeed and currentHeading, resp., by brain action 
 		return inputs;
 	}
-
+	
 	public String toString() {
 		String ret = null;
 		String format = "%2.4f";

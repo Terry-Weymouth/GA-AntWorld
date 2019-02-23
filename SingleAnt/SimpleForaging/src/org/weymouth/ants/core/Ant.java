@@ -89,10 +89,6 @@ public class Ant {
 		return String.format(format, id, sensor.toString(), heading, speed);
 	}
 
-	public double[] getSensoryInput() {
-		return sensor.getSensoryInput();
-	}
-
 	private void conform() {
 		double x = location.x;
 		double y = location.y;

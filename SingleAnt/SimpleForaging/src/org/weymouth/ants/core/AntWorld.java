@@ -8,7 +8,7 @@ public class AntWorld {
 	public static final double SENSING_RADIUS = 120.0;
 	public static final int NUMBER_OF_ROUNDS = 1;
 	
-	public static final int[] BRAIN_LAYER_WIDTHS = {6,8,7,2};
+	public static final int[] BRAIN_LAYER_WIDTHS = {8,10,7,2};
 	
 	static final int NUMBER_OF_ANTS = 1;
 	static final int NUMBER_OF_MEALS = 1000;

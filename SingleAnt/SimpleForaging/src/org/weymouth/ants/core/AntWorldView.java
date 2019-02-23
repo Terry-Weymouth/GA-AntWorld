@@ -8,7 +8,7 @@ import processing.event.MouseEvent;
 
 public class AntWorldView extends PApplet {
 	
-	static final int MARGIN = 20 + Math.max(AntWorld.NUMBER_OF_ANTS,7)*20;
+	static final int MARGIN = 20 + Math.max(AntWorld.NUMBER_OF_ANTS, 11)*20;
 
 	private List<Ant> ants = new ArrayList<Ant>();
 	private List<Food> meals = new ArrayList<Food>();
@@ -20,7 +20,6 @@ public class AntWorldView extends PApplet {
 	
 	public void draw() {
 		background(100);
-		drawMargin();
 		
 		for (Food meal: meals) {
 			display(meal);
@@ -28,11 +27,15 @@ public class AntWorldView extends PApplet {
 		for (Ant ant: ants) {
 			display(ant);
 		}
+
+		drawMargin();
 	}
 	
 	private void drawMargin() {
 		fill(255,255);
+		stroke(0);
 		rect(AntWorld.WIDTH, 0, MARGIN, AntWorld.HEIGHT);
+		noStroke();
 		fill(0,255);
 		float x = 10.0f + AntWorld.WIDTH;
 		float y = 20.0f;
@@ -49,29 +52,32 @@ public class AntWorldView extends PApplet {
 			float offset = (1.0f - health) * height;
 			float h = health * height;
 			rect(x, y + offset, w, h);
+			stroke(0,0,255);
+			line(x, y-1.0f, x+w, y-1.0f);
+			noStroke();
 			x += 20.0f;
 		}
 
 		if (maxAnt != null) {
-			double[] inputs = maxAnt.getSensoryInput();
-			x = 10.0f + AntWorld.WIDTH;
+			double[][] netValues = maxAnt.getBrain().getNetwork().getLayerValues();
+			// float maxNetWidth = maxAnt.getBrain().getNetwork().getMaxLayerWidth();
+			float maxNetWidth = 10;
+			float baseX = 10.0f + AntWorld.WIDTH;
 			y = 40.0f + height;
-			for (double value: inputs) {
-				float gray = (float)(1.0f -value) * 255;
-				fill(gray, 255);
-				rect(x, y, 19, 19);
-				x += 20.0f;
+			
+			stroke(0,0,255);
+			for (double[] row: netValues) {
+				x = baseX + (20.0f * (maxNetWidth-row.length)/2f );
+				y += 40.0f;
+				for (double value: row) {
+					float gray = (float)(1.0f - value) * 255;
+					fill(gray, 255);
+					rect(x, y, 19, 19);
+					x += 20.0f;
+				}				
 			}
-
-			double[] outputs = maxAnt.getBrain().getOutputs();
-			x = 10.0f + AntWorld.WIDTH;
-			y += 40.0f;
-			for (double value: outputs) {
-				float gray = (float)(1.0f -value) * 255;
-				fill(gray, 255);
-				rect(x, y, 19, 19);
-				x += 20.0f;
-			}
+			noStroke();
+			
 		}
 	}
 
