@@ -34,9 +34,11 @@ public class NetworkFitnessEvaluator implements FitnessEvaluator<Network> {
 	public double getFitness(Network net, List<? extends Network> list) {
 		double score = evaluate(net);
 		System.out.println("Called NetworkFitnessEvaluator; returning score = " + score);
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException ignore) {
+		if (!WatchmakerMain.HEADLESS) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException ignore) {
+			}
 		}
 		return score;
 	}
