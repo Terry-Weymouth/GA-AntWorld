@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+
 public class Network {
 
 	static final double WEIGHT_BAND = 20.0;
@@ -13,8 +17,9 @@ public class Network {
 	private Weight[] weight;
 	private int maxLayerWidth = 0;
 	private double score = 0.0;
+	ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 
-	public Network(Random rng,int[] layerWidths){
+	public Network(Random rng, int[] layerWidths){
 		this.layerWidths = layerWidths;
 		for (int w: layerWidths) {
 			maxLayerWidth = Math.max(maxLayerWidth, w);
@@ -171,6 +176,11 @@ public class Network {
 			}
 			layer[l+1].setInputs(output);
 		}
+	}
+	
+	public String toJson() throws JsonProcessingException {
+		String json = ow.writeValueAsString(this);
+		return json;
 	}
 	
 	private double sigmoid(double x){
