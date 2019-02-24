@@ -12,8 +12,6 @@ import org.junit.AfterClass;
 
 import org.weymouth.ants.storage.SqlliteStorage;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 public class TestNetworkStore {
 	
 	int[] net_layers = {3,4,4,2};
@@ -22,22 +20,6 @@ public class TestNetworkStore {
 		@Override
 		public double nextDouble() {
 			return 0.0;
-		}
-	};
-	
-	Random one = new Random(){
-		private static final long serialVersionUID = 1L;
-		@Override
-		public double nextDouble() {
-			return 1.0;
-		}
-	};
-	
-	Random mid = new Random(){
-		private static final long serialVersionUID = 1L;
-		@Override
-		public double nextDouble() {
-			return 0.5;
 		}
 	};
 	

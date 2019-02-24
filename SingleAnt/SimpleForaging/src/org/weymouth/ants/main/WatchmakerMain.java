@@ -27,7 +27,7 @@ import org.weymouth.ants.watchmaker.NetworkFitnessEvaluator;
 import org.weymouth.ants.watchmaker.NetworkMutation;
 import org.weymouth.ants.watchmaker.NetworkReplace;
 import org.weymouth.ants.watchmaker.NetworkScramble;
-import org.weymouth.ants.watchmaker.SimpleTextObserver;
+import org.weymouth.ants.watchmaker.StoringTextObserver;
 
 import processing.core.PApplet;
 
@@ -71,7 +71,7 @@ public class WatchmakerMain {
 
 		
 		if (HEADLESS) {
-			engine.addEvolutionObserver(new SimpleTextObserver());
+			engine.addEvolutionObserver(new StoringTextObserver());
 		} else {
 			NetworkController controller = new NetworkController();
 			controller.setupGui();
