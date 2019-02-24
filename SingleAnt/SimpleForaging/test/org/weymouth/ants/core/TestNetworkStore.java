@@ -79,6 +79,5 @@ public class TestNetworkStore {
 		for (int li = 0; li < net_layers.length; li++) {
 			assertEquals("layer width " + li, net_layers[li], recovered.getLayerWidths()[li]);
 		}
-		Network netRecovered = new Network(recovered);
 	}
 }
