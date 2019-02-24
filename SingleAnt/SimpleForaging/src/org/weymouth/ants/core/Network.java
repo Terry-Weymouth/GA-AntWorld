@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-
 public class Network {
 
 	static final double WEIGHT_BAND = 20.0;
@@ -17,7 +13,6 @@ public class Network {
 	private Weight[] weight;
 	private int maxLayerWidth = 0;
 	private double score = 0.0;
-	ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 
 	public Network(Random rng, int[] layerWidths){
 		this.layerWidths = layerWidths;
@@ -44,6 +39,10 @@ public class Network {
 		for (int layer = 0; layer < (layerWidths.length - 1); layer++) {
 			weight[layer] = new Weight(layerWidths[layer]+1, layerWidths[layer+1]);
 		}
+	}
+	
+	public int[] getLayerWidths() {
+		return layerWidths;
 	}
 	
 	public int getMaxLayerWidth() {
@@ -76,7 +75,7 @@ public class Network {
 		int point = rng.nextInt(valueCount -2) + 1;
 		for (int i = 0; i < point; i++) {
 			out[i] = values1[i];
-	}
+		}
 		for (int i = point; i < valueCount; i++) {
 			out[i] = values2[i];
 		}
@@ -91,10 +90,11 @@ public class Network {
 		int valueCount = values.length;
 		int point = rng.nextInt(valueCount);
 		double v = values[point];
-		double delta = rng.nextDouble()*(WEIGHT_BAND/5.0) - (WEIGHT_BAND/10.0);
+		double mutateWidth = WEIGHT_BAND/5.0;
+		double delta = mutateWidth * (rng.nextDouble() - 0.5);
 		double probe = v + delta;
 		while ((probe > WEIGHT_BAND) || (probe < -WEIGHT_BAND)){
-			delta = rng.nextDouble()*(WEIGHT_BAND/5.0) - (WEIGHT_BAND/10.0);
+			delta = mutateWidth * (rng.nextDouble() - 0.5);
 			probe = v + delta;
 		}
 		values[point] = probe;
@@ -132,11 +132,10 @@ public class Network {
 		setNetToRandom(rng);
 	}
 
-	
 	public void setInputs(double[] netInput){
 		layer[0].setInputs(netInput);
 	}
-
+	
 	private void setNetToRandom(Random rng) {
 		for (int layer = 0; layer < (layerWidths.length - 1); layer++) {
 			for (int input = 0; input < (layerWidths[layer] + 1); input++) {
@@ -176,11 +175,6 @@ public class Network {
 			}
 			layer[l+1].setInputs(output);
 		}
-	}
-	
-	public String toJson() throws JsonProcessingException {
-		String json = ow.writeValueAsString(this);
-		return json;
 	}
 	
 	private double sigmoid(double x){
