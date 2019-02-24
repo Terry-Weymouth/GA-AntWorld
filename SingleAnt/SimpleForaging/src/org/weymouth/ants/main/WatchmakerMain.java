@@ -32,7 +32,7 @@ import processing.core.PApplet;
 
 public class WatchmakerMain {
 	
-	public static final boolean HEADLESS = false;
+	public static final boolean HEADLESS = true;
 
 	private final AntWorldViewController worldController = AntWorldViewController.getController();
 
@@ -47,10 +47,6 @@ public class WatchmakerMain {
 			PApplet.main(AntWorldView.class);
 			worldController.initialize();
 		}
-		
-		NetworkController controller = new NetworkController();
-		
-		controller.setupGui();
 		
 		CandidateFactory<Network> candidateFactory = new NetworkFactory();
 		NetworkFitnessEvaluator fitnessEvaluator = new NetworkFitnessEvaluator();
@@ -71,9 +67,14 @@ public class WatchmakerMain {
                 fitnessEvaluator,
                 selectionStrategy,
                 rng);
-	
-		engine.addEvolutionObserver(new NetworkEvolutionObserver(fitnessEvaluator));
-		engine.addEvolutionObserver(controller.getEvolutionObserver());
+
+		if (!HEADLESS) {
+			NetworkController controller = new NetworkController();
+			controller.setupGui();
+			engine.addEvolutionObserver(new NetworkEvolutionObserver(fitnessEvaluator));
+			engine.addEvolutionObserver(controller.getEvolutionObserver());
+			
+		}
 		
 		// boolean naturalFitness = true;		
 		// double targetFitness = 0.01;
