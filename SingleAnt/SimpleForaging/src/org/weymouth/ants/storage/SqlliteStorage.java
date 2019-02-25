@@ -71,8 +71,8 @@ public class SqlliteStorage {
 		return NetworkPojo.compose(rs.getString(4));
 	}
 
-	public NetworkPojo[] getTop(int n) throws SQLException, IOException {
-		String query = "select * from network order by score limit ?";
+	public ArrayList<NetworkPojo> getTop(int n) throws SQLException, IOException {
+		String query = "select * from network order by score desc limit ?";
 		PreparedStatement pStatement = connection.prepareStatement(query);
 		pStatement.setInt(1,n);
 		ResultSet rs = pStatement.executeQuery();
@@ -80,7 +80,6 @@ public class SqlliteStorage {
 		while(rs.next()) {
 			holder.add(NetworkPojo.compose(rs.getString(4)));
 		}
-		NetworkPojo[] ret = holder.toArray(new NetworkPojo[holder.size()]);
-		return ret;
+		return holder;
 	}
 }

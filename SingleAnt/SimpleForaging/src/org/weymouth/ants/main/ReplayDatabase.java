@@ -3,6 +3,7 @@ package org.weymouth.ants.main;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -14,6 +15,8 @@ import org.weymouth.ants.core.AntWorldViewController;
 import org.weymouth.ants.core.NetworkPojo;
 import org.weymouth.ants.core.Network;
 import org.weymouth.ants.storage.SqlliteStorage;
+
+import processing.core.PApplet;
 
 public class ReplayDatabase {
 	
@@ -34,40 +37,54 @@ public class ReplayDatabase {
 
 	private void exec() throws ClassNotFoundException, SQLException, IOException {
 		System.out.println("Replay of top ten Networks: ");
-		NetworkPojo[] list = getTopTen();
-		System.out.println("Number of networks fetched = " + list.length);
+		ArrayList<NetworkPojo> list = getTopTen();
+		Collections.reverse(list);
+		System.out.println("Number of networks fetched = " + list.size());
 		Random rng = new MersenneTwisterRNG();
-		List<Network> nets = new ArrayList<Network>();
+		List<NetHolder> nhList = new ArrayList<NetHolder>();
 		for (NetworkPojo pojo: list) {
-			System.out.println("  score = " + pojo.getScore());
-			nets.add(new Network(rng, pojo.getLayerWidths(), pojo.getWeights()));
+			nhList.add(new NetHolder(new Network(rng, pojo.getLayerWidths(), pojo.getWeights()), pojo));
 		}
 		AntWorldViewController worldController = AntWorldViewController.getController();
+		PApplet.main(AntWorldView.class);
 		worldController.initialize();
-		for (Network net: nets) {
-			play(net, worldController);
+		AntWorldView antWorldView = worldController.getView();
+		for (NetHolder nh: nhList) {
+			Network net = nh.network;
+			NetworkPojo pojo = nh.pojo;
+			System.out.println("Playing next Network...");
+			System.out.println("  Previous score = " + pojo.getScore());
+			double score = play(net, antWorldView);
+			System.out.println("  Resulting score = " + score);
 		}
-
+		antWorldView.exit();
 	}
 
-	private double play(Network net, AntWorldViewController worldController) {
-		System.out.println("Playing next Network...");
+	private double play(Network net, AntWorldView antWorldView) {
 		AntBrain antBrain = new AntBrain(net);
-		AntWorldView antWorldView = worldController.getView();
 		AntWorld antWorld = new AntWorld(antBrain);
 		while (antWorld.update()){
 			antWorldView.update(antWorld.cloneAnts(), antWorld.cloneMeals());
 		}
 		double score = (double)antWorld.getScore()/10000.0;
-		System.out.println("Resulting score = " + score);
 		return score;
 	}
 
-	private NetworkPojo[] getTopTen() throws ClassNotFoundException, SQLException, IOException {
+	private ArrayList<NetworkPojo> getTopTen() throws ClassNotFoundException, SQLException, IOException {
 		SqlliteStorage store = new SqlliteStorage();
-		NetworkPojo[] ret = store.getTop(10);
+		ArrayList<NetworkPojo> ret = store.getTop(10);
 		store.close();
 		return ret;
 	}
 
+	private class NetHolder {
+		
+		Network network;
+		NetworkPojo pojo;
+		
+		NetHolder(Network n, NetworkPojo np){
+			network = n;
+			pojo = np;
+		}
+	}
 }
