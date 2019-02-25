@@ -58,6 +58,7 @@ public class ReplayDatabase {
 			System.out.println("  Resulting score = " + score);
 		}
 		antWorldView.exit();
+		System.out.println("Replay Done.");
 	}
 
 	private double play(Network net, AntWorldView antWorldView) {
