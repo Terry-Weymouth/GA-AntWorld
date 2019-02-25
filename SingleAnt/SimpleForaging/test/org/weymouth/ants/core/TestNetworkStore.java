@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.Random;
 
 import org.junit.Test;
-import org.junit.BeforeClass;
-import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.After;
 
 import org.weymouth.ants.storage.SqlliteStorage;
 
@@ -25,21 +25,20 @@ public class TestNetworkStore {
 	
 	private static double ERROR_BAR = 0.01;
 
-	private static SqlliteStorage STORE; 
+	private SqlliteStorage store; 
 
-	@BeforeClass
-	public static void Setup() throws ClassNotFoundException, SQLException {
-		STORE = new SqlliteStorage();
+	@Before
+	public void Setup() throws ClassNotFoundException, SQLException {
+		store = new SqlliteStorage();
 	}
 	
-	@AfterClass
-	public static void Final() throws SQLException {
-		STORE.close();
+	@After
+	public void Final() throws SQLException {
+		store.close();
 	}
 	
 	@Test
 	public void testNetworkStore() throws SQLException, IOException{
-		SqlliteStorage store = STORE;
 		Network net = new Network(zero, net_layers);
 		int l = 0;
 		for (int li = 0; li < net_layers.length - 1; li++) {

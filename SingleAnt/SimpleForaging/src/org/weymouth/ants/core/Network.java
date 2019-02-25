@@ -23,6 +23,11 @@ public class Network {
 		setNetToRandom(rng);
 	}
 	
+	public Network(Random rng, int[] layerWidths, double[] weights) {
+		this(rng, layerWidths);
+		this.wrapWeights(weights);
+	}
+	
 	private Network(Network clone) {
 		layerWidths = clone.layerWidths;
 		initializeLayers();

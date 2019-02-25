@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import org.weymouth.ants.core.NetworkPojo;
 
@@ -68,5 +69,18 @@ public class SqlliteStorage {
 		ResultSet rs = pStatement.executeQuery();
 		rs.next();
 		return NetworkPojo.compose(rs.getString(4));
+	}
+
+	public NetworkPojo[] getTop(int n) throws SQLException, IOException {
+		String query = "select * from network order by score limit ?";
+		PreparedStatement pStatement = connection.prepareStatement(query);
+		pStatement.setInt(1,n);
+		ResultSet rs = pStatement.executeQuery();
+		ArrayList<NetworkPojo> holder = new ArrayList<NetworkPojo>();
+		while(rs.next()) {
+			holder.add(NetworkPojo.compose(rs.getString(4)));
+		}
+		NetworkPojo[] ret = holder.toArray(new NetworkPojo[holder.size()]);
+		return ret;
 	}
 }
