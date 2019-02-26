@@ -6,7 +6,7 @@ import java.util.List;
 public class AntWorld {
 	
 	public static final double SENSING_RADIUS = 120.0;
-	public static final int NUMBER_OF_ROUNDS = 1;
+	public static final int NUMBER_OF_ROUNDS = 3;
 	
 	public static final int[] BRAIN_LAYER_WIDTHS = {8,10,7,2};
 	
