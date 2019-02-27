@@ -34,6 +34,9 @@ public class NetworkFitnessEvaluator implements FitnessEvaluator<Network> {
 	
 	@Override
 	public double getFitness(Network net, List<? extends Network> list) {
+		if (net.getScore() > 0) {
+			System.out.println("Evaluation of previously evaluated network: previous score = " + net.getScore());
+		}
 		double score = evaluate(net);
 		System.out.println("Called NetworkFitnessEvaluator; returning score = " + score);
 		if (!headless) {

@@ -33,6 +33,11 @@ public class Network {
 		initializeLayers();
 	}
 	
+	public Network(Random rng, int[] layerWidths, double[] weights, double score) {
+		this(rng, layerWidths, weights);
+		this.score = score;
+	}
+
 	private void initializeLayers() {
 		layer = new Layer[layerWidths.length];
 		weight = new Weight[layerWidths.length - 1];

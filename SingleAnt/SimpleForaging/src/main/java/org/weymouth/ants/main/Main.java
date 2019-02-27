@@ -8,6 +8,8 @@ public class Main {
 	public static void main(String[] args) {
 		String headlessEnv = System.getenv("HEADLESS");
 		String replayEnv = System.getenv("REPLAY");
+		String noSeedEnv = System.getenv("NO_SEED");
+		boolean seed = true;
 		boolean headless = false;
 		boolean replay = false;
 		System.out.println("**************************************************");
@@ -24,6 +26,12 @@ public class Main {
 			} else {
 				System.out.println("HEADELSS env variable was not specified: running main simulation with graphics");				
 			}
+			if (noSeedEnv != null) {
+				System.out.println("NO_SEED env variable was specified: running simulation with all random networks"); 
+				seed = false;
+			} else {
+				System.out.println("NO_SEED env variable was not specified: running simulation with some previous networks"); 
+			}
 		}
 		if (replay) {
 			try {
@@ -32,7 +40,11 @@ public class Main {
 				e.printStackTrace();
 			}
 		} else {
-			(new WatchmakerMain(headless)).exec();
+			try {
+				(new WatchmakerMain(headless, seed)).exec();
+			} catch (ClassNotFoundException | SQLException | IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
