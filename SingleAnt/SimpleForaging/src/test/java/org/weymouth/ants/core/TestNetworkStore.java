@@ -29,7 +29,7 @@ public class TestNetworkStore {
 
 	@Before
 	public void Setup() throws ClassNotFoundException, SQLException {
-		store = new SqlliteStorage();
+		store = new SqlliteStorage("testNetwork.db");
 	}
 	
 	@After

@@ -24,10 +24,10 @@ public class SqlliteStorage {
 	private final String SELECT_QUERY = "select * from network where id=?";
 	private Connection connection;
 	
-	public SqlliteStorage() throws ClassNotFoundException, SQLException {
+	public SqlliteStorage(String datafileName) throws ClassNotFoundException, SQLException {
 		// code fragments from sample code: https://bitbucket.org/xerial/sqlite-jdbc
 		Class.forName("org.sqlite.JDBC");
-		connection = DriverManager.getConnection("jdbc:sqlite:network.db");
+		connection = DriverManager.getConnection("jdbc:sqlite:" + datafileName);
 		Statement statement = connection.createStatement();
 		statement.setQueryTimeout(10);  // in seconds
 		ResultSet rs = connection.getMetaData().getTables(null, null, null, null);

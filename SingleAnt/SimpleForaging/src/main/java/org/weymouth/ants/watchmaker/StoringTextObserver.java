@@ -48,7 +48,7 @@ public class StoringTextObserver implements EvolutionObserver<Network> {
 		boolean sucess = false;
 		SqlliteStorage store = null;
 		try {
-			store = new SqlliteStorage();
+			store = new SqlliteStorage("network.db");
 			NetworkPojo networkPojo = new NetworkPojo(network);
 			lastRecoredId = store.storeNetwork(networkPojo);
 			sucess = true;
