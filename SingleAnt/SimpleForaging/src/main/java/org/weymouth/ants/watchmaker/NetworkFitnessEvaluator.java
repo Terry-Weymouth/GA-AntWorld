@@ -8,7 +8,6 @@ import org.weymouth.ants.core.AntBrain;
 import org.weymouth.ants.core.AntWorld;
 import org.weymouth.ants.core.AntWorldView;
 import org.weymouth.ants.core.Network;
-import org.weymouth.ants.main.WatchmakerMain;
 import org.weymouth.ants.core.AntWorldViewController;
 
 public class NetworkFitnessEvaluator implements FitnessEvaluator<Network> {
@@ -17,12 +16,15 @@ public class NetworkFitnessEvaluator implements FitnessEvaluator<Network> {
 	
 	private final HashMap<Network, Double> cache = new HashMap<Network, Double>();
 	
+	private final boolean headless;
+	
 	private static int count = 0;
 
 	private boolean useCache = false;
 	
-	public NetworkFitnessEvaluator() {
-		if (WatchmakerMain.HEADLESS) {
+	public NetworkFitnessEvaluator(boolean flag) {
+		headless = flag;
+		if (headless) {
 			worldController = null;
 		} else {
 			worldController = AntWorldViewController.getController();
@@ -34,7 +36,7 @@ public class NetworkFitnessEvaluator implements FitnessEvaluator<Network> {
 	public double getFitness(Network net, List<? extends Network> list) {
 		double score = evaluate(net);
 		System.out.println("Called NetworkFitnessEvaluator; returning score = " + score);
-		if (!WatchmakerMain.HEADLESS) {
+		if (!headless) {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException ignore) {
@@ -60,12 +62,12 @@ public class NetworkFitnessEvaluator implements FitnessEvaluator<Network> {
 		System.out.println("Evaluate-called count = " + count);
 		AntBrain antBrain = new AntBrain(net);
 		AntWorldView antWorldView = null;
-		if (!WatchmakerMain.HEADLESS) {
+		if (!headless) {
 			antWorldView = worldController.getView();
 		}
 		AntWorld antWorld = new AntWorld(antBrain);
 		while (antWorld.update()){
-			if (!WatchmakerMain.HEADLESS) {
+			if (!headless) {
 				antWorldView.update(antWorld.cloneAnts(), antWorld.cloneMeals());
 			}
 		}

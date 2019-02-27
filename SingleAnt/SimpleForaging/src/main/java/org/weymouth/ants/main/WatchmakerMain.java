@@ -33,24 +33,22 @@ import processing.core.PApplet;
 
 public class WatchmakerMain {
 	
-	public static final boolean HEADLESS = true;
-
 	private final AntWorldViewController worldController = AntWorldViewController.getController();
+	private final boolean headless;
 
-	
-	public static void main(String[] args) {
-		(new WatchmakerMain()).exec();
+	public WatchmakerMain(boolean flag) {
+		headless = flag;
 	}
-
-	private void exec() {
+	
+	public void exec() {
 		
-		if (!HEADLESS) {
+		if (!headless) {
 			PApplet.main(AntWorldView.class);
 			worldController.initialize();
 		}
 		
 		CandidateFactory<Network> candidateFactory = new NetworkFactory();
-		NetworkFitnessEvaluator fitnessEvaluator = new NetworkFitnessEvaluator();
+		NetworkFitnessEvaluator fitnessEvaluator = new NetworkFitnessEvaluator(headless);
 		SelectionStrategy<? super Network> selectionStrategy = new RouletteWheelSelection();
 		Random rng = new MersenneTwisterRNG();
 
@@ -70,7 +68,7 @@ public class WatchmakerMain {
                 rng);
 
 		
-		if (HEADLESS) {
+		if (headless) {
 			engine.addEvolutionObserver(new StoringTextObserver());
 		} else {
 			NetworkController controller = new NetworkController();

@@ -20,22 +20,7 @@ import processing.core.PApplet;
 
 public class ReplayDatabase {
 	
-	public static void main(String[] args) {
-		try {
-			(new ReplayDatabase()).exec();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	private void exec() throws ClassNotFoundException, SQLException, IOException {
+	public void exec() throws ClassNotFoundException, SQLException, IOException {
 		System.out.println("Replay of top ten Networks: ");
 		ArrayList<NetworkPojo> list = getTopTen();
 		Collections.reverse(list);
