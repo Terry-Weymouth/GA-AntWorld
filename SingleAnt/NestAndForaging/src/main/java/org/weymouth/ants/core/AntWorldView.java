@@ -18,12 +18,17 @@ public class AntWorldView extends PApplet {
 		AntWorldViewController.getController().register(this);
     }
 	
+	public void close() {
+		this.exit();
+	}
+	
 	public void draw() {
 		background(100);
 		
 		for (Food meal: meals) {
 			display(meal);
 		}
+		
 		for (Ant ant: ants) {
 			display(ant);
 		}

@@ -30,6 +30,7 @@ public class RunAntNestWorld {
 		Network net = new Network(rng, AntNestWorld.BRAIN_LAYER_WIDTHS);
 		double score = play(net, controller.getView());
 		System.out.println("Score = " + score);
+		controller.close();
 	}
 
 	private double play(Network net, AntNestWorldView antNestWorldView) {
@@ -38,7 +39,6 @@ public class RunAntNestWorld {
 		while (antNestWorld.update()){
 			List<Ant> theAnts = antNestWorld.cloneAnts();
 			List<Food> theMeals = antNestWorld.cloneMeals();
-			System.out.println("Starting world with " + theAnts.size() + " ants and " + theMeals.size() + " meals");
 			antNestWorldView.update(theAnts, theMeals);
 		}
 		double score = (double)antNestWorld.getScore()/10000.0;
