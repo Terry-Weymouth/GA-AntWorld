@@ -1,5 +1,8 @@
 package org.weymouth.ants.main;
 
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -19,6 +22,8 @@ import org.uncommons.watchmaker.framework.termination.GenerationCount;
 import org.weymouth.ants.core.AntWorldView;
 import org.weymouth.ants.core.AntWorldViewController;
 import org.weymouth.ants.core.Network;
+import org.weymouth.ants.core.NetworkPojo;
+import org.weymouth.ants.storage.SqlliteStorage;
 import org.weymouth.ants.watchmaker.NetworkController;
 import org.weymouth.ants.watchmaker.NetworkCrossover;
 import org.weymouth.ants.watchmaker.NetworkEvolutionObserver;
@@ -35,22 +40,40 @@ public class WatchmakerMain {
 	
 	private final AntWorldViewController worldController = AntWorldViewController.getController();
 	private final boolean headless;
+	private final boolean seedInitialPopulation;
 
-	public WatchmakerMain(boolean flag) {
-		headless = flag;
+	public WatchmakerMain(boolean headlessFlag, boolean usePreviousPopulation) {
+		headless = headlessFlag;
+		seedInitialPopulation = usePreviousPopulation;
 	}
 	
-	public void exec() {
+	public void exec() throws ClassNotFoundException, SQLException, IOException {
 		
 		if (!headless) {
 			PApplet.main(AntWorldView.class);
 			worldController.initialize();
 		}
 		
-		CandidateFactory<Network> candidateFactory = new NetworkFactory();
+		int populationSize = 20;
+		int eliteCount = 4;
+
+		Random rng = new MersenneTwisterRNG();
+		
+		List<Network> initialPopulation = new ArrayList<Network>();
+		if (seedInitialPopulation) {
+			SqlliteStorage store = new SqlliteStorage("network.db");
+			List<NetworkPojo> pojoList = store.getTop(Math.min(10, populationSize));
+			for (NetworkPojo pojo: pojoList) {
+				initialPopulation.add(new Network(rng, pojo.getLayerWidths(), pojo.getWeights(), pojo.getScore()));
+			}
+			store.close();
+		}
+		
+		CandidateFactory<Network> candidateFactory = new NetworkFactory(initialPopulation);
 		NetworkFitnessEvaluator fitnessEvaluator = new NetworkFitnessEvaluator(headless);
 		SelectionStrategy<? super Network> selectionStrategy = new RouletteWheelSelection();
-		Random rng = new MersenneTwisterRNG();
+		
+		
 
 		List<EvolutionaryOperator<Network>> operators = new LinkedList<EvolutionaryOperator<Network>>();
 		operators.add(new NetworkCrossover(1));
@@ -67,29 +90,24 @@ public class WatchmakerMain {
                 selectionStrategy,
                 rng);
 
+		engine.addEvolutionObserver(new StoringTextObserver());
 		
-		if (headless) {
-			engine.addEvolutionObserver(new StoringTextObserver());
-		} else {
+		if (!headless) {
 			NetworkController controller = new NetworkController();
 			controller.setupGui();
 			engine.addEvolutionObserver(new NetworkEvolutionObserver(fitnessEvaluator));
 			engine.addEvolutionObserver(controller.getEvolutionObserver());
-			
 		}
 		
 		// boolean naturalFitness = true;		
 		// double targetFitness = 0.01;
 		// TerminationCondition condition = new TargetFitness(targetFitness, naturalFitness);
 
-		TerminationCondition condition = new GenerationCount(50);
+		TerminationCondition condition = new GenerationCount(10);
 		
-		int populationSize = 20;
-		int eliteCount = 4;
-
 		((AbstractEvolutionEngine<Network>)engine).setSingleThreaded(true);
 		engine.evolve(populationSize, eliteCount, condition);
-	        
+		worldController.close();
 	}
 
 }

@@ -22,12 +22,15 @@ public class SqlliteStorage {
 	private final String INSERT_QUERY = "insert into network"
 			+ "(epoc_time, score, network_json) values (?, ?, ?)";
 	private final String SELECT_QUERY = "select * from network where id=?";
-	private Connection connection;
+	private final String SELECT_TOP = "select * from network order by score desc limit ?";
+	private final String SELECT_ALL_WITH_DATE = "*, datetime(epoc_time/1000,'unixepoch') from network order by score";
+	private final Connection connection;
 	
 	public SqlliteStorage(String datafileName) throws ClassNotFoundException, SQLException {
 		// code fragments from sample code: https://bitbucket.org/xerial/sqlite-jdbc
 		Class.forName("org.sqlite.JDBC");
 		connection = DriverManager.getConnection("jdbc:sqlite:" + datafileName);
+		connection.setAutoCommit(true);
 		Statement statement = connection.createStatement();
 		statement.setQueryTimeout(10);  // in seconds
 		ResultSet rs = connection.getMetaData().getTables(null, null, null, null);
@@ -42,10 +45,9 @@ public class SqlliteStorage {
 	    	statement.executeUpdate(TABLE_CREATE);
 	    }
 	}
-	
+
 	public void close() throws SQLException {
-		if(connection != null)
-			connection.close();
+		connection.close();
 	}
 	
 	public int storeNetwork(NetworkPojo networkPojo) throws SQLException, JsonProcessingException {
@@ -68,16 +70,31 @@ public class SqlliteStorage {
 		pStatement.setInt(1, id);
 		ResultSet rs = pStatement.executeQuery();
 		rs.next();
-		return NetworkPojo.compose(rs.getString(4));
+		NetworkPojo ret = NetworkPojo.compose(rs.getString(4));
+		return ret;
 	}
 
 	public ArrayList<NetworkPojo> getTop(int n) throws SQLException, IOException {
-		String query = "select * from network order by score desc limit ?";
-		PreparedStatement pStatement = connection.prepareStatement(query);
+		PreparedStatement pStatement = connection.prepareStatement(SELECT_TOP);
 		pStatement.setInt(1,n);
 		ResultSet rs = pStatement.executeQuery();
 		ArrayList<NetworkPojo> holder = new ArrayList<NetworkPojo>();
 		while(rs.next()) {
+			holder.add(NetworkPojo.compose(rs.getString(4)));
+		}
+		return holder;
+	}
+	
+	public ArrayList<NetworkPojo> getAllWithDate() throws SQLException, IOException {
+		Statement statement = connection.createStatement();
+		ResultSet rs = statement.executeQuery(SELECT_ALL_WITH_DATE);
+		ArrayList<NetworkPojo> holder = new ArrayList<NetworkPojo>();
+		System.out.println("Store items:");
+		while(rs.next()) {
+			System.out.println("  id: " + rs.getInt(1)
+				+ ", score = " + rs.getDouble(3)
+				+ ", epoch time = " + rs.getLong(2)
+				+ ", time as string" + rs.getString(5));
 			holder.add(NetworkPojo.compose(rs.getString(4)));
 		}
 		return holder;

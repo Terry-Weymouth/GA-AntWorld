@@ -24,10 +24,6 @@ public class NetworkEvolutionObserver extends EvolutionMonitor<Network> {
     	fitnessEvaluator.setUseCache(false);
     	if (fittness != lastFitness) {
     		lastFitness = fittness;
-	        System.out.printf("Generation %d: (%f) %s\n",
-	                          data.getGenerationNumber(),
-	                          fittness,
-	                          fn);
     	}
     }
 

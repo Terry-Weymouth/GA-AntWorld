@@ -34,4 +34,8 @@ public class AntWorldViewController {
 		return theWorldView;
 	}
 
+	public void close() {
+		theWorldView.close();
+	}
+
 }

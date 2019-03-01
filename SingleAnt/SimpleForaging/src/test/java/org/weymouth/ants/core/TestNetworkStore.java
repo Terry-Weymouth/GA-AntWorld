@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.Random;
 
 import org.junit.Test;
-import org.junit.Before;
 import org.junit.After;
+import org.junit.Before;
 
 import org.weymouth.ants.storage.SqlliteStorage;
 
@@ -33,10 +33,10 @@ public class TestNetworkStore {
 	}
 	
 	@After
-	public void Final() throws SQLException {
+	public void Cleanup() throws SQLException {
 		store.close();
 	}
-	
+		
 	@Test
 	public void testNetworkStore() throws SQLException, IOException{
 		Network net = new Network(zero, net_layers);

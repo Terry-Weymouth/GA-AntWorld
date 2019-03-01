@@ -18,6 +18,10 @@ public class AntWorldView extends PApplet {
 		AntWorldViewController.getController().register(this);
     }
 	
+	public void close() {
+		this.exit();
+	}
+	
 	public void draw() {
 		background(100);
 		
