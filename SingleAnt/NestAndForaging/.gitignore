@@ -1,0 +1,4 @@
+/bin/
+/target/
+network.db
+testNetwork.db
