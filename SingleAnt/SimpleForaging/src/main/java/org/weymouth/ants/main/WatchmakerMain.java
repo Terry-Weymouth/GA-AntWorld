@@ -107,7 +107,7 @@ public class WatchmakerMain {
 		
 		((AbstractEvolutionEngine<Network>)engine).setSingleThreaded(true);
 		engine.evolve(populationSize, eliteCount, condition);
-	        
+		worldController.close();
 	}
 
 }
