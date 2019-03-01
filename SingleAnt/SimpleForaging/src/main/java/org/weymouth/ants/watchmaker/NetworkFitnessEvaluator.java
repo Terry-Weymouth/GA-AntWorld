@@ -43,7 +43,7 @@ public class NetworkFitnessEvaluator implements FitnessEvaluator<Network> {
 		System.out.println("Called NetworkFitnessEvaluator; returning score = " + score);
 		if (!headless) {
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(10);
 			} catch (InterruptedException ignore) {
 			}
 		}
@@ -62,6 +62,7 @@ public class NetworkFitnessEvaluator implements FitnessEvaluator<Network> {
 				System.out.println("Evaluate-called: scored by lookup");
 				return scoreHolder.doubleValue();
 			}
+			System.out.println("No score in cache");
 		}
 		count += 1;
 		System.out.println("Evaluate-called count = " + count);

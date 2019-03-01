@@ -16,12 +16,9 @@ public class StoringTextObserver implements EvolutionObserver<Network> {
 	
 	@Override
 	public void populationUpdate(PopulationData<? extends Network> data) {
-		double topScore = data.getBestCandidateFitness();
 		int generation = data.getGenerationNumber();
 		Network network = data.getBestCandidate();
-		System.out.println("Generation " + generation);
-		System.out.println("  topScore = " + topScore);
-		System.out.println("  elapsed time = " + timeString(data.getElapsedTime()));
+		System.out.println("Generation " + generation + "; elapsed time = " + timeString(data.getElapsedTime()));
 		if (networkToStore(network)) {
 			System.out.println("Network stored with id = " + lastRecoredId);
 		} else {

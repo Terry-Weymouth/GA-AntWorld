@@ -62,7 +62,7 @@ public class WatchmakerMain {
 		List<Network> initialPopulation = new ArrayList<Network>();
 		if (seedInitialPopulation) {
 			SqlliteStorage store = new SqlliteStorage("network.db");
-			List<NetworkPojo> pojoList = store.getTop(10);
+			List<NetworkPojo> pojoList = store.getTop(Math.min(10, populationSize));
 			for (NetworkPojo pojo: pojoList) {
 				initialPopulation.add(new Network(rng, pojo.getLayerWidths(), pojo.getWeights(), pojo.getScore()));
 			}
@@ -90,22 +90,20 @@ public class WatchmakerMain {
                 selectionStrategy,
                 rng);
 
+		engine.addEvolutionObserver(new StoringTextObserver());
 		
-		if (headless) {
-			engine.addEvolutionObserver(new StoringTextObserver());
-		} else {
+		if (!headless) {
 			NetworkController controller = new NetworkController();
 			controller.setupGui();
 			engine.addEvolutionObserver(new NetworkEvolutionObserver(fitnessEvaluator));
 			engine.addEvolutionObserver(controller.getEvolutionObserver());
-			
 		}
 		
 		// boolean naturalFitness = true;		
 		// double targetFitness = 0.01;
 		// TerminationCondition condition = new TargetFitness(targetFitness, naturalFitness);
 
-		TerminationCondition condition = new GenerationCount(5);
+		TerminationCondition condition = new GenerationCount(3);
 		
 		((AbstractEvolutionEngine<Network>)engine).setSingleThreaded(true);
 		engine.evolve(populationSize, eliteCount, condition);
