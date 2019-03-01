@@ -18,7 +18,7 @@ public class AntWorld {
 	static final int HEIGHT = 800;
 	static final int WIDTH = 800;
 	
-	private static Generation g = null;
+	private final Generation g;
 	private int currentScore = 0;
 	
 	public AntWorld(AntBrain antBrain) {
