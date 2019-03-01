@@ -18,7 +18,9 @@ public class StoringTextObserver implements EvolutionObserver<Network> {
 	public void populationUpdate(PopulationData<? extends Network> data) {
 		int generation = data.getGenerationNumber();
 		Network network = data.getBestCandidate();
-		System.out.println("Generation " + generation + "; elapsed time = " + timeString(data.getElapsedTime()));
+		long time = data.getElapsedTime();
+		System.out.println("Generation " + generation + "; elapsed time = " + timeString(time) +
+				"; average elapsed time = " + timeString(time/(generation + 1)));
 		if (networkToStore(network)) {
 			System.out.println("Network stored with id = " + lastRecoredId);
 		} else {
@@ -27,18 +29,13 @@ public class StoringTextObserver implements EvolutionObserver<Network> {
 	}
 	
 	private String timeString(long elapsedTime) {
-		System.out.println(elapsedTime);
 		double seconds = elapsedTime/1000.0;
-		System.out.println(seconds);
 		int minutes = (int)(elapsedTime/60000);
-		System.out.println(minutes);
 		int hours = minutes/60;
-		System.out.println(hours);
 		seconds = seconds - minutes*60;
-		System.out.println(seconds);
 		minutes = minutes - hours*60;
-		System.out.println(minutes);
-		return String.format("%2d:%2d:%2.4f", hours, minutes, seconds);
+		seconds = ((int)(seconds*100))/100.0;
+		return String.format("%3d:%02d:%02.1f", hours, minutes, seconds);
 	}
 	
 	private boolean networkToStore(Network network){
