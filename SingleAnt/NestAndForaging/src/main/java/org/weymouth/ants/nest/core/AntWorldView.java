@@ -78,7 +78,7 @@ public class AntWorldView extends PApplet {
 		fill(255, 255 ,0, 255);
 		x = 30.0f + AntWorld.WIDTH;
 		for (Ant ant: ants) {
-			float carrying = 0.5f;
+			float carrying = (float) ant.getCarrying();
 			float offset = (1.0f - carrying) * height;
 			float h = carrying * height;
 			rect(x, y + offset, w, h);
@@ -107,7 +107,6 @@ public class AntWorldView extends PApplet {
 				}				
 			}
 			noStroke();
-			
 		}
 	}
 
