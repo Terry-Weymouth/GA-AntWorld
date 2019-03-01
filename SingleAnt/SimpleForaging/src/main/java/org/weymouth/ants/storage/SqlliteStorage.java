@@ -22,12 +22,13 @@ public class SqlliteStorage {
 	private final String INSERT_QUERY = "insert into network"
 			+ "(epoc_time, score, network_json) values (?, ?, ?)";
 	private final String SELECT_QUERY = "select * from network where id=?";
-	private Connection connection;
+	private final String datafileName;
 	
-	public SqlliteStorage(String datafileName) throws ClassNotFoundException, SQLException {
+	public SqlliteStorage(String dfn) throws ClassNotFoundException, SQLException {
 		// code fragments from sample code: https://bitbucket.org/xerial/sqlite-jdbc
+		datafileName = dfn;
 		Class.forName("org.sqlite.JDBC");
-		connection = DriverManager.getConnection("jdbc:sqlite:" + datafileName);
+		Connection connection = DriverManager.getConnection("jdbc:sqlite:" + datafileName);
 		Statement statement = connection.createStatement();
 		statement.setQueryTimeout(10);  // in seconds
 		ResultSet rs = connection.getMetaData().getTables(null, null, null, null);
@@ -41,16 +42,13 @@ public class SqlliteStorage {
 	    if (!foundTable) {
 	    	statement.executeUpdate(TABLE_CREATE);
 	    }
-	}
-	
-	public void close() throws SQLException {
-		if(connection != null)
-			connection.close();
+	    connection.close();
 	}
 	
 	public int storeNetwork(NetworkPojo networkPojo) throws SQLException, JsonProcessingException {
 		int ret = -1;
 		long epoch_time = System.currentTimeMillis();
+		Connection connection = DriverManager.getConnection("jdbc:sqlite:" + datafileName);
 		PreparedStatement pStatement = connection.prepareStatement(INSERT_QUERY);
 		pStatement.setLong(1, epoch_time);
 		pStatement.setDouble(2, networkPojo.getScore());
@@ -60,18 +58,23 @@ public class SqlliteStorage {
 		ResultSet rs = statement.executeQuery("SELECT LAST_INSERT_ROWID()");
 		rs.next();
 		ret = rs.getInt(1);
+		connection.close();
 		return ret;
 	}
 	
 	public NetworkPojo recoverNetwork(int id) throws SQLException, IOException {
+		Connection connection = DriverManager.getConnection("jdbc:sqlite:" + datafileName);
 		PreparedStatement pStatement = connection.prepareStatement(SELECT_QUERY);
 		pStatement.setInt(1, id);
 		ResultSet rs = pStatement.executeQuery();
 		rs.next();
-		return NetworkPojo.compose(rs.getString(4));
+		NetworkPojo ret = NetworkPojo.compose(rs.getString(4));
+		connection.close();
+		return ret;
 	}
 
 	public ArrayList<NetworkPojo> getTop(int n) throws SQLException, IOException {
+		Connection connection = DriverManager.getConnection("jdbc:sqlite:" + datafileName);
 		String query = "select * from network order by score desc limit ?";
 		PreparedStatement pStatement = connection.prepareStatement(query);
 		pStatement.setInt(1,n);
@@ -80,6 +83,7 @@ public class SqlliteStorage {
 		while(rs.next()) {
 			holder.add(NetworkPojo.compose(rs.getString(4)));
 		}
+		connection.close();
 		return holder;
 	}
 }
