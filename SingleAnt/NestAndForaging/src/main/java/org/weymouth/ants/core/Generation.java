@@ -23,9 +23,11 @@ public class Generation {
 	private void nextRound() {
 		count = 0;
 		totalScore = 0;
+		ants = new ArrayList<Ant>();
 		for (int i = 0; i < AntWorld.NUMBER_OF_ANTS; i++) {
 			ants.add(new Ant(brain , Util.randomInteriorPoint()));
 		}
+		meals = new ArrayList<Food>();
 		for (int i = 0; i < AntWorld.NUMBER_OF_MEALS; i++) {
 			meals.add(new Food(Util.randomInteriorPoint()));
 		}
