@@ -1,4 +1,4 @@
-package org.weymouth.ants.storage;
+package org.weymouth.ants.nest.storage;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import org.weymouth.ants.core.NetworkPojo;
+import org.weymouth.ants.nest.core.NetworkPojo;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 

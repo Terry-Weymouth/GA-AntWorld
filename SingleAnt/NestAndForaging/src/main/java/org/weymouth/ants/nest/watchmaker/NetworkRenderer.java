@@ -1,4 +1,4 @@
-package org.weymouth.ants.watchmaker;
+package org.weymouth.ants.nest.watchmaker;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JComponent;
@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import org.uncommons.watchmaker.framework.interactive.Renderer;
-import org.weymouth.ants.core.Network;
+import org.weymouth.ants.nest.core.Network;
 
 public class NetworkRenderer implements Renderer<Network, JComponent> {
 	

@@ -1,10 +1,10 @@
-package org.weymouth.ants.core;
+package org.weymouth.ants.nest.core;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.weymouth.ants.core.Location;
-import org.weymouth.ants.core.Util;
+import org.weymouth.ants.nest.core.Location;
+import org.weymouth.ants.nest.core.Util;
 
 public class TestDistanceToSegment {
 	

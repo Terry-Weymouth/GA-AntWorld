@@ -1,14 +1,14 @@
-package org.weymouth.ants.watchmaker;
+package org.weymouth.ants.nest.watchmaker;
 
 import java.util.List;
 import java.util.HashMap;
 
 import org.uncommons.watchmaker.framework.FitnessEvaluator;
-import org.weymouth.ants.core.AntBrain;
-import org.weymouth.ants.core.AntWorld;
-import org.weymouth.ants.core.AntWorldView;
-import org.weymouth.ants.core.Network;
-import org.weymouth.ants.core.AntWorldViewController;
+import org.weymouth.ants.nest.core.AntBrain;
+import org.weymouth.ants.nest.core.AntWorld;
+import org.weymouth.ants.nest.core.AntWorldView;
+import org.weymouth.ants.nest.core.Network;
+import org.weymouth.ants.nest.core.AntWorldViewController;
 
 public class NetworkFitnessEvaluator implements FitnessEvaluator<Network> {
 	

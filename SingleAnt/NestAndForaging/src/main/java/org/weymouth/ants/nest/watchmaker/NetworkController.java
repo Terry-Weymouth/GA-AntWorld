@@ -1,11 +1,11 @@
-package org.weymouth.ants.watchmaker;
+package org.weymouth.ants.nest.watchmaker;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.uncommons.watchmaker.framework.EvolutionObserver;
 import org.uncommons.watchmaker.swing.evolutionmonitor.EvolutionMonitor;
-import org.weymouth.ants.core.Network;
+import org.weymouth.ants.nest.core.Network;
 
 public class NetworkController {
 	

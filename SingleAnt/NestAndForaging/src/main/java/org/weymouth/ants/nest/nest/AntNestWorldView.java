@@ -1,10 +1,10 @@
-package org.weymouth.ants.nest;
+package org.weymouth.ants.nest.nest;
 
 import java.util.List;
 
-import org.weymouth.ants.core.Ant;
-import org.weymouth.ants.core.AntWorldView;
-import org.weymouth.ants.core.Food;
+import org.weymouth.ants.nest.core.Food;
+import org.weymouth.ants.nest.core.Ant;
+import org.weymouth.ants.nest.core.AntWorldView;
 
 public class AntNestWorldView extends AntWorldView {
 	

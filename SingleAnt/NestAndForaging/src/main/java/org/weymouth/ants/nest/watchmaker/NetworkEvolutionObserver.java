@@ -1,8 +1,8 @@
-package org.weymouth.ants.watchmaker;
+package org.weymouth.ants.nest.watchmaker;
 
 import org.uncommons.watchmaker.framework.PopulationData;
 import org.uncommons.watchmaker.swing.evolutionmonitor.EvolutionMonitor;
-import org.weymouth.ants.core.Network;
+import org.weymouth.ants.nest.core.Network;
 
 public class NetworkEvolutionObserver extends EvolutionMonitor<Network> {
 

@@ -1,6 +1,6 @@
-package org.weymouth.ants.nest;
+package org.weymouth.ants.nest.nest;
 
-import org.weymouth.ants.core.AntWorld;
+import org.weymouth.ants.nest.core.AntWorld;
 
 public class AntNestWorld extends AntWorld {
 	

@@ -1,4 +1,4 @@
-package org.weymouth.ants.core;
+package org.weymouth.ants.nest.core;
 
 /*
  * The coordinate System is -

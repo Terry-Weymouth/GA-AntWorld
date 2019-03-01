@@ -1,11 +1,11 @@
-package org.weymouth.ants.core;
+package org.weymouth.ants.nest.core;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.Random;
 
 import org.junit.Test;
-import org.weymouth.ants.core.Network;
+import org.weymouth.ants.nest.core.Network;
 
 public class TestNetwork {
 	

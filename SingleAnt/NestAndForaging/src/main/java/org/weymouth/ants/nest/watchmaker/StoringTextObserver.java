@@ -1,12 +1,12 @@
-package org.weymouth.ants.watchmaker;
+package org.weymouth.ants.nest.watchmaker;
 
 import java.sql.SQLException;
 
 import org.uncommons.watchmaker.framework.EvolutionObserver;
 import org.uncommons.watchmaker.framework.PopulationData;
-import org.weymouth.ants.core.Network;
-import org.weymouth.ants.core.NetworkPojo;
-import org.weymouth.ants.storage.SqlliteStorage;
+import org.weymouth.ants.nest.core.Network;
+import org.weymouth.ants.nest.core.NetworkPojo;
+import org.weymouth.ants.nest.storage.SqlliteStorage;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 

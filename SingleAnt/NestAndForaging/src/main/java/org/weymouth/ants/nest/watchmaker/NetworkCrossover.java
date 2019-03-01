@@ -1,11 +1,11 @@
-package org.weymouth.ants.watchmaker;
+package org.weymouth.ants.nest.watchmaker;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import org.uncommons.watchmaker.framework.operators.AbstractCrossover;
-import org.weymouth.ants.core.Network;
+import org.weymouth.ants.nest.core.Network;
 
 public class NetworkCrossover extends AbstractCrossover<Network> {
 

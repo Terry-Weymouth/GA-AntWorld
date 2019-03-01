@@ -1,4 +1,4 @@
-package org.weymouth.ants.main;
+package org.weymouth.ants.nest.main;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -16,18 +16,18 @@ import org.uncommons.watchmaker.framework.TerminationCondition;
 import org.uncommons.watchmaker.framework.operators.EvolutionPipeline;
 import org.uncommons.watchmaker.framework.selection.RouletteWheelSelection;
 import org.uncommons.watchmaker.framework.termination.GenerationCount;
-import org.weymouth.ants.core.AntWorldView;
-import org.weymouth.ants.core.AntWorldViewController;
-import org.weymouth.ants.core.Network;
-import org.weymouth.ants.watchmaker.NetworkController;
-import org.weymouth.ants.watchmaker.NetworkCrossover;
-import org.weymouth.ants.watchmaker.NetworkEvolutionObserver;
-import org.weymouth.ants.watchmaker.NetworkFactory;
-import org.weymouth.ants.watchmaker.NetworkFitnessEvaluator;
-import org.weymouth.ants.watchmaker.NetworkMutation;
-import org.weymouth.ants.watchmaker.NetworkReplace;
-import org.weymouth.ants.watchmaker.NetworkScramble;
-import org.weymouth.ants.watchmaker.StoringTextObserver;
+import org.weymouth.ants.nest.core.AntWorldView;
+import org.weymouth.ants.nest.core.AntWorldViewController;
+import org.weymouth.ants.nest.core.Network;
+import org.weymouth.ants.nest.watchmaker.NetworkController;
+import org.weymouth.ants.nest.watchmaker.NetworkCrossover;
+import org.weymouth.ants.nest.watchmaker.NetworkEvolutionObserver;
+import org.weymouth.ants.nest.watchmaker.NetworkFactory;
+import org.weymouth.ants.nest.watchmaker.NetworkFitnessEvaluator;
+import org.weymouth.ants.nest.watchmaker.NetworkMutation;
+import org.weymouth.ants.nest.watchmaker.NetworkReplace;
+import org.weymouth.ants.nest.watchmaker.NetworkScramble;
+import org.weymouth.ants.nest.watchmaker.StoringTextObserver;
 
 import processing.core.PApplet;
 

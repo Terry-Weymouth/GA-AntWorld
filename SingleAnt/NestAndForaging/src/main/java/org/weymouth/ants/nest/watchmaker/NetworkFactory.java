@@ -1,4 +1,4 @@
-package org.weymouth.ants.watchmaker;
+package org.weymouth.ants.nest.watchmaker;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Random;
 
 import org.uncommons.watchmaker.framework.CandidateFactory;
-import org.weymouth.ants.core.AntWorld;
-import org.weymouth.ants.core.Network;
+import org.weymouth.ants.nest.core.AntWorld;
+import org.weymouth.ants.nest.core.Network;
 
 public class NetworkFactory implements CandidateFactory<Network> {
 	

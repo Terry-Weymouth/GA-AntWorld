@@ -1,4 +1,4 @@
-package org.weymouth.ants.main;
+package org.weymouth.ants.nest.main;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.Random;
 
 import org.uncommons.maths.random.MersenneTwisterRNG;
-import org.weymouth.ants.core.AntBrain;
-import org.weymouth.ants.core.AntWorld;
-import org.weymouth.ants.core.AntWorldView;
-import org.weymouth.ants.core.AntWorldViewController;
-import org.weymouth.ants.core.NetworkPojo;
-import org.weymouth.ants.core.Network;
-import org.weymouth.ants.storage.SqlliteStorage;
+import org.weymouth.ants.nest.core.AntBrain;
+import org.weymouth.ants.nest.core.AntWorld;
+import org.weymouth.ants.nest.core.AntWorldView;
+import org.weymouth.ants.nest.core.AntWorldViewController;
+import org.weymouth.ants.nest.core.NetworkPojo;
+import org.weymouth.ants.nest.core.Network;
+import org.weymouth.ants.nest.storage.SqlliteStorage;
 
 import processing.core.PApplet;
 

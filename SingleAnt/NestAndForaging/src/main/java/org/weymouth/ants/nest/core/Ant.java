@@ -1,4 +1,4 @@
-package org.weymouth.ants.core;
+package org.weymouth.ants.nest.core;
 
 import java.util.List;
 import java.util.ArrayList;

@@ -1,8 +1,8 @@
-package org.weymouth.ants.nest;
+package org.weymouth.ants.nest.nest;
 
-import org.weymouth.ants.core.Ant;
-import org.weymouth.ants.core.AntBrain;
-import org.weymouth.ants.core.Location;
+import org.weymouth.ants.nest.core.AntBrain;
+import org.weymouth.ants.nest.core.Location;
+import org.weymouth.ants.nest.core.Ant;
 
 public class NestAnt extends Ant {
 

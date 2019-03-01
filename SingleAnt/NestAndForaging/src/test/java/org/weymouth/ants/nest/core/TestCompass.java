@@ -1,7 +1,7 @@
-package org.weymouth.ants.core;
+package org.weymouth.ants.nest.core;
 
 import org.junit.Test;
-import org.weymouth.ants.core.Compass;
+import org.weymouth.ants.nest.core.Compass;
 
 import static org.junit.Assert.assertEquals;
 

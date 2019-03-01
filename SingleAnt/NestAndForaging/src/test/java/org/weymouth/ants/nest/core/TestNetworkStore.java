@@ -1,4 +1,4 @@
-package org.weymouth.ants.core;
+package org.weymouth.ants.nest.core;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.junit.Before;
 import org.junit.After;
 
-import org.weymouth.ants.storage.SqlliteStorage;
+import org.weymouth.ants.nest.storage.SqlliteStorage;
 
 public class TestNetworkStore {
 	

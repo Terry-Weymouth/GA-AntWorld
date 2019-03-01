@@ -1,4 +1,4 @@
-package org.weymouth.ants.main;
+package org.weymouth.ants.nest.main;
 
 import java.io.IOException;
 import java.sql.SQLException;

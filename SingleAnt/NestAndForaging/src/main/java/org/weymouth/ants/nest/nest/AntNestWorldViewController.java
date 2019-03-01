@@ -1,4 +1,4 @@
-package org.weymouth.ants.nest;
+package org.weymouth.ants.nest.nest;
 
 public class AntNestWorldViewController {
 
