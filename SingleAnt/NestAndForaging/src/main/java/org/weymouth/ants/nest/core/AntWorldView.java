@@ -33,10 +33,10 @@ public class AntWorldView extends PApplet {
 			display(ant);
 		}
 
-		drawMargin();
+		drawMargin(ants);
 	}
 	
-	private void drawMargin() {
+	public void drawMargin(List<Ant> ants) {
 		fill(255,255);
 		stroke(0);
 		rect(AntWorld.WIDTH, 0, MARGIN, AntWorld.HEIGHT);
@@ -131,7 +131,7 @@ public class AntWorldView extends PApplet {
 		endShape();
 	}
 
-	private void display(Food meal) {
+	public void display(Food meal) {
 		float x = meal.getXFloat() - 5.0F;
 		float y = meal.getYFloat() - 5.0f;
 		noStroke();

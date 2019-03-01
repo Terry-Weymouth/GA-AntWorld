@@ -5,12 +5,12 @@ import java.util.Random;
 
 import org.uncommons.maths.random.MersenneTwisterRNG;
 import org.weymouth.ants.core.Ant;
-import org.weymouth.ants.core.AntBrain;
 import org.weymouth.ants.core.Food;
 import org.weymouth.ants.core.Network;
 import org.weymouth.ants.nest.AntNestWorld;
 import org.weymouth.ants.nest.AntNestWorldView;
 import org.weymouth.ants.nest.AntNestWorldViewController;
+import org.weymouth.ants.nest.NestAntBrain;
 
 import processing.core.PApplet;
 
@@ -34,7 +34,7 @@ public class RunAntNestWorld {
 	}
 
 	private double play(Network net, AntNestWorldView antNestWorldView) {
-		AntBrain antBrain = new AntBrain(net);
+		NestAntBrain antBrain = new NestAntBrain(net);
 		AntNestWorld antNestWorld = new AntNestWorld(antBrain);
 		while (antNestWorld.update()){
 			List<Ant> theAnts = antNestWorld.cloneAnts();
