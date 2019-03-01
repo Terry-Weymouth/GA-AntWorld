@@ -55,6 +55,13 @@ public class StoringTextObserver implements EvolutionObserver<Network> {
 		} catch (SQLException | ClassNotFoundException | JsonProcessingException e) {
 			e.printStackTrace();
 			return false;
+		} finally {
+			if (store != null)
+				try {
+					store.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 		}
 		return sucess;
 	}

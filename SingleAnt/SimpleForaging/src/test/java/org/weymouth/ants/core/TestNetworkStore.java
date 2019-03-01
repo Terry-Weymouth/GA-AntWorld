@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.Random;
 
 import org.junit.Test;
+import org.junit.After;
 import org.junit.Before;
 
 import org.weymouth.ants.storage.SqlliteStorage;
@@ -29,6 +30,11 @@ public class TestNetworkStore {
 	@Before
 	public void Setup() throws ClassNotFoundException, SQLException {
 		store = new SqlliteStorage("testNetwork.db");
+	}
+	
+	@After
+	public void Cleanup() throws SQLException {
+		store.close();
 	}
 		
 	@Test

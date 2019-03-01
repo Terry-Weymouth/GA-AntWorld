@@ -66,6 +66,7 @@ public class WatchmakerMain {
 			for (NetworkPojo pojo: pojoList) {
 				initialPopulation.add(new Network(rng, pojo.getLayerWidths(), pojo.getWeights(), pojo.getScore()));
 			}
+			store.close();
 		}
 		
 		CandidateFactory<Network> candidateFactory = new NetworkFactory(initialPopulation);

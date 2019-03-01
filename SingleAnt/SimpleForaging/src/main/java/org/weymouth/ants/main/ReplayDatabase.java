@@ -59,6 +59,7 @@ public class ReplayDatabase {
 	private ArrayList<NetworkPojo> getTopTen() throws ClassNotFoundException, SQLException, IOException {
 		SqlliteStorage store = new SqlliteStorage("network.db");
 		ArrayList<NetworkPojo> ret = store.getTop(10);
+		store.close();
 		return ret;
 	}
 
