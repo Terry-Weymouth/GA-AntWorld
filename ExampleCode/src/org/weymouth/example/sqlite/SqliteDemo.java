@@ -1,4 +1,4 @@
-package org.weymouth.example;
+package org.weymouth.example.sqlite;
 
 /* ***********************************************
  * This code copied/changed from code sample on this page:
