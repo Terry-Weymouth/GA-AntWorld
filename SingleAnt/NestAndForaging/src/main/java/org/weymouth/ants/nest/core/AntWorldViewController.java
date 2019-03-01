@@ -30,6 +30,10 @@ public class AntWorldViewController {
 		theWorldView = aw;
 	}
 	
+	public void close() {
+		theWorldView.close();
+	}
+	
 	public AntWorldView getView() {
 		return theWorldView;
 	}

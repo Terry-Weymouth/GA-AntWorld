@@ -8,7 +8,12 @@ import processing.event.MouseEvent;
 
 public class AntWorldView extends PApplet {
 	
-	static final int MARGIN = 20 + Math.max(AntWorld.NUMBER_OF_ANTS, 11)*20;
+	static final int MARGIN = 20 + Math.max(AntWorld.NUMBER_OF_ANTS * 2, 11)*20;
+	
+	float diameter = AntWorld.NEST_RADIUS*2;
+	float rSquared = AntWorld.NEST_RADIUS*AntWorld.NEST_RADIUS;
+	float cx = AntWorld.WIDTH/2;
+	float cy = AntWorld.HEIGHT/2;
 
 	private List<Ant> ants = new ArrayList<Ant>();
 	private List<Food> meals = new ArrayList<Food>();
@@ -29,11 +34,19 @@ public class AntWorldView extends PApplet {
 			display(meal);
 		}
 		
+		drawNest();
+		
 		for (Ant ant: ants) {
 			display(ant);
 		}
 
 		drawMargin(ants);
+	}
+	
+	private void drawNest() {
+		noFill();
+		stroke(0,0,255,200);
+		ellipse(cx, cy, diameter, diameter);
 	}
 	
 	public void drawMargin(List<Ant> ants) {
@@ -60,7 +73,19 @@ public class AntWorldView extends PApplet {
 			stroke(0,0,255);
 			line(x, y-1.0f, x+w, y-1.0f);
 			noStroke();
-			x += 20.0f;
+			x += 40.0f;
+		}
+		fill(255, 255 ,0, 255);
+		x = 30.0f + AntWorld.WIDTH;
+		for (Ant ant: ants) {
+			float carrying = 0.5f;
+			float offset = (1.0f - carrying) * height;
+			float h = carrying * height;
+			rect(x, y + offset, w, h);
+			stroke(0,0,255);
+			line(x, y-1.0f, x+w, y-1.0f);
+			noStroke();
+			x += 40.0f;
 		}
 
 		if (maxAnt != null) {
@@ -134,8 +159,16 @@ public class AntWorldView extends PApplet {
 	public void display(Food meal) {
 		float x = meal.getXFloat() - 5.0F;
 		float y = meal.getYFloat() - 5.0f;
+		float dx = x - cx;
+		float dy = y - cy;
+		float distSquared = dx*dx + dy*dy;
+		boolean inside = distSquared < rSquared;
 		noStroke();
-		fill(255,100);
+		if (inside) {
+			fill(255,255,0,100);
+		} else {
+			fill(255,100);
+		}
 		rect(x, y, 10.0f, 10.0f);
 	}
 

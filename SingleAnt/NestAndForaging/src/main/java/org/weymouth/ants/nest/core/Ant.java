@@ -59,6 +59,10 @@ public class Ant {
 		if (ret < 0) ret = 0.0;
 		return ret;
 	}
+	
+	public double getCarrying() {
+		return this.getHealth();
+	}
 
 	public void feed(List<Food> meals) {
 		double x1 = oldLocation.x;
