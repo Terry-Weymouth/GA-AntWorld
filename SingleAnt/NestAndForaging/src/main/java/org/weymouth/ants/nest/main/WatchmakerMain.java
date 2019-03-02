@@ -37,6 +37,10 @@ import org.weymouth.ants.nest.watchmaker.StoringTextObserver;
 import processing.core.PApplet;
 
 public class WatchmakerMain {
+
+	public static final int NUMBER_OF_ANTS = 1;
+	public static final int NUMBER_OF_MEALS = 1000;
+	public static final int NUMBER_OF_ROUNDS = 3;
 	
 	private final AntWorldViewController worldController = org.weymouth.ants.nest.core.AntWorldViewController.getController();
 	private final boolean headless;

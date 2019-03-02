@@ -3,17 +3,19 @@ package org.weymouth.ants.nest.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.weymouth.ants.nest.main.WatchmakerMain;
+
 import processing.core.PApplet;
 import processing.event.MouseEvent;
 
 public class AntWorldView extends PApplet {
 	
-	static final int MARGIN = 20 + Math.max(AntWorld.NUMBER_OF_ANTS * 2, 17)*20;
+	static final int MARGIN = 20 + Math.max(WatchmakerMain.NUMBER_OF_ANTS * 2, 17)*20;
 	
 	float diameter = AntWorld.NEST_RADIUS*2;
 	float rSquared = AntWorld.NEST_RADIUS*AntWorld.NEST_RADIUS;
-	float cx = AntWorld.WIDTH/2;
-	float cy = AntWorld.HEIGHT/2;
+	float cx = AntWorld.NEST_LOCATION.getFloatX();
+	float cy = AntWorld.NEST_LOCATION.getFloatY();
 
 	private List<Ant> ants = new ArrayList<Ant>();
 	private List<Food> meals = new ArrayList<Food>();

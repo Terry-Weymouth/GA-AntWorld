@@ -8,6 +8,7 @@ import org.weymouth.ants.nest.core.AntBrain;
 import org.weymouth.ants.nest.core.AntWorld;
 import org.weymouth.ants.nest.core.AntWorldView;
 import org.weymouth.ants.nest.core.Network;
+import org.weymouth.ants.nest.main.WatchmakerMain;
 import org.weymouth.ants.nest.core.AntWorldViewController;
 
 public class NetworkFitnessEvaluator implements FitnessEvaluator<Network> {
@@ -65,7 +66,8 @@ public class NetworkFitnessEvaluator implements FitnessEvaluator<Network> {
 		if (!headless) {
 			antWorldView = worldController.getView();
 		}
-		AntWorld antWorld = new AntWorld(antBrain);
+		AntWorld antWorld = new AntWorld(antBrain, WatchmakerMain.NUMBER_OF_ANTS, 
+				WatchmakerMain.NUMBER_OF_MEALS, WatchmakerMain.NUMBER_OF_ROUNDS);
 		while (antWorld.update()){
 			if (!headless) {
 				antWorldView.update(antWorld.cloneAnts(), antWorld.cloneMeals());

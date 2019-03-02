@@ -14,9 +14,15 @@ public class Generation {
 	private List<Food> meals = new ArrayList<Food>();
 	
 	private final AntBrain brain;
+	private final int numberOfAnts;
+	private final int numberOfMeals;
+	private final int numberOfRounds;
 	
-	public Generation(AntBrain b) {
+	public Generation(AntBrain b, int nAnts, int nMeals, int nRounds) {
 		brain = b;
+		numberOfAnts = nAnts;
+		numberOfMeals = nMeals;
+		numberOfRounds = nRounds;
 		nextRound();
 	}
 
@@ -24,11 +30,11 @@ public class Generation {
 		count = 0;
 		totalScore = 0;
 		ants = new ArrayList<Ant>();
-		for (int i = 0; i < AntWorld.NUMBER_OF_ANTS; i++) {
+		for (int i = 0; i < numberOfAnts; i++) {
 			ants.add(new Ant(brain , Util.randomInteriorPoint()));
 		}
 		meals = new ArrayList<Food>();
-		for (int i = 0; i < AntWorld.NUMBER_OF_MEALS; i++) {
+		for (int i = 0; i < numberOfMeals; i++) {
 			meals.add(new Food(Util.randomInteriorPoint()));
 		}
 	}
@@ -51,7 +57,7 @@ public class Generation {
 				brain.getNetwork().setScore(((double)averageScore/10000.0));
 				printRound();
 				rounds++;
-				if (rounds >= AntWorld.NUMBER_OF_ROUNDS) {
+				if (rounds >= numberOfRounds) {
 					return false;
 				}
 				nextRound();

@@ -35,7 +35,10 @@ public class RunAntNestWorld {
 
 	private double play(Network net, AntWorldView antNestWorldView) {
 		AntBrain antBrain = new AntBrain(net);
-		AntWorld antNestWorld = new AntWorld(antBrain);
+		int ants = 3;
+		int meals = 1000;
+		int rounds = 1;
+		AntWorld antNestWorld = new AntWorld(antBrain, ants, meals, rounds);
 		while (antNestWorld.update()){
 			List<Ant> theAnts = antNestWorld.cloneAnts();
 			List<Food> theMeals = antNestWorld.cloneMeals();

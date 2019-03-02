@@ -6,15 +6,11 @@ import java.util.List;
 public class AntWorld {
 	
 	public static final double SENSING_RADIUS = 120.0;
-	public static final int NUMBER_OF_ROUNDS = 1;
 	
 	public static final int[] BRAIN_LAYER_WIDTHS = {11,15,10,2};
 	public static final int MAX_LAYER_WIDTH = 15;
 	
 	public static final String WORLD_TYPE = "Single Ant; Nest and Foraging";
-	
-	static final int NUMBER_OF_ANTS = 1;
-	static final int NUMBER_OF_MEALS = 1000;
 	
 	static final int HEIGHT = 800;
 	static final int WIDTH = 800;
@@ -25,8 +21,8 @@ public class AntWorld {
 	private final Generation g;
 	private int currentScore = 0;
 	
-	public AntWorld(AntBrain antBrain) {
-		g = new Generation(antBrain);
+	public AntWorld(AntBrain antBrain, int numberOfAnts, int numberOfMeals, int numberOfRounds) {
+		g = new Generation(antBrain, numberOfAnts, numberOfMeals, numberOfRounds);
 	}
 
 	public boolean update() {

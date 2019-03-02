@@ -48,7 +48,10 @@ public class ReplayDatabase {
 
 	private double play(Network net, AntWorldView antWorldView) {
 		AntBrain antBrain = new AntBrain(net);
-		AntWorld antWorld = new AntWorld(antBrain);
+		int ants = 1;
+		int meals = 1000;
+		int rounds = 1;
+		AntWorld antWorld = new AntWorld(antBrain, ants, meals, rounds);
 		while (antWorld.update()){
 			antWorldView.update(antWorld.cloneAnts(), antWorld.cloneMeals());
 		}
