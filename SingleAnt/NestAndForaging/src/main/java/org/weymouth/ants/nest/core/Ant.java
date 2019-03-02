@@ -64,7 +64,7 @@ public class Ant {
 	}
 	
 	public double getCarrying() {
-		return backPack.size()/CARRY_MAX;
+		return (double)backPack.size()/(double)CARRY_MAX;
 	}
 
 	public void feed(List<Food> meals) {

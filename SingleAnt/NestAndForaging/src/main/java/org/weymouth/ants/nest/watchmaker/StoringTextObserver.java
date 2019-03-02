@@ -30,18 +30,12 @@ public class StoringTextObserver implements EvolutionObserver<Network> {
 	}
 	
 	private String timeString(long elapsedTime) {
-		System.out.println(elapsedTime);
 		double seconds = elapsedTime/1000.0;
-		System.out.println(seconds);
 		int minutes = (int)(elapsedTime/60000);
-		System.out.println(minutes);
 		int hours = minutes/60;
-		System.out.println(hours);
 		seconds = seconds - minutes*60;
-		System.out.println(seconds);
 		minutes = minutes - hours*60;
-		System.out.println(minutes);
-		return String.format("%2d:%2d:%2.4f", hours, minutes, seconds);
+		return String.format("Elapsed Time - %2d:%2d:%2.2f", hours, minutes, seconds);
 	}
 	
 	private boolean networkToStore(Network network){
