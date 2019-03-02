@@ -19,8 +19,8 @@ public class AntBrain {
 	}
 	
 	public void action(Location here, double oldHeading, double[] inputs) {
-		inputs[6] = netValueForTurnDirection();
-		inputs[7] = netValueForSpeed();
+		inputs[AntSensor.indexForHeadingFeedback] = netValueForTurnDirection();
+		inputs[AntSensor.indexForSpeedFeedback] = netValueForSpeed();
 		network.setInputs(inputs);
 		network.propogate();
 		double output[] = network.output();

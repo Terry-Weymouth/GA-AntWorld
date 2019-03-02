@@ -68,6 +68,10 @@ public class Generation {
 			ant.move();
 			ant.feed(meals);
 			if (ant.getHealth() == 0) {
+				int bonus = (int)Math.round(10000.0 * ant.getCarrying());
+				totalScore += bonus;
+				bonus = (int)Math.round(10000.0 * (1.0-ant.distanceToNestRatio()));
+				totalScore += bonus;
 				dead.add(ant);
 			} else if (ant.inNest()) {
 				Food forNest = ant.dropOneCarry();

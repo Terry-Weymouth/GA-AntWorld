@@ -6,19 +6,20 @@ import java.util.List;
 public class AntWorld {
 	
 	public static final double SENSING_RADIUS = 120.0;
-	public static final int NUMBER_OF_ROUNDS = 3;
+	public static final int NUMBER_OF_ROUNDS = 1;
 	
 	public static final int[] BRAIN_LAYER_WIDTHS = {11,15,10,2};
 	public static final int MAX_LAYER_WIDTH = 15;
 	
 	public static final String WORLD_TYPE = "Single Ant; Nest and Foraging";
 	
-	static final int NUMBER_OF_ANTS = 3;
+	static final int NUMBER_OF_ANTS = 1;
 	static final int NUMBER_OF_MEALS = 1000;
 	
 	static final int HEIGHT = 800;
 	static final int WIDTH = 800;
 	
+	static final Location NEST_LOCATION = new Location((double)(WIDTH/2), (double)(HEIGHT/2));
 	static final int NEST_RADIUS = 100; 
 
 	private final Generation g;

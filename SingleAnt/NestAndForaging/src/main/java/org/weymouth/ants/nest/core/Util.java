@@ -86,4 +86,18 @@ public class Util {
 		return ret;
 	}
 
+	public static Location randomLocatonWithinNest() {
+		Location center = AntWorld.NEST_LOCATION;
+		double radius = (double)AntWorld.NEST_RADIUS;
+		int offsetX = randomGenerator.nextInt(AntWorld.NEST_RADIUS * 2) - AntWorld.NEST_RADIUS;
+		int offsetY = randomGenerator.nextInt(AntWorld.NEST_RADIUS * 2) - AntWorld.NEST_RADIUS;
+		Location location = new Location(center.x + offsetX, center.y + offsetY);
+		while (distance(center, location) > radius) {
+			offsetX = randomGenerator.nextInt(AntWorld.NEST_RADIUS * 2) - AntWorld.NEST_RADIUS;
+			offsetY = randomGenerator.nextInt(AntWorld.NEST_RADIUS * 2) - AntWorld.NEST_RADIUS;
+			location = new Location(center.x + offsetX, center.y + offsetY);
+		}
+		return location;
+	}
+
 }

@@ -76,19 +76,15 @@ public class Ant {
 		for (Food meal: meals) {
 			double d = Util.shortestDistance(x1, y1, x2, y2, meal.x, meal.y);
 			if (d < FOOD_GRASPING_RANGE) {
-				if (health < MAX_HEALTH) {
+				if ((health < MAX_HEALTH) && inNest()) {
 					eaten.add(meal);
 					health += FOOD_HEALTH;
 					if (health > MAX_HEALTH)
 						health = MAX_HEALTH;
-				} else if (backPack.size() < CARRY_MAX) {
+				} else if ((backPack.size() < CARRY_MAX) && !inNest()) {
 					eaten.add(meal);
 					backPack.add(meal);
 				}
-			}
-			if ((health < FOOD_HEALTH) && (!backPack.isEmpty())) {
-				health += FOOD_HEALTH;
-				backPack.remove(backPack.size()-1);
 			}
 		}
 		meals.removeAll(eaten);
@@ -96,6 +92,10 @@ public class Ant {
 
 	public void sense(List<Food> meals) {
 		sensor.look(meals);
+	}
+	
+	public double distanceToNestRatio() {
+		return sensor.nestDistance();
 	}
 
 	public String toString() {
@@ -124,7 +124,7 @@ public class Ant {
 	public Food dropOneCarry() {
 		if (backPack.isEmpty()) return null;
 		backPack.remove(backPack.size()-1);
-		return new Food(location);
+		return new Food(Util.randomLocatonWithinNest());
 	}
 
 	// these methods are not being used any more - keep them for a while for documentation

@@ -9,6 +9,9 @@ public class AntSensor {
 	private final static Location nestLocation = new Location(AntWorld.WIDTH/2, AntWorld.HEIGHT/2);
 	private final static Location minLocation = new Location(0, 0);
 	private final static double maxNestDistance = Util.distance(minLocation, nestLocation) - radius;
+	
+	public final static int indexForSpeedFeedback = 9;
+	public final static int indexForHeadingFeedback = 10;
 
 	private double[] inputs = new double[11];
 	private double senseStrength = 0.0;

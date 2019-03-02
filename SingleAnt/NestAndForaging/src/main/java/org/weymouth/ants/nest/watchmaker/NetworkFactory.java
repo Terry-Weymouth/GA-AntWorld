@@ -1,24 +1,26 @@
 package org.weymouth.ants.nest.watchmaker;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
-import org.uncommons.watchmaker.framework.CandidateFactory;
+import org.uncommons.watchmaker.framework.factories.AbstractCandidateFactory;
 import org.weymouth.ants.nest.core.AntWorld;
 import org.weymouth.ants.nest.core.Network;
 
-public class NetworkFactory implements CandidateFactory<Network> {
+public class NetworkFactory extends AbstractCandidateFactory<Network> {
 	
-	@Override
-	public List<Network> generateInitialPopulation(int populationSize, Random rng) {
-		return makeInitialPopulation(populationSize,rng);
+	private final Collection<Network> seedCandidates;
+
+	public NetworkFactory(Collection<Network> seedCandidates) {
+		super();
+		this.seedCandidates = seedCandidates;
 	}
 
 	@Override
 	public List<Network> generateInitialPopulation(int populationSize, Collection<Network> seedCandidates, Random rng) {
-		return makeInitialPopulation(populationSize,rng);
+		seedCandidates = this.seedCandidates;
+		return super.generateInitialPopulation(populationSize, seedCandidates, rng);
 	}
 
 	@Override
@@ -26,11 +28,4 @@ public class NetworkFactory implements CandidateFactory<Network> {
 		return new Network(rng,AntWorld.BRAIN_LAYER_WIDTHS);
 	}
 
-	private List<Network> makeInitialPopulation(int populationSize, Random rng) {
-		List<Network> ret = new ArrayList<Network>();
-		for (int i = 0; i < populationSize; i++) {
-			ret.add(new Network(rng,AntWorld.BRAIN_LAYER_WIDTHS));
-		}
-		return ret;
-	}
 }
