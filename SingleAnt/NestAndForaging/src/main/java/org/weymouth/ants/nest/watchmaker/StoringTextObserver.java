@@ -23,9 +23,9 @@ public class StoringTextObserver implements EvolutionObserver<Network> {
 		System.out.println("  topScore = " + topScore);
 		System.out.println("  elapsed time = " + timeString(data.getElapsedTime()));
 		if (networkToStore(network)) {
-			System.out.println("-->Network stored with id = " + lastRecoredId);
+			System.out.println("--> Network stored with id = " + lastRecoredId);
 		} else {
-			System.out.println("-->Network storing failed!");
+			System.out.println("--> Network storing failed!");
 		}
 	}
 	
@@ -35,7 +35,7 @@ public class StoringTextObserver implements EvolutionObserver<Network> {
 		int hours = minutes/60;
 		seconds = seconds - minutes*60;
 		minutes = minutes - hours*60;
-		return String.format("Elapsed Time - %2d:%2d:%2.2f", hours, minutes, seconds);
+		return String.format("%2d:%2d:%2.2f", hours, minutes, seconds);
 	}
 	
 	private boolean networkToStore(Network network){
