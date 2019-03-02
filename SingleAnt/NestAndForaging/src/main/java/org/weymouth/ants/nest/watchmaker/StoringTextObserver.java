@@ -23,7 +23,7 @@ public class StoringTextObserver implements EvolutionObserver<Network> {
 		System.out.println("  topScore = " + topScore);
 		System.out.println("  elapsed time = " + timeString(data.getElapsedTime()));
 		if (networkToStore(network)) {
-			System.out.println("Network stored with id = " + lastRecoredId);
+			System.out.println("-->Network stored with id = " + lastRecoredId);
 		} else {
 			System.out.println("-->Network storing failed!");
 		}

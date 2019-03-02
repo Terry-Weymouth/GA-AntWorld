@@ -68,6 +68,7 @@ public class WatchmakerMain {
 			}
 			store.close();
 		}
+		System.out.println("Using an initial population, from the database, of size = " + initialPopulation.size());
 		
 		CandidateFactory<Network> candidateFactory = new NetworkFactory(initialPopulation);
 		NetworkFitnessEvaluator fitnessEvaluator = new NetworkFitnessEvaluator(headless);
