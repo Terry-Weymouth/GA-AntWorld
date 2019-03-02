@@ -80,7 +80,7 @@
 						<arguments>
 							<argument>-cp</argument>
 							<classpath />
-							<argument>org.weymouth.ants.main.Main</argument>
+							<argument>org.weymouth.ants.nest.main.Main</argument>
 						</arguments>
 					</configuration>
 				</plugin>

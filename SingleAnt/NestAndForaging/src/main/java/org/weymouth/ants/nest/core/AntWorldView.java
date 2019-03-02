@@ -8,7 +8,7 @@ import processing.event.MouseEvent;
 
 public class AntWorldView extends PApplet {
 	
-	static final int MARGIN = 20 + Math.max(AntWorld.NUMBER_OF_ANTS * 2, 11)*20;
+	static final int MARGIN = 20 + Math.max(AntWorld.NUMBER_OF_ANTS * 2, 17)*20;
 	
 	float diameter = AntWorld.NEST_RADIUS*2;
 	float rSquared = AntWorld.NEST_RADIUS*AntWorld.NEST_RADIUS;
@@ -90,8 +90,7 @@ public class AntWorldView extends PApplet {
 
 		if (maxAnt != null) {
 			double[][] netValues = maxAnt.getBrain().getNetwork().getLayerValues();
-			// float maxNetWidth = maxAnt.getBrain().getNetwork().getMaxLayerWidth();
-			float maxNetWidth = 10;
+			float maxNetWidth = (float)AntWorld.MAX_LAYER_WIDTH;
 			float baseX = 10.0f + AntWorld.WIDTH;
 			y = 40.0f + height;
 			

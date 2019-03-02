@@ -69,7 +69,12 @@ public class Generation {
 			ant.feed(meals);
 			if (ant.getHealth() == 0) {
 				dead.add(ant);
-			} 
+			} else if (ant.inNest()) {
+				Food forNest = ant.dropOneCarry();
+				if (forNest != null) {
+					meals.add(forNest);
+				}
+			}
 		}
 		ants.removeAll(dead);
 		updateScore();

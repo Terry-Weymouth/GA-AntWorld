@@ -8,8 +8,11 @@ public class Ant {
 	private static final int MAX_HEALTH = 100;
 	private static final double FOOD_GRASPING_RANGE = 10.0;
 	private static final double FOOD_HEALTH = 10.0;
+	final static int CARRY_MAX = 10;
+
 	private static int idCount = 0;
-	
+	private List<Food> backPack = new ArrayList<Food>();
+
 	private AntBrain brain;
 	
 	private AntSensor sensor;
@@ -61,7 +64,7 @@ public class Ant {
 	}
 	
 	public double getCarrying() {
-		return this.getHealth();
+		return backPack.size()/CARRY_MAX;
 	}
 
 	public void feed(List<Food> meals) {
@@ -78,7 +81,14 @@ public class Ant {
 					health += FOOD_HEALTH;
 					if (health > MAX_HEALTH)
 						health = MAX_HEALTH;
+				} else if (backPack.size() < CARRY_MAX) {
+					eaten.add(meal);
+					backPack.add(meal);
 				}
+			}
+			if ((health < FOOD_HEALTH) && (!backPack.isEmpty())) {
+				health += FOOD_HEALTH;
+				backPack.remove(backPack.size()-1);
 			}
 		}
 		meals.removeAll(eaten);
@@ -101,6 +111,20 @@ public class Ant {
 		if ( (x < 0) || (x > AntWorld.WIDTH) || (y < 0) || (y > AntWorld.HEIGHT) ) {
 			heading = Compass.headingForDelta(tx - x , ty - y);
 		}
+	}
+
+	public List<Food> getBackPack() {
+		return backPack;
+	}
+
+	public boolean inNest() {
+		return 0.0 == sensor.nestDistance();
+	}
+
+	public Food dropOneCarry() {
+		if (backPack.isEmpty()) return null;
+		backPack.remove(backPack.size()-1);
+		return new Food(location);
 	}
 
 	// these methods are not being used any more - keep them for a while for documentation

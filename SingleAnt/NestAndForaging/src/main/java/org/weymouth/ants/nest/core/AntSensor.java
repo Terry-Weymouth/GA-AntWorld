@@ -6,12 +6,16 @@ import java.util.stream.Collectors;
 public class AntSensor {
 
 	private final static double radius = AntWorld.SENSING_RADIUS;
+	private final static Location nestLocation = new Location(AntWorld.WIDTH/2, AntWorld.HEIGHT/2);
+	private final static Location minLocation = new Location(0, 0);
+	private final static double maxNestDistance = Util.distance(minLocation, nestLocation) - radius;
 
-	private double[] inputs = {0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0};
+	private double[] inputs = new double[11];
 	private double senseStrength = 0.0;
 	private int senseIndex = -1;
 	private final Ant body;
 
+	
 	public AntSensor(Ant body) {
 		this.body = body;
 	}
@@ -21,16 +25,15 @@ public class AntSensor {
 		for (int i = 0; i < inputs.length; i++) {
 			inputs[i] = 0.0;
 		}
-//		System.out.println("Selected count: " + selected.size());
 		boolean valueSet = false;
 		for (Food f: selected) {
 			setSensation(f);
 			if (senseIndex > -1) {
 				inputs[senseIndex] += senseStrength;
-//				System.out.println("value set (" + senseIndex + "): " + inputs[senseIndex] + ", " + senseStrength);
 				valueSet = true;
 			}
 		}
+		// normalize values 
 		if (valueSet) {
 			double max = 0.0;
 			for (int i = 0; i < inputs.length; i++) {
@@ -42,7 +45,10 @@ public class AntSensor {
 				}
 			}
 		}
-		inputs[5] = body.getHealth();
+		inputs[5] = nestDistance();
+		inputs[6] = nestHeading(inputs[5]);
+		inputs[7] = getCarrying();
+		inputs[8] = body.getHealth();
 		return selected;
 	}
 
@@ -64,8 +70,30 @@ public class AntSensor {
 		}
 	}
 	
+	double nestDistance() {
+		double rawDistance = Util.distance(body.location, nestLocation);
+		if (rawDistance < radius) {
+			return 0.0;
+		}
+		rawDistance = rawDistance - radius;
+		return rawDistance/maxNestDistance;
+	}
+
+	private double nestHeading(double distance) {
+		if (distance == 0.0) {
+			return 0.5; // center heading
+		}
+		double angle = Compass.headingForDelta(nestLocation.x - body.location.x, nestLocation.y - body.location.y);
+		double deltaAngle = Compass.rewrap(angle - body.heading);
+		return (deltaAngle + 180.0)/360.0;
+	}
+
+	private double getCarrying() {
+		return ((double)body.getBackPack().size())/((double)Ant.CARRY_MAX);
+	}
+
 	public double[] getSensoryInput() {
-		// NOTE: inputs[6] and inputs[7] are set to currentSpeed and currentHeading, resp., by brain action 
+		// NOTE: inputs[9] and inputs[10] are set to currentSpeed and currentHeading, resp., by brain action 
 		return inputs;
 	}
 	
