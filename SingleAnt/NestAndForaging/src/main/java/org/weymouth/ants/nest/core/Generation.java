@@ -40,7 +40,7 @@ public class Generation {
 	}
 	
 	private void printRound(){
-		System.out.println ("round: " + rounds + ", score: " + totalScore 
+		System.out.println ("    round: " + rounds + ", score: " + totalScore 
 				+ ", avg: " + averageScore);
 	}
 
