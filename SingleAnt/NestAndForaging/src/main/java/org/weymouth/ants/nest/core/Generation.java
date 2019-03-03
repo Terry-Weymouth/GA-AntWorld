@@ -31,7 +31,7 @@ public class Generation {
 		totalScore = 0;
 		ants = new ArrayList<Ant>();
 		for (int i = 0; i < numberOfAnts; i++) {
-			ants.add(new Ant(brain , Util.randomInteriorPoint()));
+			ants.add(new Ant(brain , Util.randomLocatonWithinNest()));
 		}
 		meals = new ArrayList<Food>();
 		for (int i = 0; i < numberOfMeals; i++) {
@@ -74,10 +74,6 @@ public class Generation {
 			ant.move();
 			ant.feed(meals);
 			if (ant.getHealth() == 0) {
-				int bonus = (int)Math.round(10000.0 * ant.getCarrying());
-				totalScore += bonus;
-				bonus = (int)Math.round(10000.0 * (1.0-ant.distanceToNestRatio()));
-				totalScore += bonus;
 				dead.add(ant);
 			} else if (ant.inNest()) {
 				Food forNest = ant.dropOneCarry();
