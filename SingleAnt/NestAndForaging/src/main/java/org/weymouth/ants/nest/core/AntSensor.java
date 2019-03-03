@@ -82,12 +82,14 @@ public class AntSensor {
 		return rawDistance/maxNestDistance;
 	}
 
-	private double nestHeading(double distance) {
+	double nestHeading(double distance) {
 		if (distance == 0.0) {
 			return 0.5; // center heading
 		}
-		double angle = Compass.headingForDelta(nestLocation.x - body.location.x, nestLocation.y - body.location.y);
+		// System.out.println("Delta = " + (body.location.x - nestLocation.x) + ", " + (body.location.y - nestLocation.y));
+		double angle = Compass.headingForDelta(body.location.x - nestLocation.x, body.location.y - nestLocation.y);
 		double deltaAngle = Compass.rewrap(angle - body.heading);
+		// System.out.println("Angle: " + angle + ", " + deltaAngle);
 		return (deltaAngle + 180.0)/360.0;
 	}
 
