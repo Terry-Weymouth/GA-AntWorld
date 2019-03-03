@@ -1,16 +1,9 @@
-package org.weymouth.ants.nest.main;
+package org.weymouth.ants.nest.core;
 
 import java.util.List;
 import java.util.Random;
 
 import org.uncommons.maths.random.MersenneTwisterRNG;
-import org.weymouth.ants.nest.core.Ant;
-import org.weymouth.ants.nest.core.AntBrain;
-import org.weymouth.ants.nest.core.AntWorld;
-import org.weymouth.ants.nest.core.AntWorldView;
-import org.weymouth.ants.nest.core.AntWorldViewController;
-import org.weymouth.ants.nest.core.Food;
-import org.weymouth.ants.nest.core.Network;
 
 import processing.core.PApplet;
 
