@@ -41,6 +41,9 @@ public class WatchmakerMain {
 	public static final int NUMBER_OF_ANTS = 1;
 	public static final int NUMBER_OF_MEALS = 1000;
 	public static final int NUMBER_OF_ROUNDS = 3;
+	public static final int POPULATION_SIZE = 20;
+	public static final int ELITE_COUNT = 4;
+	public static final int GENERATION_COUNT = 50;
 	
 	private final AntWorldViewController worldController = org.weymouth.ants.nest.core.AntWorldViewController.getController();
 	private final boolean headless;
@@ -58,8 +61,8 @@ public class WatchmakerMain {
 			worldController.initialize();
 		}
 		
-		int populationSize = 20;
-		int eliteCount = 4;
+		int populationSize = POPULATION_SIZE;
+		int eliteCount = ELITE_COUNT;
 
 		Random rng = new MersenneTwisterRNG();
 		
@@ -108,7 +111,7 @@ public class WatchmakerMain {
 		// double targetFitness = 0.01;
 		// TerminationCondition condition = new TargetFitness(targetFitness, naturalFitness);
 
-		TerminationCondition condition = new GenerationCount(50);
+		TerminationCondition condition = new GenerationCount(GENERATION_COUNT);
 		
 		((AbstractEvolutionEngine<Network>)engine).setSingleThreaded(true);
 		engine.evolve(populationSize, eliteCount, condition);
