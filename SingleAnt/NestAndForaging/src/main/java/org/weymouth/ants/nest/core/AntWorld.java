@@ -7,7 +7,7 @@ public class AntWorld {
 	
 	public static final double SENSING_RADIUS = 120.0;
 	
-	public static final int[] BRAIN_LAYER_WIDTHS = {11,15,10,2};
+	public static final int[] BRAIN_LAYER_WIDTHS = {12,15,10,2};
 	public static final int MAX_LAYER_WIDTH = 15;
 	
 	public static final String WORLD_TYPE = "Single Ant; Nest and Foraging";

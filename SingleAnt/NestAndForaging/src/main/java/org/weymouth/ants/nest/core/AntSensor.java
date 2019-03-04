@@ -10,10 +10,10 @@ public class AntSensor {
 	private final static Location minLocation = new Location(0, 0);
 	private final static double maxNestDistance = Util.distance(minLocation, nestLocation) - radius;
 	
-	public final static int indexForSpeedFeedback = 9;
 	public final static int indexForHeadingFeedback = 10;
+	public final static int indexForSpeedFeedback = 11;
 
-	private double[] inputs = new double[11];
+	private double[] inputs = new double[12];
 	private double senseStrength = 0.0;
 	private int senseIndex = -1;
 	private final Ant body;
@@ -48,10 +48,11 @@ public class AntSensor {
 				}
 			}
 		}
-		inputs[5] = nestDistance();
-		inputs[6] = nestHeading(inputs[5]);
-		inputs[7] = getCarrying();
-		inputs[8] = body.getHealth();
+		inputs[5] = (body.inNest())?1.0:0.0;
+		inputs[6] = nestDistance();
+		inputs[7] = nestHeading(inputs[5]);
+		inputs[8] = getCarrying();
+		inputs[9] = body.getHealth();
 		return selected;
 	}
 
@@ -98,7 +99,7 @@ public class AntSensor {
 	}
 
 	public double[] getSensoryInput() {
-		// NOTE: inputs[9] and inputs[10] are set to currentSpeed and currentHeading, resp., by brain action 
+		// NOTE: inputs[10] and inputs[11] are set to currentHeading and currentSpeed and, by brain action 
 		return inputs;
 	}
 	
