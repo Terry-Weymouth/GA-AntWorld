@@ -31,4 +31,8 @@ public class Location {
 	public float getFloatY(){
 		return (float)y;
 	}
+	
+	public String toString() {
+		return String.format("(%01.2f,%01.2f)", x, y);
+	}
 }

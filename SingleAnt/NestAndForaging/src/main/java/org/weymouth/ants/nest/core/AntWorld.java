@@ -18,7 +18,7 @@ public class AntWorld {
 	static final Location NEST_LOCATION = new Location((double)(WIDTH/2), (double)(HEIGHT/2));
 	static final int NEST_RADIUS = 100; 
 
-	private final Generation g;
+	final Generation g;
 	private int currentScore = 0;
 	
 	public AntWorld(AntBrain antBrain, int numberOfAnts, int numberOfMeals, int numberOfRounds) {
