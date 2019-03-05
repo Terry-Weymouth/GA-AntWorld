@@ -5,10 +5,10 @@ import java.util.ArrayList;
 
 public class Ant {
 	
-	private static final int MAX_HEALTH = 100;
+	private static final int MAX_HEALTH = 200;
 	private static final double FOOD_GRASPING_RANGE = 10.0;
 	private static final double FOOD_HEALTH = 10.0;
-	final static int CARRY_MAX = 10;
+	final static int CARRY_MAX = 20;
 
 	private static int idCount = 0;
 	private List<Food> backPack = new ArrayList<Food>();

@@ -10,7 +10,7 @@ import processing.event.MouseEvent;
 
 public class AntWorldView extends PApplet {
 	
-	static final int MARGIN = 20 + Math.max(WatchmakerMain.NUMBER_OF_ANTS * 2, 17)*20;
+	static final int MARGIN = 20 + Math.max(WatchmakerMain.NUMBER_OF_ANTS * 2, AntWorld.MAX_LAYER_WIDTH)*20;
 	
 	float diameter = AntWorld.NEST_RADIUS*2;
 	float rSquared = AntWorld.NEST_RADIUS*AntWorld.NEST_RADIUS;

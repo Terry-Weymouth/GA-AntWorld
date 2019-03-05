@@ -85,6 +85,12 @@ public class Util {
 		if (ret < 0) ret = ret + 360.0;
 		return ret;
 	}
+	
+	public static boolean inNestLocation(Location location) {
+		Location center = AntWorld.NEST_LOCATION;
+		double radius = (double)AntWorld.NEST_RADIUS;
+		return (distance(center, location) < radius);
+	}
 
 	public static Location randomLocatonWithinNest() {
 		Location center = AntWorld.NEST_LOCATION;

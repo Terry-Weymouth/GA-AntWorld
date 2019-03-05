@@ -11,10 +11,11 @@ public class AntSensor {
 	private final static Location minLocation = new Location(0, 0);
 	private final static double maxNestDistance = Util.distance(minLocation, nestLocation) - radius;
 	
-	public final static int indexForHeadingFeedback = 10;
-	public final static int indexForSpeedFeedback = 11;
+	public final static int indexExtraBase = 10;
+	public final static int indexForHeadingFeedback = 15;
+	public final static int indexForSpeedFeedback = 16;
 
-	private double[] inputs = new double[12];
+	private double[] inputs = new double[17];
 	private double senseStrength = 0.0;
 	private int senseIndex = -1;
 	private final Ant body;
@@ -49,11 +50,12 @@ public class AntSensor {
 				}
 			}
 		}
-		inputs[5] = (body.inNest())?1.0:0.0;
-		inputs[6] = nestDistance();
-		inputs[7] = nestHeading(inputs[5]);
-		inputs[8] = getCarrying();
-		inputs[9] = body.getHealth();
+		int i = indexExtraBase;
+		inputs[i++] = (body.inNest())?1.0:0.0;
+		inputs[i++] = nestDistance();
+		inputs[i++] = nestHeading(inputs[5]);
+		inputs[i++] = getCarrying();
+		inputs[i] = body.getHealth();
 		return selected;
 	}
 
@@ -69,8 +71,10 @@ public class AntSensor {
 			senseStrength = 0.0;
 			senseIndex = -1;
 		} else {
-			senseStrength = 1.0 - (r/radius);
 			senseIndex = (int) ( (dHeading + 45.0)/18.0 );
+			if (Util.inNestLocation(f))
+				senseIndex += 5;
+			senseStrength = 1.0 - (r/radius);
 //			System.out.println("Sense(" + senseIndex + "): " + senseStrength); 
 		}
 	}
