@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 public class AntSensor {
 
 	private final static double radius = AntWorld.SENSING_RADIUS;
+	private final static double nestRadius = (double)AntWorld.NEST_RADIUS;
 	private final static Location nestLocation = new Location(AntWorld.WIDTH/2, AntWorld.HEIGHT/2);
 	private final static Location minLocation = new Location(0, 0);
 	private final static double maxNestDistance = Util.distance(minLocation, nestLocation) - radius;
@@ -76,10 +77,10 @@ public class AntSensor {
 	
 	double nestDistance() {
 		double rawDistance = Util.distance(body.location, nestLocation);
-		if (rawDistance < radius) {
+		if (rawDistance < nestRadius) {
 			return 0.0;
 		}
-		rawDistance = rawDistance - radius;
+		rawDistance = rawDistance - nestRadius;
 		return rawDistance/maxNestDistance;
 	}
 
