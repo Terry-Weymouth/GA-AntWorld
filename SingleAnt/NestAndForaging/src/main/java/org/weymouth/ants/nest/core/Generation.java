@@ -1,6 +1,7 @@
 package org.weymouth.ants.nest.core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Generation {
@@ -17,21 +18,26 @@ public class Generation {
 	private final int numberOfAnts;
 	private final int numberOfMeals;
 	private final int numberOfRounds;
+	private final HashMap<Ant,AntActionStats> antStatsHolder;
 	
 	public Generation(AntBrain b, int nAnts, int nMeals, int nRounds) {
 		brain = b;
 		numberOfAnts = nAnts;
 		numberOfMeals = nMeals;
 		numberOfRounds = nRounds;
+		antStatsHolder = new HashMap<Ant,AntActionStats>();
 		nextRound();
 	}
 
 	private void nextRound() {
 		count = 0;
 		totalScore = 0;
+		antStatsHolder.clear();
 		ants = new ArrayList<Ant>();
 		for (int i = 0; i < numberOfAnts; i++) {
-			ants.add(new Ant(brain , Util.randomLocatonWithinNest()));
+			Ant a = new Ant(brain , Util.randomLocatonWithinNest());
+			ants.add(a);
+			antStatsHolder.put(a, new AntActionStats());
 		}
 		meals = new ArrayList<Food>();
 		for (int i = 0; i < numberOfMeals; i++) {
@@ -42,6 +48,13 @@ public class Generation {
 	private void printRound(){
 		System.out.println ("    round: " + rounds + ", score: " + totalScore 
 				+ ", avg: " + averageScore);
+	}
+	
+	private void printActionStats(AntActionStats s) {
+		System.out.println(String.format("    ant stats - "
+				+ "heading: mean = %2.2d, sd = %2.4d; "
+				+ "speed: mean = %2.2d, sd = %2.4d", 
+				s.headingMean(), s.headingSd(), s.speedMean(), s.speedSd()));
 	}
 
 	public boolean oneStep() {
@@ -73,7 +86,11 @@ public class Generation {
 			ant.update();
 			ant.move();
 			ant.feed(meals);
+			AntActionStats stats = antStatsHolder.get(ant);
+			stats.updateHeading(ant.heading);
+			stats.updateSpeed(ant.speed);
 			if (ant.getHealth() == 0) {
+				printActionStats(stats);
 				dead.add(ant);
 			} else if (ant.inNest()) {
 				Food forNest = ant.dropOneCarry();

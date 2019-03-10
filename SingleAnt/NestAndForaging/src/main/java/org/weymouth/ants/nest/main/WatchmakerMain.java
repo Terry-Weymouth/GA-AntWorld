@@ -38,7 +38,7 @@ import processing.core.PApplet;
 
 public class WatchmakerMain {
 
-	public static final int NUMBER_OF_ANTS = 1;
+	public static final int NUMBER_OF_ANTS = 4;
 	public static final int NUMBER_OF_MEALS = 1000;
 	public static final int NUMBER_OF_ROUNDS = 3;
 	public static final int POPULATION_SIZE = 20;
