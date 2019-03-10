@@ -3,23 +3,23 @@ package org.weymouth.ants.nest.core;
 public class AntActionStats {
 	
 	double n = 0.0;
-	StatsHolder heading = new StatsHolder();
+	StatsHolder turn = new StatsHolder();
 	StatsHolder speed = new StatsHolder();
 	
-	public void updateHeading(double hx) {
-		heading.update(hx);
+	public void updateTurn(double hx) {
+		turn.update(hx);
 	}
 	
 	public void updateSpeed(double sx) {
 		speed.update(sx);
 	}
 
-	public double headingMean() {
-		return heading.mean();
+	public double turnMean() {
+		return turn.mean();
 	}
 	
-	public double headingSd() {
-		return heading.sd();
+	public double turnSd() {
+		return turn.sd();
 	}
 	
 	public double speedMean() {
@@ -32,8 +32,8 @@ public class AntActionStats {
 	
 	public double[] values() {
 		double[] v = new double[4];
-		v[0] = this.headingMean();
-		v[1] = this.headingSd();
+		v[0] = this.turnMean();
+		v[1] = this.turnSd();
 		v[2] = this.speedMean();
 		v[3] = this.speedSd();
 		return v;

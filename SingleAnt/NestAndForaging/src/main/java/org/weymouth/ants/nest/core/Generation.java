@@ -52,9 +52,9 @@ public class Generation {
 	
 	private void printActionStats(AntActionStats s) {
 		System.out.println(String.format("    ant stats - "
-				+ "heading: mean = %2.2d, sd = %2.4d; "
-				+ "speed: mean = %2.2d, sd = %2.4d", 
-				s.headingMean(), s.headingSd(), s.speedMean(), s.speedSd()));
+				+ "turn: mean = %.2f, sd = %.4f; "
+				+ "speed: mean = %.2f, sd = %.4f", 
+				s.turnMean(), s.turnSd(), s.speedMean(), s.speedSd()));
 	}
 
 	public boolean oneStep() {
@@ -87,8 +87,8 @@ public class Generation {
 			ant.move();
 			ant.feed(meals);
 			AntActionStats stats = antStatsHolder.get(ant);
-			stats.updateHeading(ant.heading);
-			stats.updateSpeed(ant.speed);
+			stats.updateTurn(ant.getTurnDirection());
+			stats.updateSpeed(ant.getSpeed());
 			if (ant.getHealth() == 0) {
 				printActionStats(stats);
 				dead.add(ant);

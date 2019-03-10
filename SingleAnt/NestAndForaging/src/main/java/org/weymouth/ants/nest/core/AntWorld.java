@@ -10,7 +10,7 @@ public class AntWorld {
 	public static final int[] BRAIN_LAYER_WIDTHS = {17,20,18,2};
 	public static final int MAX_LAYER_WIDTH = 21;
 	
-	public static final String WORLD_TYPE = "Single Ant; Nest and Foraging";
+	public static final String WORLD_TYPE = "Four Ants; Nest and Foraging";
 	
 	static final int HEIGHT = 800;
 	static final int WIDTH = 800;

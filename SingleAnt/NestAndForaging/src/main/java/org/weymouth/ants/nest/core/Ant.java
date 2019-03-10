@@ -127,6 +127,14 @@ public class Ant {
 		return new Food(Util.randomLocatonWithinNest());
 	}
 
+	public double getTurnDirection() {
+		return brain.getTurnDireciton();
+	}
+
+	public double getSpeed() {
+		return brain.getSpeed();
+	}
+
 	// these methods are not being used any more - keep them for a while for documentation
 //	private boolean canMove(Location here, Location target) {
 //		if (distanceToTarget(here,target) > 5.0) return true; 

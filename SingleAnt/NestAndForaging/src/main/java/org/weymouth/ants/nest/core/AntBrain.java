@@ -13,6 +13,7 @@ public class AntBrain {
 	
 	private double speed;
 	private double heading;
+	private double direction;
 	
 	public AntBrain(Network n){
 		network = n;
@@ -24,8 +25,8 @@ public class AntBrain {
 		network.setInputs(inputs);
 		network.propogate();
 		double output[] = network.output();
-		double direction = output[0] - 0.5;
-		heading = Compass.rewrap(oldHeading + (TURN_MAX * direction));
+		direction = TURN_MAX * (output[0] - 0.5);
+		heading = Compass.rewrap(oldHeading + direction);
 		speed = output[1] * MAXIMUM_SPEED;
 	}
 	
@@ -39,6 +40,10 @@ public class AntBrain {
 
 	public double getSpeed() {
 		return speed;
+	}
+	
+	public double getTurnDireciton() {
+		return direction;
 	}
 	
 	public double netValueForTurnDirection() {
