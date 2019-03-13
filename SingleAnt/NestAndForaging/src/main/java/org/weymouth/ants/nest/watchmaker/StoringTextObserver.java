@@ -107,8 +107,8 @@ public class StoringTextObserver implements EvolutionObserver<Network> {
 							System.out.print(", ");
 						}
 					}
-					System.out.println();
 				}
+				System.out.println();
 			}
 		}
 	}
